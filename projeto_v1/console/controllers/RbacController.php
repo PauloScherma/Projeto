@@ -3,40 +3,95 @@ namespace console\controllers;
 
 use Yii;
 use yii\console\Controller;
-use yii\rbac\DbManager;
 
 class RbacController extends Controller
 {
     public function actionInit()
     {
         $auth = Yii::$app->authManager;
-        $auth->removeAll();
+        $auth->removeAll(); // limpa tudo
 
-        // add "createPost" permission
-        $createPost = $auth->createPermission('createPost');
-        $createPost->description = 'Create a post';
-        $auth->add($createPost);
+        // ===== PERMISSÕES =====
+        $viewDashboard = $auth->createPermission('viewDashboard');
+        $viewDashboard->description = 'Ver painel geral';
+        $auth->add($viewDashboard);
 
-        // add "updatePost" permission
-        $updatePost = $auth->createPermission('updatePost');
-        $updatePost->description = 'Update post';
-        $auth->add($updatePost);
+        $manageUsers = $auth->createPermission('manageUsers');
+        $manageUsers->description = 'Gerir utilizadores';
+        $auth->add($manageUsers);
 
-        // add "author" role and give this role the "createPost" permission
-        $author = $auth->createRole('author');
-        $auth->add($author);
-        $auth->addChild($author, $createPost);
+        $createOrder = $auth->createPermission('createOrder');
+        $createOrder->description = 'Criar ordem de serviço';
+        $auth->add($createOrder);
 
-        // add "admin" role and give this role the "updatePost" permission
-        // as well as the permissions of the "author" role
+        $updateOrder = $auth->createPermission('updateOrder');
+        $updateOrder->description = 'Atualizar ordem de serviço';
+        $auth->add($updateOrder);
+
+        $assignTechnician = $auth->createPermission('assignTechnician');
+        $assignTechnician->description = 'Atribuir técnico a uma ordem';
+        $auth->add($assignTechnician);
+
+        $closeOrder = $auth->createPermission('closeOrder');
+        $closeOrder->description = 'Fechar ordem de serviço';
+        $auth->add($closeOrder);
+
+        $viewOwnOrders = $auth->createPermission('viewOwnOrders');
+        $viewOwnOrders->description = 'Ver apenas as suas ordens';
+        $auth->add($viewOwnOrders);
+
+        $updateOwnProfile = $auth->createPermission('updateOwnProfile');
+        $updateOwnProfile->description = 'Atualizar o próprio perfil';
+        $auth->add($updateOwnProfile);
+
+        // ===== ROLES =====
+        $cliente = $auth->createRole('cliente');
+        $auth->add($cliente);
+        $auth->addChild($cliente, $viewOwnOrders);
+        $auth->addChild($cliente, $updateOwnProfile);
+
+        $tecnico = $auth->createRole('tecnico');
+        $auth->add($tecnico);
+        $auth->addChild($tecnico, $viewDashboard);
+        $auth->addChild($tecnico, $updateOrder);
+        $auth->addChild($tecnico, $closeOrder);
+        $auth->addChild($tecnico, $updateOwnProfile);
+
+        $gestor = $auth->createRole('gestor');
+        $auth->add($gestor);
+        $auth->addChild($gestor, $tecnico); // herda permissões do técnico
+        $auth->addChild($gestor, $createOrder);
+        $auth->addChild($gestor, $assignTechnician);
+
         $admin = $auth->createRole('admin');
         $auth->add($admin);
-        $auth->addChild($admin, $updatePost);
-        $auth->addChild($admin, $author);
+        $auth->addChild($admin, $gestor); // herda tudo
+        $auth->addChild($admin, $manageUsers);
 
-        // Assign roles to users. 1 and 2 are IDs returned by IdentityInterface::getId()
-        // usually implemented in your User model.
-        $auth->assign($author, 2);
+        // ===== ATRIBUIR ROLES A UTILIZADORES (exemplo) =====
         $auth->assign($admin, 1);
+        $auth->assign($gestor, 2);
+        $auth->assign($tecnico, 3);
+        $auth->assign($cliente, 4);
+
+        // ===== ADMIN HARDCODED =====
+        // Verifica se já existe um user admin
+        $adminUser = User::find()->where(['username' => 'admin'])->one();
+
+        if (!$adminUser) {
+            $adminUser = new User();
+            $adminUser->username = 'admin';
+            $adminUser->email = 'admin@admin.com';
+            $adminUser->setPassword('admin'); // escolhe uma senha segura!
+            $adminUser->generateAuthKey();
+            $adminUser->generateEmailVerificationToken();
+            $adminUser->save(false); // false para ignorar validação (já que é hardcoded)
+        }
+
+        // Atribui o papel de admin
+        $adminRole = $auth->getRole('admin');
+        $auth->assign($adminRole, $adminUser->id);
+
+        echo "RBAC inicializado com sucesso!\n";
     }
 }

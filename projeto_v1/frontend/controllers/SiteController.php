@@ -154,11 +154,27 @@ class SiteController extends Controller
     public function actionSignup()
     {
         $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+
+        // Se o formulário for submetido e o utilizador for criado com sucesso
+        if ($model->load(Yii::$app->request->post()) && ($user = $model->signup())) {
+
+            // ===== ATRIBUI PAPEL PADRÃO =====
+            $auth = Yii::$app->authManager;
+
+            // Recupera o role "cliente"
+            $clienteRole = $auth->getRole('cliente');
+
+            // Atribui o papel ao novo utilizador
+            // $user->id é o ID retornado pelo modelo User (implementa IdentityInterface)
+            $auth->assign($clienteRole, $user->id);
+
+            // ===== FEEDBACK AO UTILIZADOR =====
+            Yii::$app->session->setFlash('success', 'Conta criada com sucesso! Verifique o seu e-mail para ativação.');
+
             return $this->goHome();
         }
 
+        // Se for um GET (ou falhar validação), apenas renderiza o formulário
         return $this->render('signup', [
             'model' => $model,
         ]);

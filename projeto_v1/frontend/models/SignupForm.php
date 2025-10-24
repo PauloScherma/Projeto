@@ -48,7 +48,7 @@ class SignupForm extends Model
         if (!$this->validate()) {
             return null;
         }
-        
+
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
@@ -56,7 +56,12 @@ class SignupForm extends Model
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
 
-        return $user->save() && $this->sendEmail($user);
+        // Salva o user e envia email
+        if ($user->save() && $this->sendEmail($user)) {
+            return $user; // retorna o objeto User
+        }
+
+        return null; // se falhar
     }
 
     /**
