@@ -1,5 +1,6 @@
 <?php
 return [
+    'name' => 'Meu Novo 3Nome', // ← subreposição do nome da aplicação
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',

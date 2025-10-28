@@ -8,7 +8,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
-    'name' => 'Meu Novo Nome', // ← subreposição do nome da aplicação
+    //'name' => 'Meu Novo Nome', // ← subreposição do nome da aplicação
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
