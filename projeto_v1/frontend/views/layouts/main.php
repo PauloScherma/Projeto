@@ -67,7 +67,7 @@ AppAsset::register($this);
         'items' => $menuItems,
     ]);
     if (Yii::$app->user->isGuest) {
-        echo Html::tag('div',Html::a('Login',['/site/login'],['class' => ['btn btn-link login text-decoration-none']]),['class' => ['d-inline']]);
+        echo Html::tag('div',Html::a('Login',['/site/login'],['class' => ['btn btn-link login text-decoration-none pt-3']]),['class' => ['d-inline pt-3']]);
     } else {
         echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-inline'])
             . Html::submitButton(

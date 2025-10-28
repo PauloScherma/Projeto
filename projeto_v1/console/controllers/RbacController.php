@@ -72,7 +72,7 @@ class RbacController extends Controller
         // ------ Roles ------
         $cliente = $auth->createRole('cliente');
         $auth->add($cliente);
-        x\
+        
         $tecnico = $auth->createRole('tecnico');
         $auth->add($tecnico);
 
