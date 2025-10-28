@@ -9,7 +9,6 @@ use yii\bootstrap5\ActiveForm;
 use yii\captcha\Captcha;
 
 $this->title = 'Contact';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <!-- Contact Start -->
 <div class="container-xxl py-5">
@@ -43,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             
             </div>
-            <div class="col-md-6">
+            <div class="">
                 <div class="wow fadeInUp" data-wow-delay="0.2s">
                     <p class="mb-4">The contact form is currently inactive. Get a functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done. <a href="https://htmlcodex.com/contact-form">Download Now</a>.</p>
                     <form>
