@@ -5,62 +5,20 @@
 $this->title = 'PSIASSIST';
 ?>
 
-<!-- Spinner Start -->
-<!--<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
-</div>-->
-<!-- Spinner End -->
+<!-- Banner Start-->
+<div class="container-fluid position-relative p-0 mb-5">
+    <img class="w-100" src="<?= Yii::$app->request->baseUrl ?>/img/carousel-bg-1.jpg" alt="Banner Background">
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0, 0, 0, 0.5);"></div>
+    <div class="position-absolute top-50 start-50 translate-middle text-center text-lg-start w-100 px-5">
+        <h6 class="text-white text-uppercase mb-3 ps-5">// Car Servicing //</h6>
+        <h1 class="display-3 text-white mb-4 pb-3 ps-5">Qualified Car Repair Service Center<br>
+            <a href="#" class="btn btn-primary py-3 px-5">Learn More<i class="fa fa-arrow-right ms-3"></i></a>
+        </h1>
 
-<!-- Banner Container -->
-<div style="
-    width: 100vw;
-    height: 60vh;
-    background-image: url(../img/carousel-bg-1.jpg);
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-">
-    <!-- Overlay escuro para melhor contraste -->
-    <div style="
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-    "></div>
-
-    <!-- Conteúdo do Banner -->
-    <div style="
-        position: relative;
-        z-index: 2;
-        text-align: center;
-        color: white;
-        padding: 20px;
-    ">
-        <!-- Botão Adicionado -->
-        <button style="
-            background-color: #20c997;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        "> Ola</button>
     </div>
 </div>
+<!-- Banner End-->
+
 
 <!-- About Start -->
 <div class="container-xxl py-5">
@@ -68,7 +26,7 @@ $this->title = 'PSIASSIST';
         <div class="row g-5">
             <div class="col-lg-6 pt-4" style="min-height: 400px;">
                 <div class="position-relative h-100 wow fadeIn" data-wow-delay="0.1s">
-                    <img class="position-absolute img-fluid w-100 h-100" src="../img/about.jpg" style="object-fit: cover;" alt="">
+                    <img class="position-absolute img-fluid w-100 h-100" src="<?= Yii::$app->request->baseUrl ?>/img/about.jpg" style="object-fit: cover;" alt="">
                     <div class="position-absolute top-0 end-0 mt-n4 me-n4 py-4 px-5" style="background: rgba(0, 0, 0, .08);">
                         <h1 class="display-4 text-white mb-0">15 <span class="fs-4">Years</span></h1>
                         <h4 class="text-white">Experience</h4>
@@ -155,7 +113,7 @@ $this->title = 'PSIASSIST';
                         <div class="row g-4">
                             <div class="col-md-6" style="min-height: 350px;">
                                 <div class="position-relative h-100">
-                                    <img class="position-absolute img-fluid w-100 h-100" src="../img/service-1.jpg"
+                                    <img class="position-absolute img-fluid w-100 h-100" src="<?= Yii::$app->request->baseUrl ?>/img/service-1.jpg"
                                          style="object-fit: cover;" alt="">
                                 </div>
                             </div>
@@ -173,7 +131,7 @@ $this->title = 'PSIASSIST';
                         <div class="row g-4">
                             <div class="col-md-6" style="min-height: 350px;">
                                 <div class="position-relative h-100">
-                                    <img class="position-absolute img-fluid w-100 h-100" src="../img/service-2.jpg"
+                                    <img class="position-absolute img-fluid w-100 h-100" src="<?= Yii::$app->request->baseUrl ?>/img/service-2.jpg"
                                          style="object-fit: cover;" alt="">
                                 </div>
                             </div>
@@ -191,7 +149,7 @@ $this->title = 'PSIASSIST';
                         <div class="row g-4">
                             <div class="col-md-6" style="min-height: 350px;">
                                 <div class="position-relative h-100">
-                                    <img class="position-absolute img-fluid w-100 h-100" src="../img/service-3.jpg"
+                                    <img class="position-absolute img-fluid w-100 h-100" src="<?= Yii::$app->request->baseUrl ?>/img/service-3.jpg"
                                          style="object-fit: cover;" alt="">
                                 </div>
                             </div>
@@ -209,7 +167,7 @@ $this->title = 'PSIASSIST';
                         <div class="row g-4">
                             <div class="col-md-6" style="min-height: 350px;">
                                 <div class="position-relative h-100">
-                                    <img class="position-absolute img-fluid w-100 h-100" src="../img/service-4.jpg"
+                                    <img class="position-absolute img-fluid w-100 h-100" src="<?= Yii::$app->request->baseUrl ?>/img/service-4.jpg"
                                          style="object-fit: cover;" alt="">
                                 </div>
                             </div>
