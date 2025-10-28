@@ -77,7 +77,7 @@ $this->title = 'About';
                 </div>
             </div>
             <div class="col-lg-6">
-                <h6 class="text-primary text-uppercase">// About Us //</h6>
+                <h6 class="text-primary text-uppercase">//  About Us //</h6>
                 <h1 class="mb-4"><span class="text-primary">CarServ</span> Is The Best Place For Your Auto Care</h1>
                 <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
                 <div class="row g-4 mb-3 pb-3">
