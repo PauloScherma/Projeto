@@ -45,20 +45,20 @@ class SignupForm extends Model
      */
     public function signup()
     {
-        if (!$this->validate()) {
-            return null;
-        }
+        if ($this->validate()) {
+            $user = new User();
+            $user->username = $this->username;
+            $user->email = $this->email;
+            $user->setPassword($this->password);
+            $user->generateAuthKey();
+            $user->save(false);
 
-        $user = new User();
-        $user->username = $this->username;
-        $user->email = $this->email;
-        $user->setPassword($this->password);
-        $user->generateAuthKey();
-        $user->generateEmailVerificationToken();
+            // define que quando dá signup é atribuido a rule cliente
+            $auth = \Yii::$app->authManager;
+            $authorRole = $auth->getRole('cliente');
+            $auth->assign($authorRole, $user->getId());
 
-        // Salva o user e envia email
-        if ($user->save() && $this->sendEmail($user)) {
-            return $user; // retorna o objeto User
+            return $user;
         }
 
         return null; // se falhar

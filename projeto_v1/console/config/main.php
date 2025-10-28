@@ -30,6 +30,10 @@ return [
                     'levels' => ['error', 'warning'],
                 ],
             ],
+
+        ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
         ],
     ],
     'params' => $params,

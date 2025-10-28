@@ -3,6 +3,7 @@ namespace console\controllers;
 
 use Yii;
 use yii\console\Controller;
+use common\models\User;
 
 class RbacController extends Controller
 {
@@ -11,81 +12,90 @@ class RbacController extends Controller
         $auth = Yii::$app->authManager;
         $auth->removeAll(); // limpa tudo
 
-        // ===== PERMISSÕES =====
-        $viewDashboard = $auth->createPermission('viewDashboard');
-        $viewDashboard->description = 'Ver painel geral';
-        $auth->add($viewDashboard);
+        //------Permissoes------
+        $viewRequest = $auth->createPermission('viewRequest');
+        $viewRequest->description = 'Ver os pedidos';
+        $auth->add($viewRequest);
 
-        $manageUsers = $auth->createPermission('manageUsers');
-        $manageUsers->description = 'Gerir utilizadores';
-        $auth->add($manageUsers);
+        $createRequest = $auth->createPermission('createRequest');
+        $createRequest->description = 'Criar o pedido';
+        $auth->add($createRequest);
 
-        $createOrder = $auth->createPermission('createOrder');
-        $createOrder->description = 'Criar ordem de serviço';
-        $auth->add($createOrder);
+        $updateRequest = $auth->createPermission('updateRequest');
+        $updateRequest->description = 'Atualizar o pedido';
+        $auth->add($updateRequest);
 
-        $updateOrder = $auth->createPermission('updateOrder');
-        $updateOrder->description = 'Atualizar ordem de serviço';
-        $auth->add($updateOrder);
+        $deleteRequest = $auth->createPermission('deleteRequest');
+        $deleteRequest->description = 'Remover o pedido';
+        $auth->add($deleteRequest);
+
+        $viewRequestHistory = $auth->createPermission('viewRequestHistory');
+        $viewRequestHistory->description = 'Ver o histórico de request';
+        $auth->add($viewRequestHistory);
+
+        $cancelRequest = $auth->createPermission('cancelRequest');
+        $cancelRequest->description = 'Cancelar o pedido';
+        $auth->add($cancelRequest);
+
+        $rateRequest = $auth->createPermission('rateRequest');
+        $rateRequest->description = 'Criar o pedido';
+        $auth->add($rateRequest);
+
+        $talkToTechnician = $auth->createPermission('talkToTechnician');
+        $talkToTechnician->description = 'Permite falar com o tecnico especifico';
+        $auth->add($talkToTechnician);
 
         $assignTechnician = $auth->createPermission('assignTechnician');
-        $assignTechnician->description = 'Atribuir técnico a uma ordem';
+        $assignTechnician->description = 'Atribuir técnico';
         $auth->add($assignTechnician);
 
-        $closeOrder = $auth->createPermission('closeOrder');
-        $closeOrder->description = 'Fechar ordem de serviço';
-        $auth->add($closeOrder);
+        $viewDashboard = $auth->createPermission('viewDashboard');
+        $viewDashboard->description = 'Ver o painel geral';
+        $auth->add($viewDashboard);
 
-        $viewOwnOrders = $auth->createPermission('viewOwnOrders');
-        $viewOwnOrders->description = 'Ver apenas as suas ordens';
-        $auth->add($viewOwnOrders);
+        $viewUsers = $auth->createPermission('viewUsers');
+        $viewUsers->description = 'Ver os utilizadores';
+        $auth->add($viewUsers);
 
-        $updateOwnProfile = $auth->createPermission('updateOwnProfile');
-        $updateOwnProfile->description = 'Atualizar o próprio perfil';
-        $auth->add($updateOwnProfile);
+        $createUsers = $auth->createPermission('createUser');
+        $createUsers->description = 'Criar o utilizador';
+        $auth->add($createUsers);
 
-        // ===== ROLES =====
+        $updateUsers = $auth->createPermission('updateUser');
+        $updateUsers->description = 'Atualizar o utilizador';
+        $auth->add($updateUsers);
+
+        $deleteUser = $auth->createPermission('deleteUser');
+        $deleteUser->description = 'Remover o utilizador';
+        $auth->add($deleteUser);
+
+        // ------ Roles ------
         $cliente = $auth->createRole('cliente');
         $auth->add($cliente);
-        $auth->addChild($cliente, $viewOwnOrders);
-        $auth->addChild($cliente, $updateOwnProfile);
-
+        x\
         $tecnico = $auth->createRole('tecnico');
         $auth->add($tecnico);
-        $auth->addChild($tecnico, $viewDashboard);
-        $auth->addChild($tecnico, $updateOrder);
-        $auth->addChild($tecnico, $closeOrder);
-        $auth->addChild($tecnico, $updateOwnProfile);
 
         $gestor = $auth->createRole('gestor');
         $auth->add($gestor);
         $auth->addChild($gestor, $tecnico); // herda permissões do técnico
-        $auth->addChild($gestor, $createOrder);
-        $auth->addChild($gestor, $assignTechnician);
 
         $admin = $auth->createRole('admin');
         $auth->add($admin);
-        $auth->addChild($admin, $gestor); // herda tudo
-        $auth->addChild($admin, $manageUsers);
+        $auth->addChild($admin, $gestor); // herda permissões do gestor
 
-        // ===== ATRIBUIR ROLES A UTILIZADORES (exemplo) =====
-        $auth->assign($admin, 1);
-        $auth->assign($gestor, 2);
-        $auth->assign($tecnico, 3);
-        $auth->assign($cliente, 4);
 
-        // ===== ADMIN HARDCODED =====
-        // Verifica se já existe um user admin
+        // ------ Criação do primeiro admin ------
         $adminUser = User::find()->where(['username' => 'admin'])->one();
 
         if (!$adminUser) {
             $adminUser = new User();
             $adminUser->username = 'admin';
             $adminUser->email = 'admin@admin.com';
-            $adminUser->setPassword('admin'); // escolhe uma senha segura!
+            $adminUser->setPassword('admin');
             $adminUser->generateAuthKey();
             $adminUser->generateEmailVerificationToken();
-            $adminUser->save(false); // false para ignorar validação (já que é hardcoded)
+            $adminUser->save(false);
         }
 
         // Atribui o papel de admin
