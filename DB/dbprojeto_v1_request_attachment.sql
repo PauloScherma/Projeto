@@ -29,12 +29,19 @@ CREATE TABLE `request_attachment` (
   `file_path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `file_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` int NOT NULL,
+  `type` enum('generic','quotation') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'generic' COMMENT 'Define o tipo de anexo: ficheiro genérico ou orçamento.',
+  `approval_status` enum('pending','approved','rejected') COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Estado de aprovação do anexo quando for um orçamento: pendente, aprovado ou rejeitado.',
+  `approved_by` int DEFAULT NULL COMMENT 'Utilizador que aprovou ou rejeitou o orçamento (geralmente o cliente).',
+  `approved_at` int DEFAULT NULL COMMENT 'Timestamp da aprovação/rejeição do orçamento.',
+  `notes` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Observações deixadas pelo cliente ao aprovar ou rejeitar o orçamento.',
   PRIMARY KEY (`id`),
   KEY `idx_attach_request` (`request_id`),
   KEY `idx_attach_user` (`uploaded_by`),
+  KEY `fk_request_attachment_approved_by` (`approved_by`),
   CONSTRAINT `fk_attach_request` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_attach_user` FOREIGN KEY (`uploaded_by`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Esta tabela tem o caminho dos ficheiros que foram adicionados ao request, também diz quem fez o upload.';
+  CONSTRAINT `fk_attach_user` FOREIGN KEY (`uploaded_by`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_request_attachment_approved_by` FOREIGN KEY (`approved_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Anexos associados a um pedido. Pode incluir fotos, relatórios ou orçamentos que requerem aprovação do cliente.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-31 15:01:17
+-- Dump completed on 2025-10-31 16:47:44

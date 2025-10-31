@@ -36,7 +36,7 @@ CREATE TABLE `request_message` (
   CONSTRAINT `fk_msg_recipient` FOREIGN KEY (`recipient_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_msg_request` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_msg_sender` FOREIGN KEY (`sender_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Guarda as mensagens realizadas entre cliente e tecnico de um pedido, para isso guarda quem enviou, quem recebeu e qual é o pedido.';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Mensagens trocadas entre cliente e técnico dentro de um pedido. Guarda quem enviou e quem recebeu.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -57,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-31 15:01:18
+-- Dump completed on 2025-10-31 16:47:44

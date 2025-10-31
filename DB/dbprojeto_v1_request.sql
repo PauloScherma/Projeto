@@ -43,7 +43,7 @@ CREATE TABLE `request` (
   CONSTRAINT `fk_request_canceled_by` FOREIGN KEY (`canceled_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_request_currtech` FOREIGN KEY (`current_technician_id`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_request_customer` FOREIGN KEY (`customer_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Está tabela diz os pedidos de cada cliente.';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabela central dos pedidos de serviço. Guarda o cliente, técnico atual, estado, prioridade e timestamps.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,4 +64,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-31 15:01:18
+-- Dump completed on 2025-10-31 16:47:44

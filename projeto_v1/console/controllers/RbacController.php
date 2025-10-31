@@ -10,161 +10,222 @@ class RbacController extends Controller
     public function actionInit()
     {
         $auth = Yii::$app->authManager;
-        $auth->removeAll(); // limpa tudo
 
-        //------Permissoes------
+        $auth->removeAll();
 
-        //tabela request
-        $viewRequest = $auth->createPermission('viewRequest');
-        $viewRequest->description = 'Ver os pedidos';
-        $auth->add($viewRequest);
+        //Permissões de domínio
 
-        $createRequest = $auth->createPermission('createRequest');
-        $createRequest->description = 'Criar o pedido';
-        $auth->add($createRequest);
+        // ---- REQUEST ----
+        $requestView = $auth->createPermission('request.view');
+        $requestView->description = 'Ver pedidos';
+        $auth->add($requestView);
 
-        $updateRequest = $auth->createPermission('updateRequest');
-        $updateRequest->description = 'Atualizar o pedido';
-        $auth->add($updateRequest);
+        $requestCreate = $auth->createPermission('request.create');
+        $requestCreate->description = 'Criar pedidos';
+        $auth->add($requestCreate);
 
-        $deleteRequest = $auth->createPermission('deleteRequest');
-        $deleteRequest->description = 'Remover o pedido';
-        $auth->add($deleteRequest);
+        $requestUpdate = $auth->createPermission('request.update');
+        $requestUpdate->description = 'Atualizar pedidos';
+        $auth->add($requestUpdate);
 
-        $cancelRequest = $auth->createPermission('cancelRequest');
-        $cancelRequest->description = 'Cancelar o pedido';
-        $auth->add($cancelRequest);
+        $requestDelete = $auth->createPermission('request.delete');
+        $requestDelete->description = 'Remover pedidos';
+        $auth->add($requestDelete);
 
-        $changePriority = $auth->createPermission('changePriority');
-        $changePriority->description = 'Atualizar a priporidade';
-        $auth->add($changePriority);
+        $requestCancel = $auth->createPermission('request.cancel');
+        $requestCancel->description = 'Cancelar pedidos';
+        $auth->add($requestCancel);
 
-        $changeStatus = $auth->createPermission('changestatus');
-        $changeStatus -> description = 'Atualizar o status do request';
-        $auth->add($changeStatus);
+        $requestChangePriority = $auth->createPermission('request.changePriority');
+        $requestChangePriority->description = 'Alterar prioridade do pedido';
+        $auth->add($requestChangePriority);
 
-        //tavela request_rate
-        $viewRating = $auth->createPermission('viewrating');
-        $viewRating -> description = 'Ver os ratings';
-        $auth->add($viewRating);
+        $requestChangeStatus = $auth->createPermission('request.changeStatus');
+        $requestChangeStatus->description = 'Alterar estado do pedido';
+        $auth->add($requestChangeStatus);
 
-        $createRating = $auth->createPermission('createrating');
-        $createRating -> description = 'Criar um rating';
-        $auth->add($createRating);
+        // validação/rejeição de orçamento faz parte do fluxo do request
+        $requestValidateBudget = $auth->createPermission('request.validateBudget');
+        $requestValidateBudget->description = 'Validar ou rejeitar orçamento do pedido';
+        $auth->add($requestValidateBudget);
 
-        $updateRating = $auth->createPermission('updaterating');
-        $updateRating -> description = 'Atualizar um rating';
-        $auth->add($updateRating);
+        // ---- RATING ----
+        $ratingView = $auth->createPermission('rating.view');
+        $ratingView->description = 'Ver avaliações';
+        $auth->add($ratingView);
 
-        $deleteRating = $auth->createPermission('deleterating');
-        $deleteRating -> description = 'Remover um rating';
-        $auth->add($deleteRating);
+        $ratingCreate = $auth->createPermission('rating.create');
+        $ratingCreate->description = 'Criar avaliações';
+        $auth->add($ratingCreate);
 
-        //tabela request_assigment
-        $assignTechnician = $auth->createPermission('assignTechnician');
-        $assignTechnician->description = 'Atribuir técnico';
-        $auth->add($assignTechnician);
+        $ratingUpdate = $auth->createPermission('rating.update');
+        $ratingUpdate->description = 'Atualizar avaliações';
+        $auth->add($ratingUpdate);
 
-        $changeTechnician = $auth->createPermission('changeTechnician');
-        $changeTechnician->description = 'Muda o técnico';
-        $auth->add($changeTechnician);
+        $ratingDelete = $auth->createPermission('rating.delete');
+        $ratingDelete->description = 'Remover avaliações';
+        $auth->add($ratingDelete);
 
-        //tabela user
-        $viewUsers = $auth->createPermission('viewUsers');
-        $viewUsers->description = 'Ver os utilizadores';
-        $auth->add($viewUsers);
+        // ---- REQUEST ASSIGNMENT ----
+        $assignmentAssignTechnician = $auth->createPermission('assignment.assignTechnician');
+        $assignmentAssignTechnician->description = 'Atribuir técnico a pedido';
+        $auth->add($assignmentAssignTechnician);
 
-        $createUsers = $auth->createPermission('createUser');
-        $createUsers->description = 'Criar o utilizador';
-        $auth->add($createUsers);
+        $assignmentChangeTechnician = $auth->createPermission('assignment.changeTechnician');
+        $assignmentChangeTechnician->description = 'Mudar técnico do pedido';
+        $auth->add($assignmentChangeTechnician);
 
-        $updateUsers = $auth->createPermission('updateUser');
-        $updateUsers->description = 'Atualizar o utilizador';
-        $auth->add($updateUsers);
+        // ---- ATTACHMENT ----
+        $attachmentView = $auth->createPermission('attachment.view');
+        $attachmentView->description = 'Ver anexos do pedido';
+        $auth->add($attachmentView);
 
-        $deleteUser = $auth->createPermission('deleteUser');
-        $deleteUser->description = 'Remover o utilizador';
-        $auth->add($deleteUser);
+        $attachmentCreate = $auth->createPermission('attachment.create');
+        $attachmentCreate->description = 'Criar anexos do pedido';
+        $auth->add($attachmentCreate);
 
-        $validateBudget = $auth->createPermission('validatebudget');
-        $validateBudget->description = 'Validar o budget do request';
-        $auth->add($validateBudget);
+        $attachmentUpdate = $auth->createPermission('attachment.update');
+        $attachmentUpdate->description = 'Atualizar anexos do pedido';
+        $auth->add($attachmentUpdate);
 
-        $changeAvailability = $auth->createPermission('changeavailability');
-        $changeAvailability -> description = 'Atualizar o disponibilidade do tecnico';
-        $auth->add($changeAvailability);
+        $attachmentDelete = $auth->createPermission('attachment.delete');
+        $attachmentDelete->description = 'Remover anexos do pedido';
+        $auth->add($attachmentDelete);
 
-        //tabela request_attachement
-        $viewReport = $auth->createPermission('viewreport');
-        $viewReport->description = 'Ver o report';
-        $auth->add($viewReport);
+        // ---- CALENDAR EVENT ----
+        $appointmentView = $auth->createPermission('appointment.view');
+        $appointmentView->description = 'Ver marcações';
+        $auth->add($appointmentView);
 
-        $createReport = $auth->createPermission('createreport');
-        $createReport -> description = 'Criar o report';
-        $auth->add($createReport);
+        $appointmentCreate = $auth->createPermission('appointment.create');
+        $appointmentCreate->description = 'Criar marcações';
+        $auth->add($appointmentCreate);
 
-        $updateReport = $auth->createPermission('updatereport');
-        $updateReport -> description = 'Atualizar o report';
-        $auth->add($updateReport);
+        $appointmentUpdate = $auth->createPermission('appointment.update');
+        $appointmentUpdate->description = 'Atualizar marcações';
+        $auth->add($appointmentUpdate);
 
-        $deleteReport = $auth->createPermission('deletereport');
-        $deleteReport -> description = 'Remover o report';
-        $auth->add($deleteReport);
+        $appointmentDelete = $auth->createPermission('appointment.delete');
+        $appointmentDelete->description = 'Remover marcações';
+        $auth->add($appointmentDelete);
 
-        //tabela calendar_event
-        $viewAppointment = $auth->createPermission('viewappointment');
-        $viewAppointment -> description = 'Ver o marcação';
-        $auth->add($viewAppointment);
+        // ---- USER----
+        $userView = $auth->createPermission('user.view');
+        $userView->description = 'Ver utilizadores';
+        $auth->add($userView);
 
-        $createAppointment = $auth->createPermission('createappointment');
-        $createAppointment -> description = 'Criar o marcação';
-        $auth->add($createAppointment);
+        $userCreate = $auth->createPermission('user.create');
+        $userCreate->description = 'Criar utilizadores';
+        $auth->add($userCreate);
 
-        $updateAppointment = $auth->createPermission('updateappointment');
-        $updateAppointment -> description = 'Atualizar o marcação';
-        $auth->add($updateAppointment);
+        $userUpdate = $auth->createPermission('user.update');
+        $userUpdate->description = 'Atualizar utilizadores';
+        $auth->add($userUpdate);
 
-        $deleteAppointment = $auth->createPermission('deleteappointment');
-        $deleteAppointment -> description = 'Remover o marcação';
-        $auth->add($deleteAppointment);
+        $userDelete = $auth->createPermission('user.delete');
+        $userDelete->description = 'Remover utilizadores';
+        $auth->add($userDelete);
 
-        //outras
-        $viewDashboard = $auth->createPermission('viewDashboard');
-        $viewDashboard->description = 'Ver a dashboard';
-        $auth->add($viewDashboard);
+        $userChangeAvailability = $auth->createPermission('user.changeAvailability');
+        $userChangeAvailability->description = 'Atualizar disponibilidade do técnico';
+        $auth->add($userChangeAvailability);
 
-        // ------ Roles ------
+        // ---- OUTROS ----
+        $dashboardView = $auth->createPermission('dashboard.view');
+        $dashboardView->description = 'Ver dashboard';
+        $auth->add($dashboardView);
+
+        // ---- ROLES ----
+        // ---- CLIENTE ----
         $cliente = $auth->createRole('cliente');
         $auth->add($cliente);
-        
+
+        // cliente pode criar e ver os próprios pedidos e validar orçamento
+        $auth->addChild($cliente, $requestView);
+        $auth->addChild($cliente, $requestCreate);
+        $auth->addChild($cliente, $requestValidateBudget);
+
+        // avaliar o técnico
+        $auth->addChild($cliente, $ratingCreate);
+        $auth->addChild($cliente, $ratingView);
+
+        // ---- TÉCNICO ----
         $tecnico = $auth->createRole('tecnico');
         $auth->add($tecnico);
 
+        // técnico vê pedidos (normalmente os que estão atribuídos)
+        $auth->addChild($tecnico, $requestView);
+
+        // pode mudar estado e prioridade
+        $auth->addChild($tecnico, $requestChangeStatus);
+        $auth->addChild($tecnico, $requestChangePriority);
+
+        // pode criar/atualizar anexos (relatórios, fotos, etc.)
+        $auth->addChild($tecnico, $attachmentView);
+        $auth->addChild($tecnico, $attachmentCreate);
+        $auth->addChild($tecnico, $attachmentUpdate);
+
+        // pode gerir marcações
+        $auth->addChild($tecnico, $appointmentView);
+        $auth->addChild($tecnico, $appointmentCreate);
+        $auth->addChild($tecnico, $appointmentUpdate);
+
+        // pode criar rating (avaliar cliente)
+        $auth->addChild($tecnico, $ratingCreate);
+        $auth->addChild($tecnico, $ratingView);
+
+        // ---- GESTOR ----
         $gestor = $auth->createRole('gestor');
         $auth->add($gestor);
-        $auth->addChild($gestor, $tecnico); // herda permissões do técnico
 
+        // gestor herda tudo do técnico
+        $auth->addChild($gestor, $tecnico);
+
+        // gestor atribui técnicos e altera
+        $auth->addChild($gestor, $assignmentAssignTechnician);
+        $auth->addChild($gestor, $assignmentChangeTechnician);
+
+        // gestor pode atualizar e cancelar pedidos
+        $auth->addChild($gestor, $requestUpdate);
+        $auth->addChild($gestor, $requestCancel);
+
+        // gestor vê dashboard
+        $auth->addChild($gestor, $dashboardView);
+
+        // gestor pode mexer nos ratings (corrigir avaliações indevidas)
+        $auth->addChild($gestor, $ratingUpdate);
+        $auth->addChild($gestor, $ratingDelete);
+
+        // gestor pode mexer nos anexos todos
+        $auth->addChild($gestor, $attachmentDelete);
+
+        // gestor pode mexer em marcações
+        $auth->addChild($gestor, $appointmentDelete);
+
+        // ---- ADMIN ----
         $admin = $auth->createRole('admin');
         $auth->add($admin);
-        $auth->addChild($admin, $gestor); // herda permissões do gestor
+        $auth->addChild($admin, $gestor);
+        $auth->addChild($admin, $userView);
+        $auth->addChild($admin, $userCreate);
+        $auth->addChild($admin, $userUpdate);
+        $auth->addChild($admin, $userDelete);
+        $auth->addChild($admin, $userChangeAvailability);
 
-
-        // ------ Criação do primeiro admin ------
+        // ---- Criação primeiro admin ----
         $adminUser = User::find()->where(['username' => 'admin'])->one();
 
         if (!$adminUser) {
             $adminUser = new User();
             $adminUser->username = 'admin';
             $adminUser->email = 'admin@admin.com';
-            $adminUser->setPassword('admin');
+            $adminUser->setPassword('admin123'); // mete algo menos óbvio
             $adminUser->generateAuthKey();
             $adminUser->generateEmailVerificationToken();
             $adminUser->save(false);
         }
 
-        // Atribui o papel de admin
-        $adminRole = $auth->getRole('admin');
-        $auth->assign($adminRole, $adminUser->id);
+        $auth->assign($admin, $adminUser->id);
 
         echo "RBAC inicializado com sucesso!\n";
     }

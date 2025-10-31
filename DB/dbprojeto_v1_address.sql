@@ -37,7 +37,7 @@ CREATE TABLE `address` (
   UNIQUE KEY `uq_address_profile` (`profile_id`),
   KEY `idx_address_profile_type` (`profile_id`),
   CONSTRAINT `fk_address_profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Armazena o endereço principal associado ao perfil do utilizador.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -58,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-31 15:01:17
+-- Dump completed on 2025-10-31 16:47:44
