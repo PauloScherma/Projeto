@@ -67,6 +67,7 @@ use yii\helpers\Html;
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Navbar Search -->
+        <!--
         <li class="nav-item">
             <a class="nav-link" data-widget="navbar-search" href="#" role="button">
                 <i class="fas fa-search"></i>
@@ -87,6 +88,7 @@ use yii\helpers\Html;
                 </form>
             </div>
         </li>
+        -->
 
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown">
@@ -174,18 +176,23 @@ use yii\helpers\Html;
             </div>
         </li>
         <li class="nav-item">
+            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                <i class="fas fa-th-large"></i>
+            </a>
+        </li>
+        <li class="nav-item">
             <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['/site/logout'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
         </li>
+        <!--
         <li class="nav-item">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                <i class="fas fa-th-large"></i>
-            </a>
-        </li>
+        -->
+        <!--
+
+        -->
     </ul>
 </nav>
 <!-- /.navbar -->
