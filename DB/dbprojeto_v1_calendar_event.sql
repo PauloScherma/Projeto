@@ -16,30 +16,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `auth_assignment`
+-- Table structure for table `calendar_event`
 --
 
-DROP TABLE IF EXISTS `auth_assignment`;
+DROP TABLE IF EXISTS `calendar_event`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `auth_assignment` (
-  `item_name` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `user_id` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `created_at` int DEFAULT NULL,
-  PRIMARY KEY (`item_name`,`user_id`),
-  KEY `idx-auth_assignment-user_id` (`user_id`),
-  CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+CREATE TABLE `calendar_event` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `request_id` int NOT NULL,
+  `technician_id` int NOT NULL,
+  `start_at` int NOT NULL,
+  `end_at` int NOT NULL,
+  `status` enum('scheduled','rescheduled','done','canceled') NOT NULL DEFAULT 'scheduled',
+  `created_at` int NOT NULL,
+  `updated_at` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_cal_tech_window` (`technician_id`,`start_at`,`end_at`),
+  KEY `fk_cal_request` (`request_id`),
+  CONSTRAINT `fk_cal_request` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_cal_tech` FOREIGN KEY (`technician_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Verifica qual o request e o tecnico e guarda quando começou a tarefa e quando acabou';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `auth_assignment`
+-- Dumping data for table `calendar_event`
 --
 
-LOCK TABLES `auth_assignment` WRITE;
-/*!40000 ALTER TABLE `auth_assignment` DISABLE KEYS */;
-INSERT INTO `auth_assignment` VALUES ('admin','3',1761671990);
-/*!40000 ALTER TABLE `auth_assignment` ENABLE KEYS */;
+LOCK TABLES `calendar_event` WRITE;
+/*!40000 ALTER TABLE `calendar_event` DISABLE KEYS */;
+/*!40000 ALTER TABLE `calendar_event` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-31 15:01:17
+-- Dump completed on 2025-10-31 15:01:19

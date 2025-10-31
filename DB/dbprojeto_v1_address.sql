@@ -16,30 +16,37 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `auth_assignment`
+-- Table structure for table `address`
 --
 
-DROP TABLE IF EXISTS `auth_assignment`;
+DROP TABLE IF EXISTS `address`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `auth_assignment` (
-  `item_name` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `user_id` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `created_at` int DEFAULT NULL,
-  PRIMARY KEY (`item_name`,`user_id`),
-  KEY `idx-auth_assignment-user_id` (`user_id`),
-  CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+CREATE TABLE `address` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `profile_id` int NOT NULL,
+  `street` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `postal_code` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `district` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Portugal',
+  `is_default` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` int NOT NULL,
+  `updated_at` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_address_profile` (`profile_id`),
+  KEY `idx_address_profile_type` (`profile_id`),
+  CONSTRAINT `fk_address_profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `auth_assignment`
+-- Dumping data for table `address`
 --
 
-LOCK TABLES `auth_assignment` WRITE;
-/*!40000 ALTER TABLE `auth_assignment` DISABLE KEYS */;
-INSERT INTO `auth_assignment` VALUES ('admin','3',1761671990);
-/*!40000 ALTER TABLE `auth_assignment` ENABLE KEYS */;
+LOCK TABLES `address` WRITE;
+/*!40000 ALTER TABLE `address` DISABLE KEYS */;
+/*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

@@ -16,30 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `auth_assignment`
+-- Table structure for table `request_attachment`
 --
 
-DROP TABLE IF EXISTS `auth_assignment`;
+DROP TABLE IF EXISTS `request_attachment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `auth_assignment` (
-  `item_name` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `user_id` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `created_at` int DEFAULT NULL,
-  PRIMARY KEY (`item_name`,`user_id`),
-  KEY `idx-auth_assignment-user_id` (`user_id`),
-  CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+CREATE TABLE `request_attachment` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `request_id` int NOT NULL,
+  `uploaded_by` int NOT NULL,
+  `file_path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_attach_request` (`request_id`),
+  KEY `idx_attach_user` (`uploaded_by`),
+  CONSTRAINT `fk_attach_request` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_attach_user` FOREIGN KEY (`uploaded_by`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Esta tabela tem o caminho dos ficheiros que foram adicionados ao request, também diz quem fez o upload.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `auth_assignment`
+-- Dumping data for table `request_attachment`
 --
 
-LOCK TABLES `auth_assignment` WRITE;
-/*!40000 ALTER TABLE `auth_assignment` DISABLE KEYS */;
-INSERT INTO `auth_assignment` VALUES ('admin','3',1761671990);
-/*!40000 ALTER TABLE `auth_assignment` ENABLE KEYS */;
+LOCK TABLES `request_attachment` WRITE;
+/*!40000 ALTER TABLE `request_attachment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `request_attachment` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

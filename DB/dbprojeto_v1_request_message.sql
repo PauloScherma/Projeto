@@ -16,30 +16,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `auth_assignment`
+-- Table structure for table `request_message`
 --
 
-DROP TABLE IF EXISTS `auth_assignment`;
+DROP TABLE IF EXISTS `request_message`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `auth_assignment` (
-  `item_name` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `user_id` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `created_at` int DEFAULT NULL,
-  PRIMARY KEY (`item_name`,`user_id`),
-  KEY `idx-auth_assignment-user_id` (`user_id`),
-  CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+CREATE TABLE `request_message` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `request_id` int NOT NULL,
+  `sender_id` int NOT NULL,
+  `recipient_id` int NOT NULL,
+  `body` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_msg_request_created` (`request_id`,`created_at`),
+  KEY `idx_msg_sender` (`sender_id`),
+  KEY `idx_msg_recipient_unread` (`recipient_id`),
+  CONSTRAINT `fk_msg_recipient` FOREIGN KEY (`recipient_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_msg_request` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_msg_sender` FOREIGN KEY (`sender_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Guarda as mensagens realizadas entre cliente e tecnico de um pedido, para isso guarda quem enviou, quem recebeu e qual é o pedido.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `auth_assignment`
+-- Dumping data for table `request_message`
 --
 
-LOCK TABLES `auth_assignment` WRITE;
-/*!40000 ALTER TABLE `auth_assignment` DISABLE KEYS */;
-INSERT INTO `auth_assignment` VALUES ('admin','3',1761671990);
-/*!40000 ALTER TABLE `auth_assignment` ENABLE KEYS */;
+LOCK TABLES `request_message` WRITE;
+/*!40000 ALTER TABLE `request_message` DISABLE KEYS */;
+/*!40000 ALTER TABLE `request_message` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-31 15:01:17
+-- Dump completed on 2025-10-31 15:01:18

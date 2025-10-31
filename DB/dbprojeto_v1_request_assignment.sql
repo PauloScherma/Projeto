@@ -16,27 +16,38 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `migration`
+-- Table structure for table `request_assignment`
 --
 
-DROP TABLE IF EXISTS `migration`;
+DROP TABLE IF EXISTS `request_assignment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `migration` (
-  `version` varchar(180) NOT NULL,
-  `apply_time` int DEFAULT NULL,
-  PRIMARY KEY (`version`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `request_assignment` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `request_id` int NOT NULL,
+  `technician_id` int NOT NULL,
+  `assigned_by` int DEFAULT NULL,
+  `assigned_at` int NOT NULL,
+  `unassigned_at` int DEFAULT NULL,
+  `reason` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_ra_one_active` (`request_id`,((`unassigned_at` is null))),
+  KEY `idx_ra_request` (`request_id`),
+  KEY `idx_ra_technician_active` (`technician_id`,`unassigned_at`),
+  KEY `fk_ra_assigned_by` (`assigned_by`),
+  CONSTRAINT `fk_ra_assigned_by` FOREIGN KEY (`assigned_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `fk_ra_request` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_ra_technician` FOREIGN KEY (`technician_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Esta tabela identifica o utilizador que está atribuido à tarefa, contém também  quem deu assigned.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration`
+-- Dumping data for table `request_assignment`
 --
 
-LOCK TABLES `migration` WRITE;
-/*!40000 ALTER TABLE `migration` DISABLE KEYS */;
-INSERT INTO `migration` VALUES ('m000000_000000_base',1761056651),('m140506_102106_rbac_init',1761057082),('m170907_052038_rbac_add_index_on_auth_assignment_user_id',1761057082),('m180523_151638_rbac_updates_indexes_without_prefix',1761057082),('m200409_110543_rbac_update_mssql_trigger',1761057082),('m130524_201442_init',1761057597),('m190124_110200_add_verification_token_column_to_user_table',1761057597),('m251021_162554_create_admin_user',1761065072);
-/*!40000 ALTER TABLE `migration` ENABLE KEYS */;
+LOCK TABLES `request_assignment` WRITE;
+/*!40000 ALTER TABLE `request_assignment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `request_assignment` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

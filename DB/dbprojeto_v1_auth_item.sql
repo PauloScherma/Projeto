@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `dbprojeto_v1` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `dbprojeto_v1`;
 -- MySQL dump 10.13  Distrib 9.1.0, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dbprojeto_v1
@@ -45,7 +43,7 @@ CREATE TABLE `auth_item` (
 
 LOCK TABLES `auth_item` WRITE;
 /*!40000 ALTER TABLE `auth_item` DISABLE KEYS */;
-INSERT INTO `auth_item` VALUES ('admin',1,NULL,NULL,NULL,1761057323,1761057323),('author',1,NULL,NULL,NULL,1761057323,1761057323),('createPost',2,'Create a post',NULL,NULL,1761057323,1761057323),('updatePost',2,'Update post',NULL,NULL,1761057323,1761057323);
+INSERT INTO `auth_item` VALUES ('admin',1,NULL,NULL,NULL,1761671990,1761671990),('assignTechnician',2,'Atribuir técnico',NULL,NULL,1761671990,1761671990),('cancelRequest',2,'Cancelar o pedido',NULL,NULL,1761671990,1761671990),('cliente',1,NULL,NULL,NULL,1761671990,1761671990),('createRequest',2,'Criar o pedido',NULL,NULL,1761671990,1761671990),('createUser',2,'Criar o utilizador',NULL,NULL,1761671990,1761671990),('deleteRequest',2,'Remover o pedido',NULL,NULL,1761671990,1761671990),('deleteUser',2,'Remover o utilizador',NULL,NULL,1761671990,1761671990),('gestor',1,NULL,NULL,NULL,1761671990,1761671990),('rateRequest',2,'Criar o pedido',NULL,NULL,1761671990,1761671990),('talkToTechnician',2,'Permite falar com o tecnico especifico',NULL,NULL,1761671990,1761671990),('tecnico',1,NULL,NULL,NULL,1761671990,1761671990),('updateRequest',2,'Atualizar o pedido',NULL,NULL,1761671990,1761671990),('updateUser',2,'Atualizar o utilizador',NULL,NULL,1761671990,1761671990),('viewDashboard',2,'Ver o painel geral',NULL,NULL,1761671990,1761671990),('viewRequest',2,'Ver os pedidos',NULL,NULL,1761671990,1761671990),('viewRequestHistory',2,'Ver o histórico de request',NULL,NULL,1761671990,1761671990),('viewUsers',2,'Ver os utilizadores',NULL,NULL,1761671990,1761671990);
 /*!40000 ALTER TABLE `auth_item` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-21 16:00:04
+-- Dump completed on 2025-10-31 15:01:17

@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `dbprojeto_v1` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `dbprojeto_v1`;
 -- MySQL dump 10.13  Distrib 9.1.0, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dbprojeto_v1
@@ -40,7 +38,7 @@ CREATE TABLE `auth_item_child` (
 
 LOCK TABLES `auth_item_child` WRITE;
 /*!40000 ALTER TABLE `auth_item_child` DISABLE KEYS */;
-INSERT INTO `auth_item_child` VALUES ('admin','author'),('author','createPost'),('admin','updatePost');
+INSERT INTO `auth_item_child` VALUES ('admin','gestor'),('gestor','tecnico');
 /*!40000 ALTER TABLE `auth_item_child` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-21 16:00:04
+-- Dump completed on 2025-10-31 15:01:18

@@ -16,27 +16,40 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `migration`
+-- Table structure for table `request_rating`
 --
 
-DROP TABLE IF EXISTS `migration`;
+DROP TABLE IF EXISTS `request_rating`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `migration` (
-  `version` varchar(180) NOT NULL,
-  `apply_time` int DEFAULT NULL,
-  PRIMARY KEY (`version`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `request_rating` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `request_id` int NOT NULL,
+  `author_id` int NOT NULL,
+  `target_id` int NOT NULL,
+  `direction` enum('customer_to_technician','technician_to_customer') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `score` tinyint NOT NULL,
+  `comment` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` int NOT NULL,
+  `updated_at` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_request_author_direction` (`request_id`,`author_id`,`direction`),
+  KEY `idx_rr_request` (`request_id`),
+  KEY `idx_rr_target` (`target_id`),
+  KEY `fk_rr_author` (`author_id`),
+  CONSTRAINT `fk_rr_author` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_rr_request` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_rr_target` FOREIGN KEY (`target_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Avaliações de pedidos: cliente avalia técnico e técnico avalia cliente.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `migration`
+-- Dumping data for table `request_rating`
 --
 
-LOCK TABLES `migration` WRITE;
-/*!40000 ALTER TABLE `migration` DISABLE KEYS */;
-INSERT INTO `migration` VALUES ('m000000_000000_base',1761056651),('m140506_102106_rbac_init',1761057082),('m170907_052038_rbac_add_index_on_auth_assignment_user_id',1761057082),('m180523_151638_rbac_updates_indexes_without_prefix',1761057082),('m200409_110543_rbac_update_mssql_trigger',1761057082),('m130524_201442_init',1761057597),('m190124_110200_add_verification_token_column_to_user_table',1761057597),('m251021_162554_create_admin_user',1761065072);
-/*!40000 ALTER TABLE `migration` ENABLE KEYS */;
+LOCK TABLES `request_rating` WRITE;
+/*!40000 ALTER TABLE `request_rating` DISABLE KEYS */;
+/*!40000 ALTER TABLE `request_rating` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
