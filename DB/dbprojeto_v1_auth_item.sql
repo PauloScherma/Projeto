@@ -34,7 +34,7 @@ CREATE TABLE `auth_item` (
   KEY `rule_name` (`rule_name`),
   KEY `idx-auth_item-type` (`type`),
   CONSTRAINT `auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci COMMENT='Define as permissões as roles do sistema RBAC.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `auth_item` (
 
 LOCK TABLES `auth_item` WRITE;
 /*!40000 ALTER TABLE `auth_item` DISABLE KEYS */;
-INSERT INTO `auth_item` VALUES ('admin',1,NULL,NULL,NULL,1761671990,1761671990),('assignTechnician',2,'Atribuir técnico',NULL,NULL,1761671990,1761671990),('cancelRequest',2,'Cancelar o pedido',NULL,NULL,1761671990,1761671990),('cliente',1,NULL,NULL,NULL,1761671990,1761671990),('createRequest',2,'Criar o pedido',NULL,NULL,1761671990,1761671990),('createUser',2,'Criar o utilizador',NULL,NULL,1761671990,1761671990),('deleteRequest',2,'Remover o pedido',NULL,NULL,1761671990,1761671990),('deleteUser',2,'Remover o utilizador',NULL,NULL,1761671990,1761671990),('gestor',1,NULL,NULL,NULL,1761671990,1761671990),('rateRequest',2,'Criar o pedido',NULL,NULL,1761671990,1761671990),('talkToTechnician',2,'Permite falar com o tecnico especifico',NULL,NULL,1761671990,1761671990),('tecnico',1,NULL,NULL,NULL,1761671990,1761671990),('updateRequest',2,'Atualizar o pedido',NULL,NULL,1761671990,1761671990),('updateUser',2,'Atualizar o utilizador',NULL,NULL,1761671990,1761671990),('viewDashboard',2,'Ver o painel geral',NULL,NULL,1761671990,1761671990),('viewRequest',2,'Ver os pedidos',NULL,NULL,1761671990,1761671990),('viewRequestHistory',2,'Ver o histórico de request',NULL,NULL,1761671990,1761671990),('viewUsers',2,'Ver os utilizadores',NULL,NULL,1761671990,1761671990);
+INSERT INTO `auth_item` VALUES ('admin',1,NULL,NULL,NULL,1761928994,1761928994),('appointment.create',2,'Criar marcações',NULL,NULL,1761928994,1761928994),('appointment.delete',2,'Remover marcações',NULL,NULL,1761928994,1761928994),('appointment.update',2,'Atualizar marcações',NULL,NULL,1761928994,1761928994),('appointment.view',2,'Ver marcações',NULL,NULL,1761928994,1761928994),('assignment.assignTechnician',2,'Atribuir técnico a pedido',NULL,NULL,1761928994,1761928994),('assignment.changeTechnician',2,'Mudar técnico do pedido',NULL,NULL,1761928994,1761928994),('attachment.create',2,'Criar anexos do pedido',NULL,NULL,1761928994,1761928994),('attachment.delete',2,'Remover anexos do pedido',NULL,NULL,1761928994,1761928994),('attachment.update',2,'Atualizar anexos do pedido',NULL,NULL,1761928994,1761928994),('attachment.view',2,'Ver anexos do pedido',NULL,NULL,1761928994,1761928994),('cliente',1,NULL,NULL,NULL,1761928994,1761928994),('dashboard.view',2,'Ver dashboard',NULL,NULL,1761928994,1761928994),('gestor',1,NULL,NULL,NULL,1761928994,1761928994),('rating.create',2,'Criar avaliações',NULL,NULL,1761928994,1761928994),('rating.delete',2,'Remover avaliações',NULL,NULL,1761928994,1761928994),('rating.update',2,'Atualizar avaliações',NULL,NULL,1761928994,1761928994),('rating.view',2,'Ver avaliações',NULL,NULL,1761928994,1761928994),('request.cancel',2,'Cancelar pedidos',NULL,NULL,1761928994,1761928994),('request.changePriority',2,'Alterar prioridade do pedido',NULL,NULL,1761928994,1761928994),('request.changeStatus',2,'Alterar estado do pedido',NULL,NULL,1761928994,1761928994),('request.create',2,'Criar pedidos',NULL,NULL,1761928994,1761928994),('request.delete',2,'Remover pedidos',NULL,NULL,1761928994,1761928994),('request.update',2,'Atualizar pedidos',NULL,NULL,1761928994,1761928994),('request.validateBudget',2,'Validar ou rejeitar orçamento do pedido',NULL,NULL,1761928994,1761928994),('request.view',2,'Ver pedidos',NULL,NULL,1761928994,1761928994),('tecnico',1,NULL,NULL,NULL,1761928994,1761928994),('user.changeAvailability',2,'Atualizar disponibilidade do técnico',NULL,NULL,1761928994,1761928994),('user.create',2,'Criar utilizadores',NULL,NULL,1761928994,1761928994),('user.delete',2,'Remover utilizadores',NULL,NULL,1761928994,1761928994),('user.update',2,'Atualizar utilizadores',NULL,NULL,1761928994,1761928994),('user.view',2,'Ver utilizadores',NULL,NULL,1761928994,1761928994);
 /*!40000 ALTER TABLE `auth_item` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-31 15:01:17
+-- Dump completed on 2025-10-31 16:47:43

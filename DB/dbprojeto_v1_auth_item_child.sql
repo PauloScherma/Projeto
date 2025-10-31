@@ -29,7 +29,7 @@ CREATE TABLE `auth_item_child` (
   KEY `child` (`child`),
   CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci COMMENT='Relaciona papéis e permissões entre si.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `auth_item_child` (
 
 LOCK TABLES `auth_item_child` WRITE;
 /*!40000 ALTER TABLE `auth_item_child` DISABLE KEYS */;
-INSERT INTO `auth_item_child` VALUES ('admin','gestor'),('gestor','tecnico');
+INSERT INTO `auth_item_child` VALUES ('tecnico','appointment.create'),('gestor','appointment.delete'),('tecnico','appointment.update'),('tecnico','appointment.view'),('gestor','assignment.assignTechnician'),('gestor','assignment.changeTechnician'),('tecnico','attachment.create'),('gestor','attachment.delete'),('tecnico','attachment.update'),('tecnico','attachment.view'),('gestor','dashboard.view'),('admin','gestor'),('cliente','rating.create'),('tecnico','rating.create'),('gestor','rating.delete'),('gestor','rating.update'),('cliente','rating.view'),('tecnico','rating.view'),('gestor','request.cancel'),('tecnico','request.changePriority'),('tecnico','request.changeStatus'),('cliente','request.create'),('gestor','request.update'),('cliente','request.validateBudget'),('cliente','request.view'),('tecnico','request.view'),('gestor','tecnico'),('admin','user.changeAvailability'),('admin','user.create'),('admin','user.delete'),('admin','user.update'),('admin','user.view');
 /*!40000 ALTER TABLE `auth_item_child` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-31 15:01:18
+-- Dump completed on 2025-10-31 16:47:43
