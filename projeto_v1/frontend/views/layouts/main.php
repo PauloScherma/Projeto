@@ -82,10 +82,12 @@ AppAsset::register($this);
 
 <main role="main" class="flex-shrink-0">
     <div class="container-flex">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
+        <div class="mx-5">
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
+            <?= Alert::widget() ?>
+        </div>
         <?= $content ?>
     </div>
 </main>
