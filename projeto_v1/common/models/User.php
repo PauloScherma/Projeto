@@ -29,7 +29,6 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
 
-
     /**
      * {@inheritdoc}
      */
@@ -54,8 +53,17 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+
+            //tipos de status
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+
+            // campos do form
+            [['username','email'], 'required', 'on' => 'create'],
+            [['username','email'], 'trim'],
+            ['email', 'email'], //email é um email
+            [['username','email'], 'string', 'max' => 255],
+            [['username', 'email'], 'unique', 'targetAttribute' => ['username', 'email']] //apenas  acombinação
         ];
     }
 
