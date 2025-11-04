@@ -28,9 +28,10 @@ CREATE TABLE `profile` (
   `first_name` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_name` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `phone` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `availability` enum('disponivel','indisponivel') COLLATE utf8mb4_unicode_ci DEFAULT 'disponivel',
+  `role` enum('cliente','admin','gestor','tecnico') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'cliente',
   `created_at` int NOT NULL,
   `updated_at` int NOT NULL,
-  `availability` enum('disponivel','indisponivel') COLLATE utf8mb4_unicode_ci DEFAULT 'disponivel',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_profile_user` (`user_id`),
   CONSTRAINT `fk_profile_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-31 16:47:43
+-- Dump completed on 2025-11-04 16:20:39
