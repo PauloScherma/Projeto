@@ -23,39 +23,16 @@ class UserController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
+                // 1. Aplicar este behavior SÓ a estas actions
+                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                // 2. Definir as regras
                 'rules' => [
-                    // lê
                     [
                         'allow' => true,
-                        'actions' => ['index','view'],
-                        'matchCallback' => fn() => Yii::$app->user->can('user.view'),
-                    ],
-                    // cria
-                    [
-                        'allow' => true,
-                        'actions' => ['create'],
-                        'matchCallback' => fn() => Yii::$app->user->can('user.create'),
-                    ],
-                    // atualiza
-                    [
-                        'allow' => true,
-                        'actions' => ['update'],
-                        'matchCallback' => fn() => Yii::$app->user->can('user.update'),
-                    ],
-                    // remove
-                    [
-                        'allow' => true,
-                        'actions' => ['delete'],
-                        'matchCallback' => fn() => Yii::$app->user->can('user.delete'),
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'roles' => ['admin', 'gestor'],
                     ],
                 ],
-                'denyCallback' => function () {
-                    throw new \yii\web\ForbiddenHttpException('Sem permissão.');
-                },
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => ['delete' => ['POST']],
             ],
         ];
     }

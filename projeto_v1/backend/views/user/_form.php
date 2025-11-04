@@ -14,7 +14,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'username')->textInput() ?>
     <?= $form->field($model, 'email')->textInput() ?>
-    <?= $form->field($model, 'status')->dropDownList([10 => 'Ativo', 9 => 'Inativo', 0 => 'Apagado'], ['options' => [10 => ['Selected' => true]]]); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

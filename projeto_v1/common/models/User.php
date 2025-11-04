@@ -53,7 +53,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-
             //tipos de status
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
@@ -64,6 +63,9 @@ class User extends ActiveRecord implements IdentityInterface
             ['email', 'email'], //email é um email
             [['username','email'], 'string', 'max' => 255],
             [['username', 'email'], 'unique', 'targetAttribute' => ['username', 'email']] //apenas  acombinação
+
+            //
+
         ];
     }
 
