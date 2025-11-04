@@ -20,7 +20,13 @@ class ModuleAPI extends \yii\base\Module
         parent::init();
         \Yii::$app->user->enableSession = false;
     }
-
+    //exemplo
+    /*public function actionNomes()
+    {
+        $pratosmodel = new $this->modelClass;
+        $recs = $pratosmodel::find()->select(['nome'])->all();
+        return $recs;
+    }*/
 
     // custom initialization code goes here
 }
