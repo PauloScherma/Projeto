@@ -219,7 +219,7 @@ class RbacController extends Controller
             $adminUser = new User();
             $adminUser->username = 'admin';
             $adminUser->email = 'admin@admin.com';
-            $adminUser->setPassword('admin123'); // mete algo menos óbvio
+            $adminUser->setPassword('admin');
             $adminUser->generateAuthKey();
             $adminUser->generateEmailVerificationToken();
             $adminUser->save(false);
