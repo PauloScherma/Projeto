@@ -10,7 +10,7 @@ use yii\web\Controller;
  */
 class UserController extends ActiveController
 {
-    public $user=null;
+   public $user=null;
     /**
      * Renders the index view for the module
      * @return string

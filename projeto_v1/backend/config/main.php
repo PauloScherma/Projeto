@@ -49,6 +49,9 @@ return [
             'showScriptName' => false,
             'rules' => [
                 ['class' => 'yii\rest\UrlRule','controller' => 'api/user', 'pluralize' => false],
+                /*['extraPatterns'=>[
+
+                ]],*/
             ],
         ],
     ],
