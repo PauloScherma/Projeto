@@ -29,6 +29,8 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
 
+    public $password;
+
     /**
      * {@inheritdoc}
      */
@@ -53,25 +55,26 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            //tipos de status
-            ['status', 'default', 'value' => self::STATUS_INACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            ['username', 'trim'],
+            ['username', 'required'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'string', 'min' => 2, 'max' => 255],
 
-            // campos do form
-            [['username','email'], 'required', 'on' => 'create'],
-            [['username','email'], 'trim'],
-            ['email', 'email'], //email é um email
-            [['username','email'], 'string', 'max' => 255],
-            [['username', 'email'], 'unique', 'targetAttribute' => ['username', 'email']] //apenas  acombinação
+            ['email', 'trim'],
+            ['email', 'required'],
+            ['email', 'email'],
+            ['email', 'string', 'max' => 255],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
 
-            //
-
+            [['password'], 'required', 'on' => 'create'],
+            [['password'], 'string', 'min' => 6],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
+
     public static function findIdentity($id)
     {
         return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
