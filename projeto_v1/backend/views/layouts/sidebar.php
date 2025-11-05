@@ -50,16 +50,11 @@
                             ['label' => 'Pending', 'icon' => 'file-code', 'url' => ['/request'], 'target' => '_blank'],
                             ['label' => 'Active', 'icon' => 'file-code', 'url' => ['/request'], 'target' => '_blank'],
                             ['label' => 'History', 'icon' => 'file-code', 'url' => ['/request'], 'target' => '_blank'],
-                        ]],
-                    ['label' => 'Management', 'header' => true],
-                    ['label' => 'Users',
-                        'items'=>[
-                                ['label' => 'Gsetores', 'icon' => 'file-code', 'url' => ['/user'], 'target' => '_blank'],
-                                ['label' => 'Tecnicos', 'icon' => 'file-code', 'url' => ['/user'], 'target' => '_blank'],
-                                ['label' => 'Users', 'icon' => 'file-code', 'url' => ['/user'], 'target' => '_blank'],
-                        ]
+                        ],
                     ],
-                ],
+                    ['label' => 'Management', 'header' => true],
+                        ['label' => 'Users', 'icon' => 'file-code', 'url' => ['/user'], 'target' => '_blank'],
+                    ],
             ]);
             ?>
         </nav>
