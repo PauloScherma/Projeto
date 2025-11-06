@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
+use yii\rbac\DbManager;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -29,6 +31,7 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
 
+    public $roleName;
     public $password;
 
     /**
@@ -68,7 +71,37 @@ class User extends ActiveRecord implements IdentityInterface
 
             [['password'], 'required', 'on' => 'create'],
             [['password'], 'string', 'min' => 6],
+
+            ['roleName', 'safe'],
         ];
+    }
+
+    /**
+     * Retorna a função do utilizador.
+     * @return string|null
+     */
+    public function getRoleName()
+    {
+        if ($this->roleName === null) {
+            $authManager = Yii::$app->authManager;
+            $assignments = $authManager->getAssignments($this->id);
+
+            if (!empty($assignments)) {
+                // Pega no nome da primeira função que aparecer na lista
+                $firstAssignment = reset($assignments);
+                $this->roleName = $firstAssignment->roleName;
+            }
+        }
+        return $this->roleName;
+    }
+
+    /**
+     * Define a função para ser salva.
+     * @param string $value
+     */
+    public function setRoleName($value)
+    {
+        $this->roleName = $value;
     }
 
     /**
