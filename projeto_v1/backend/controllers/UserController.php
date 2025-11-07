@@ -23,9 +23,6 @@ class UserController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                // 1. Aplicar este behavior SÓ a estas actions
-                'only' => ['index', 'view', 'create', 'update', 'delete'],
-                // 2. Definir as regras
                 'rules' => [
                     [
                         'allow' => true,
@@ -75,13 +72,21 @@ class UserController extends Controller
     {
         $model = new User();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-                return $this->redirect(['view', 'id' => $model->id]);
+            $auth = Yii::$app->authManager;
+            $roleNameFromForm = $model->roleName;
+
+            if ($roleNameFromForm) {
+
+                $newRole = $auth->getRole($roleNameFromForm);
+
+                if ($newRole) {
+                    $auth->revokeAll($model->id);
+                    $auth->assign($newRole, $model->id);
+                }
             }
-        } else {
-            $model->loadDefaultValues();
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -100,10 +105,22 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $auth = Yii::$app->authManager;
+            $roleNameFromForm = $model->roleName;
+
+            if ($roleNameFromForm) {
+
+                $newRole = $auth->getRole($roleNameFromForm);
+
+                if ($newRole) {
+                    $auth->revokeAll($model->id);
+                    $auth->assign($newRole, $model->id);
+                }
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -135,7 +152,6 @@ class UserController extends Controller
         if (($model = user::findOne(['id' => $id])) !== null) {
             return $model;
         }
-
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

@@ -29,7 +29,6 @@ CREATE TABLE `profile` (
   `last_name` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `phone` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `availability` enum('disponivel','indisponivel') COLLATE utf8mb4_unicode_ci DEFAULT 'disponivel',
-  `role` enum('cliente','admin','gestor','tecnico') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'cliente',
   `created_at` int NOT NULL,
   `updated_at` int NOT NULL,
   PRIMARY KEY (`id`),
@@ -56,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-04 16:25:29
+-- Dump completed on 2025-11-07 17:04:13

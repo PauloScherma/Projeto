@@ -17,6 +17,11 @@ return [
             'class' => 'backend\modules\api\ModuleAPI',],
         ],
     'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager', // <--- DEVE SER ISTO
+            'db' => 'db',
+        ],
+
         'view' => [
 
         ],
