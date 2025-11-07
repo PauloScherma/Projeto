@@ -37,7 +37,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci COMMENT='Guarda as credenciais básicas dos utilizadores (login, email, password_hash e estado da conta).';
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci COMMENT='Guarda as credenciais básicas dos utilizadores (login, email, password_hash e estado da conta).';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (2,'paulo','u9DFFliv9wm_BLQvo2D3F8-zG46eH-8n','$2y$13$DzcfftOpwi.6mj5Kl7tNt.UQN8hWsXeOM.9B3QoeIXcscd7146xFK',NULL,'paulopinto@gmail.com',9,1761062409,1761062409,'VkmVg7eBDWsZyaEBBS_BYzAdkq5dyWsE_1761062409'),(3,'admin','gM7HgFqFaW_DB1vawd_19F3gzb2En7xV','$2y$13$BM2y2tP26Itu6Ke7Z1a6iuxxxOH6l55K522ix3v6SIjpYkVY1RnNm',NULL,'admin@admin.com',10,1761065072,1761065072,'7zC_BWu-jEPviCm593XDx46tmYKFRlWR_1761065072'),(4,'clienteTeste','8gGVxQoYpLDM1bYK2Pqa90GmVYMNOGcp','$2y$13$pq2XuexwWdbtHm2ZirBpeeDSTFNwKj8k6EmZ5BGYrbPYkLFRzkPcy',NULL,'clienteTeste@gmail.com',10,1761660398,1762265231,NULL),(11,'clienteAlterado','','',NULL,'clienteAlterado@gmail.com',10,1762268893,1762270817,NULL),(12,'paulopinto','V9PynQgISJ5VEW6XptIvW4UJ2dls1yyO','$2y$13$k2uJzTVeEsYNWjbcEDK7seILGlGUtbZteoJy19uD5947WaywItclm',NULL,'paulo@gmail.com',10,1762271393,1762271393,NULL);
+INSERT INTO `user` VALUES (2,'paulo','u9DFFliv9wm_BLQvo2D3F8-zG46eH-8n','$2y$13$DzcfftOpwi.6mj5Kl7tNt.UQN8hWsXeOM.9B3QoeIXcscd7146xFK',NULL,'paulopinto@gmail.com',9,1761062409,1761062409,'VkmVg7eBDWsZyaEBBS_BYzAdkq5dyWsE_1761062409'),(3,'admin','gM7HgFqFaW_DB1vawd_19F3gzb2En7xV','$2y$13$BM2y2tP26Itu6Ke7Z1a6iuxxxOH6l55K522ix3v6SIjpYkVY1RnNm',NULL,'admin@admin.com',10,1761065072,1761065072,'7zC_BWu-jEPviCm593XDx46tmYKFRlWR_1761065072'),(32,'userTest','Lhgn5bmgKkivm7PPs1_w-h_9TmO2t6xq','$2y$13$tWphGD6HsMla2TPWcC403e3gRfOEZFQH9dRMIHluxvuEkI20O7ewK',NULL,'userTest@gmail.com',10,1762530460,1762530460,NULL),(33,'cliente','o-qAOkqkOGLWDSJQkfX7tO383SWCSo89','$2y$13$eVck2NtM1NAgKR89r4dMdO4Sdubdw/e1hsu2JcVEmBvT3pv6AD5b2',NULL,'cliente@cliente.com',10,1762534004,1762534004,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-04 16:25:27
+-- Dump completed on 2025-11-07 17:04:14
