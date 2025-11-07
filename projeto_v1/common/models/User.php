@@ -71,7 +71,9 @@ class User extends ActiveRecord implements IdentityInterface
 
             [['password'], 'required', 'on' => 'create'],
             [['password'], 'string', 'min' => 6],
+            ['password', 'safe'],
 
+            ['roleName', 'required', 'on' => 'create'],
             ['roleName', 'safe'],
         ];
     }
@@ -90,7 +92,11 @@ class User extends ActiveRecord implements IdentityInterface
                 // Pega no nome da primeira função que aparecer na lista
                 $firstAssignment = reset($assignments);
                 $this->roleName = $firstAssignment->roleName;
+                //$this->roleName = "valente merda";
             }
+            /*else{
+                $this->roleName = "Valente merda";
+            }*/
         }
         return $this->roleName;
     }
@@ -105,9 +111,33 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Hashifica a password e o token de reset antes de salvar
      * {@inheritdoc}
      */
+    //para administração
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
 
+            if ($this->password) {
+                // Usa o méto.do setPassword para hashificar
+                $this->setPassword($this->password);
+                $this->generateAuthKey();
+            }
+
+            // Moda o status
+            if ($insert) {
+                $this->status = self::STATUS_ACTIVE;
+            }
+
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public static function findIdentity($id)
     {
         return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);

@@ -16,19 +16,27 @@ $roleItems = ArrayHelper::map($roles, 'name', 'name');
 ?>
 
 <div class="user-form">
+    <?php $form = ActiveForm::begin();?>
 
-    <?php $form = ActiveForm::begin(); ?>
-    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'roleName')->dropDownList(
-        $roleItems,
-        ['prompt' => 'Selecione uma Função']
-    ) ?>
+    <?= $form->field($model, 'username')->textInput(['maxlength' => 255]) ?>
+    <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
+
+    <?php if ($model->isNewRecord): ?>
+        <?= $form->field($model, 'password')->passwordInput(['maxlength' => 255]) ?>
+    <?php endif; ?>
+
+    <?= $form->field($model, 'roleName')->dropDownList($roleItems, [
+        'options' => [
+                //não entendo porque que é model tem o roleName = null!!!
+            $model->roleName => ['Selected' => true]
+        ]
+    ]);
+
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Salvar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
-
 </div>
