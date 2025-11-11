@@ -90,7 +90,7 @@
 
             android:ems="10"
             android:inputType="textPassword"
-            android:hint="Password" />
+            android:hint="*******" />
 
         <Button
             android:id="@+id/btnCreateAccount"
