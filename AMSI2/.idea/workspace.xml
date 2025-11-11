@@ -10,11 +10,6 @@
           <theme>@style/Theme.ProjetoPSIAssist</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_create_account.xml">
-        <config>
-          <theme>@style/Theme.ProjetoPSIAssist</theme>
-        </config>
-      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
         <config>
           <theme>@style/Theme.ProjetoPSIAssist</theme>
@@ -25,38 +20,21 @@
           <theme>@style/Theme.ProjetoPSIAssist</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main_screen.xml">
-        <config>
-          <theme>@style/Theme.ProjetoPSIAssist</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_menu_main.xml">
-        <config>
-          <theme>@style/Theme.ProjetoPSIAssist</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/app_bar_main.xml">
-        <config>
-          <theme>@style/Theme.ProjetoPSIAssist</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml">
-        <config>
-          <theme>@style/Theme.ProjetoPSIAssist</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml">
-        <config>
-          <theme>@style/Theme.ProjetoPSIAssist</theme>
-        </config>
-      </layout>
     </layouts>
   </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbc5c78e-689c-425e-911a-dfb4b15447af" name="Changes" comment="" />
+    <list default="true" id="fbc5c78e-689c-425e-911a-dfb4b15447af" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/pt/ipleiria/estg/dei/projetopsiassist/LoginActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -115,6 +93,7 @@
     "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
@@ -131,6 +110,9 @@
       <recent name="C:\wamp64\www\projeto\Projeto\AMSI2\app" />
     </key>
     <key name="android.template.-1637576018">
+      <recent name="pt.ipleiria.estg.dei.projetopsiassist" />
+    </key>
+    <key name="android.template.1461864961">
       <recent name="pt.ipleiria.estg.dei.projetopsiassist" />
     </key>
   </component>
@@ -223,12 +205,12 @@
       <map>
         <entry key="pt.ipleiria.estg.dei.projetopsiassist">
           <value>
-            <CheckInfo lastCheckTimestamp="1762529404100" />
+            <CheckInfo lastCheckTimestamp="1762868275279" />
           </value>
         </entry>
         <entry key="pt.ipleiria.estg.dei.projetopsiassist.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1762529404101" />
+            <CheckInfo lastCheckTimestamp="1762868275277" />
           </value>
         </entry>
       </map>
