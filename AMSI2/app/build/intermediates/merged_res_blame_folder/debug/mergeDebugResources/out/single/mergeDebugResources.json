@@ -1,0 +1,114 @@
+[
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\layout_nav_header_main.xml.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\layout\\nav_header_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\drawable_projetologo.png.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\drawable\\projetologo.png"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:/layout_activity_menu_main.xml.flat",
+        "source": "pt.ipleiria.estg.dei.projetopsiassist.app-main-36:/layout/activity_menu_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\layout_activity_login.xml.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\layout_app_bar_main.xml.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\layout\\app_bar_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\layout_activity_menu_main.xml.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\layout\\activity_menu_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\layout_activity_create_account.xml.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\layout\\activity_create_account.xml"
+    },
+    {
+        "merged": "pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:/layout_activity_main.xml.flat",
+        "source": "pt.ipleiria.estg.dei.projetopsiassist.app-main-36:/layout/activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\menu_menu_main.xml.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\menu\\menu_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:/menu_menu_main.xml.flat",
+        "source": "pt.ipleiria.estg.dei.projetopsiassist.app-main-36:/menu/menu_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\layout_activity_main_screen.xml.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\layout\\activity_main_screen.xml"
+    },
+    {
+        "merged": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-debug-34:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\Pastel\\.gradle\\daemon\\8.13\\pt.ipleiria.estg.dei.projetopsiassist.app-main-36:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    }
+]
