@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\LoginForm;
+use common\widgets\Alert;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -26,6 +27,7 @@ class SiteController extends Controller
                     [
                         'actions' => ['login', 'error'],
                         'allow' => true,
+                        'roles' => ['?'],
                     ],
                     [
                         'actions' => ['logout', 'index'],
@@ -80,6 +82,21 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+
+            $user = Yii::$app->user->identity;
+            $authManager = Yii::$app->authManager;
+            $assignments = $authManager->getAssignments($user->id);
+
+            $assignment = reset($assignments);
+            $roleName = $assignment->roleName ?? null;
+
+            if ($roleName === 'cliente' || $roleName === 'tecnico' || $roleName === null) {
+
+                Yii::$app->user->logout();
+
+                throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder à área de administração.');
+            }
+
             return $this->goBack();
         }
 

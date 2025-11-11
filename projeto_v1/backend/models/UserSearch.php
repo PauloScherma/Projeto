@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\user;
@@ -71,6 +72,15 @@ class UserSearch extends user
             ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'verification_token', $this->verification_token]);
+
+        $currentUserRoles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
+        $isGestor = isset($currentUserRoles['gestor']);
+
+        if ($isGestor) {
+            $query->leftJoin('auth_assignment', 'id = user_id');
+            $query->andWhere(['<>', 'auth_assignment.item_name', 'admin']);
+            $query->groupBy('id');
+        }
 
         return $dataProvider;
     }

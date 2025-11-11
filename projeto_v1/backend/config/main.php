@@ -59,6 +59,12 @@ return [
                 ]],*/
             ],
         ],
+        'urlManagerFrontend' => [
+            'class' => 'yii\web\urlManager',
+            'baseUrl' => '/projeto/projeto_v1/frontend/',
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+        ],
     ],
     'params' => $params,
 ];
