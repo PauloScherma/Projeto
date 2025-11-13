@@ -2,6 +2,7 @@
 
 namespace backend\modules\api\controllers;
 
+use yii\filters\auth\QueryParamAuth;
 use yii\rest\ActiveController;
 use yii\web\Controller;
 
@@ -26,12 +27,15 @@ class UserController extends ActiveController
     {
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
-            'class' => HttpBasicAuth::className(),
+            'class' => QueryParamAuth::className(),
             'except' => ['index', 'view'], //Excluir aos GETs
             'auth' => [$this,'authintercept'],
+            //'class' => \CustomAuth::className()
+
         ];
         return $behaviors;
     }
+
     public function authintercept($username, $password)
     {
         $user = \common\models\User::findByUsername($username);
