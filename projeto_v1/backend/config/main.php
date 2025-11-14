@@ -22,9 +22,7 @@ return [
             'db' => 'db',
         ],
 
-        'view' => [
-
-        ],
+        //'view' => [],
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
@@ -53,18 +51,43 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule','controller' => 'api/user', 'pluralize' => false],
-                /*['extraPatterns'=>[
+                ['class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/user', 'pluralize' => false,
+                    'extraPatterns'=>[
+                        'GET count' => 'count',
 
-                ]],*/
+                        //------- AUTH --------------
+                        'POST register' => 'register',
+                        'POST login'    => 'login',
+                        'POST logout'   => 'logout',
+
+                        //------- ASSISTANCES -------
+                        'PATCH {id}/cancel'  => 'cancel',
+                        'PATCH {id}/status'  => 'status',
+                        'POST {id}/rating'   => 'rating',
+                        'POST {id}/reports'  => 'create-report',
+                        'GET  {id}/reports'  => 'list-reports',
+                        'POST {id}/messages' => 'send-message',
+                        'GET  {id}/messages' => 'messages',
+
+                        // ------ TECHNICIANS -------
+                        'PUT {id}/availability' => 'set-availability',
+                        'GET {id}/availability' => 'get-availability',
+
+                        //------- PUSH NOTIFICATIONS
+                        'POST register' => 'register-device',
+
+                        //------  NOTIFICATIONS ------
+                        'PATCH {id}/read' => 'read',
+
+                        //------ SYNC OFFLINE --------
+                        'GET changes' => 'changes',
+                        'POST batch'  => 'batch',
+                    ],
+                ],
             ],
-        ],
-        'urlManagerFrontend' => [
-            'class' => 'yii\web\urlManager',
-            'baseUrl' => '/projeto/projeto_v1/frontend/',
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
         ],
     ],
     'params' => $params,
 ];
+
