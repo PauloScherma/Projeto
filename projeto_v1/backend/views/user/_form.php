@@ -19,10 +19,7 @@ $roles = $auth->getRoles();
 
     <?= $form->field($model, 'username')->textInput(['maxlength' => 255]) ?>
     <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
-
-    <?php if ($model->isNewRecord): ?>
-        <?= $form->field($model, 'password')->passwordInput(['maxlength' => 255]) ?>
-    <?php endif; ?>
+    <?= $form->field($model, 'password')->passwordInput(['maxlength' => 255]) ?>
     <?= $form->field($model, 'roleName')->dropDownList($roleItems, [
         'options' => [
             $model->roleName => ['Selected' => true]

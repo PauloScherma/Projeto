@@ -94,7 +94,7 @@ class SiteController extends Controller
 
                 Yii::$app->user->logout();
 
-                throw new \yii\web\ForbiddenHttpException('Não tem permissão para aceder à área de administração.');
+                return $this->redirect(Yii::$app->urlManagerFrontend->createAbsoluteUrl(['']));
             }
 
             return $this->goBack();
