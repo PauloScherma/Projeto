@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DetalhesLivroActivity">
+
+    <ImageView
+        android:id="@+id/imageCapa"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        app:srcCompat="@drawable/logoipl" />
+
+    <EditText
+        android:id="@+id/etTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:layout_weight="0.1"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Titulo" />
+
+    <EditText
+        android:id="@+id/etSerie"
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:layout_weight="0.1"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Serie" />
+
+    <EditText
+        android:id="@+id/etAutor"
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:layout_weight="0.1"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Autor" />
+
+    <EditText
+        android:id="@+id/etAno"
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:layout_weight="0.1"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Ano" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:layout_weight="0.1" />
+
+
+</LinearLayout>

@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\User;
 use backend\models\UserSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
@@ -29,6 +30,11 @@ class UserController extends Controller
                         'actions' => ['index', 'view', 'create', 'update', 'delete'],
                         'roles' => ['admin', 'gestor'],
                     ],
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'roles' => ['admin', 'gestor'],
+                    ]
                 ],
             ],
         ];
@@ -72,8 +78,25 @@ class UserController extends Controller
     {
         $model = new User();
 
+        //START - logica do dropdown do gestor
+        $auth = Yii::$app->authManager;
+        $roles = $auth->getRoles();
+        $roleItems = ArrayHelper::map($roles, 'name', 'name');
+
+        $currentUserRoles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
+
+        $isGestor = isset($currentUserRoles['gestor']);
+
+        if ($isGestor) {
+            if (isset($roleItems['admin'])) {
+                unset($roleItems['admin']);
+            }
+        }
+        //END - logica do dropdown do gestor
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
+            //START - atribuição da role
             $auth = Yii::$app->authManager;
             $roleNameFromForm = $model->roleName;
 
@@ -86,11 +109,14 @@ class UserController extends Controller
                     $auth->assign($newRole, $model->id);
                 }
             }
+            //END - atribuição da role
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'roleItems' => $roleItems,
         ]);
     }
 
@@ -104,11 +130,28 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $roleNameFromForm = $model->getRoleName();
+
+        //START - dropdown do gestor
+        $auth = Yii::$app->authManager;
+        $roles = $auth->getRoles();
+        $roleItems = ArrayHelper::map($roles, 'name', 'name');
+
+        $currentUserRoles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
+
+        $isGestor = isset($currentUserRoles['gestor']);
+
+        if ($isGestor) {
+            if (isset($roleItems['admin'])) {
+                unset($roleItems['admin']);
+            }
+        }
+        //END - dropdown do gestor
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
+            //START - atribuição da role
             $auth = Yii::$app->authManager;
-            $roleNameFromForm = $model->roleName;
 
             if ($roleNameFromForm) {
 
@@ -119,10 +162,15 @@ class UserController extends Controller
                     $auth->assign($newRole, $model->id);
                 }
             }
+            //END - atribuição da role
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
+
         return $this->render('update', [
             'model' => $model,
+            'roleItems' => $roleItems,
+            'roleName' => $model->roleName,
         ]);
     }
 
@@ -135,6 +183,11 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
+        $model = $this->findModel($id);
+
+        $auth = Yii::$app->authManager;
+        $auth->revokeAll($model->id);
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

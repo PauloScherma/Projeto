@@ -73,7 +73,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['password'], 'string', 'min' => 6],
             ['password', 'safe'],
 
-            ['roleName', 'required', 'on' => 'create'],
+            ['roleName', 'required'],
             ['roleName', 'safe'],
         ];
     }
@@ -92,12 +92,9 @@ class User extends ActiveRecord implements IdentityInterface
                 // Pega no nome da primeira função que aparecer na lista
                 $firstAssignment = reset($assignments);
                 $this->roleName = $firstAssignment->roleName;
-                //$this->roleName = "valente merda";
             }
-            /*else{
-                $this->roleName = "Valente merda";
-            }*/
         }
+
         return $this->roleName;
     }
 
@@ -148,7 +145,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+        return static::findOne(['auth_key' => $token, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**

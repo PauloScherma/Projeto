@@ -1,3 +1,9 @@
+<?php use common\models\User;
+
+$username = Yii::$app->user->identity->username;
+
+?>
+
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
@@ -12,8 +18,8 @@
             <div class="image">
                 <img src="<?=$assetDir?>/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
-            <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+            <div class="info ms-5">
+                <a class="d-block "><?=$username?></a>
             </div>
         </div>
 
