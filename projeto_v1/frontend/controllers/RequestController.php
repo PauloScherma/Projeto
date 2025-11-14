@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\Request;
+use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -24,7 +25,8 @@ class RequestController extends Controller
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
-                        'delete' => ['POST'],
+                        //ter em atenção que era POST e mudei para GET
+                        'delete' => ['GET'],
                     ],
                 ],
             ]
@@ -78,6 +80,7 @@ class RequestController extends Controller
     public function actionCreate()
     {
         $model = new Request();
+        $model->customer_id = Yii::$app->user->id;
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {

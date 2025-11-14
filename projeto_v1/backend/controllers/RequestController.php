@@ -75,8 +75,8 @@ class RequestController extends Controller
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
-
+        }else {
+            $model->loadDefaultValues();
         }
 
         return $this->render('create', [

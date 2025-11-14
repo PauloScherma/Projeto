@@ -7,13 +7,12 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var backend\models\RequestSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Requests';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="request-index">
+<div class="request-index mx-5">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -21,11 +20,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Request', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 

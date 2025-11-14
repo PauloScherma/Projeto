@@ -75,7 +75,7 @@ return [
                         'GET {id}/availability' => 'get-availability',
 
                         //------- PUSH NOTIFICATIONS
-                        'POST register' => 'register-device',
+                        'POST register1' => 'register-device',
 
                         //------  NOTIFICATIONS ------
                         'PATCH {id}/read' => 'read',
