@@ -36,6 +36,9 @@
             android:name=".HomePageClienteActivity"
             android:exported="false" />
         <activity
+            android:name=".MenuMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
