@@ -40,9 +40,11 @@ class RequestController extends Controller
      */
     public function actionIndex()
     {
+        $currentUserId = Yii::$app->user->id;
+
         $dataProvider = new ActiveDataProvider([
-            'query' => Request::find(),
-            /*
+            'query' => Request::find()
+            ->where(['customer_id' => $currentUserId]),
             'pagination' => [
                 'pageSize' => 50
             ],
@@ -51,7 +53,6 @@ class RequestController extends Controller
                     'id' => SORT_DESC,
                 ]
             ],
-            */
         ]);
 
         return $this->render('index', [
