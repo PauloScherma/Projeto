@@ -2,6 +2,7 @@
 
 namespace backend\modules\api\controllers;
 
+use app\models\User;
 use Yii;
 use yii\filters\auth\QueryParamAuth;
 use yii\rest\ActiveController;
@@ -282,6 +283,9 @@ class UserController extends ActiveController
             ->with('user') // Eager load the user who submitted the report
             ->all();
 
+        $reports = \common\models\Request::find($id)
+            ->where(['customere_id' => null]);
+
         if (empty($reports)) {
             Yii::$app->response->statusCode = 404; // Not Found if no reports exist
             return ['message' => 'No reports found for this resource.'];
@@ -293,6 +297,7 @@ class UserController extends ActiveController
     }
 
     //'POST {id}/messages' => 'send-message'
+   /* Not Going to Implement
     public function actionSendMessages($id){
         // Assuming you have a separate Message model
         $message = new \app\models\Message();
@@ -315,8 +320,9 @@ class UserController extends ActiveController
             return $message->getErrors();
         }
     }
-
+    */
     //'GET  {id}/messages' => 'messages'
+   /*
     public function actionMessages($id){
         // Find all messages related to the resource ID, ordered by time
         $messages = \app\models\Message::find()
@@ -329,60 +335,61 @@ class UserController extends ActiveController
         // Return the list of messages
         return $messages;
     }
+   */
 
 //------- Technicians -------
 
     //'PUT {id}/availability' => 'set-availability'
-    public function actionSetAvailability($id){
-        // Find the Technician model
-        $technician = \app\models\Technician::findOne($id);
+    public function actionSetAvailability($userid)
+    {
+        $profileTech = \common\models\Profile::findOne($userid);
 
-        if (!$technician) {
+        if (!$profileTech) {
             throw new \yii\web\NotFoundHttpException("Technician not found.");
         }
 
-        // Load ALL data from the request body into the model (e.g., availability array)
-        // NOTE: Availability data is complex; you might use a separate Availability model
-        // or a specialized form model for better validation. For simplicity here,
-        // we assume the Technician model handles the update.
-        if ($technician->load(Yii::$app->getRequest()->getBodyParams(), '') && $technician->save()) {
+        // This reads "true" or "false" from Android
+        $value = Yii::$app->request->post('availability');
 
-            Yii::$app->response->statusCode = 200; // HTTP 200 OK (Successful update)
+        // Convert the incoming string to actual boolean
+        $profileTech->availability = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+
+        if ($profileTech->save()) {
             return [
                 'success' => true,
-                'message' => "Availability for Technician #$id updated successfully."
+                'availability' => (bool) $profileTech->availability
             ];
-
-        } else {
-            Yii::$app->response->statusCode = 422; // Unprocessable Entity
-            return $technician->getErrors();
         }
+
+        return [
+            'success' => false,
+            'errors' => $profileTech->errors
+        ];
     }
 
-    //'GET {id}/availability' => 'get-availability'
-    public function actionGetAvailability($id){
-        // Find the Technician model, and potentially eager-load related availability records
-        $technician = \app\models\Technician::find()
-            ->where(['id' => $id])
-            ->with('availability') // Assuming 'availability' is a relation
-            ->one();
 
-        if (!$technician) {
+    //'GET {id}/availability' => 'get-availability'
+    public function actionGetAvailability($id)
+    {
+        $profile = \common\models\Profile::findOne($id);
+
+        if (!$profile) {
             throw new \yii\web\NotFoundHttpException("Technician not found.");
         }
 
-        Yii::$app->response->statusCode = 200;
-
-        // Return just the availability data from the model relation
-        return $technician->availability;
+        return [
+            'availability' => (bool) $profile->availability
+        ];
     }
 
-//------- Push Notifications -------
+
+//------- Push Notifications ------- // not going to implement not necessary
 
     //'POST register' => 'register-device'
+   /*
     public function actionRegisterDevice($id){
         // Assume you have a Device model to store tokens
-        $device = new \app\models\Device();
+        $device = new \app\models\();
 
         // Load data: device_token, platform (ios/android), and user_id (if authenticated)
         if ($device->load(Yii::$app->getRequest()->getBodyParams(), '')) {
@@ -408,10 +415,11 @@ class UserController extends ActiveController
         Yii::$app->response->statusCode = 400;
         return ['error' => 'Missing device token or platform information.'];
     }
-
+*/
 //------- Notifications -------
 
-    //'PATCH {id}/read' => 'read'
+    //'PATCH {id}/read' => 'read' //Not going to implement
+  /*
     public function actionRead($id){
         // Find the Notification model. Ensure it belongs to the current user.
         $notification = \app\models\Notification::findOne([
@@ -438,7 +446,7 @@ class UserController extends ActiveController
         Yii::$app->response->statusCode = 500;
         return ['error' => 'Could not update notification status.'];
     }
-
+*/
 //------- Sync Offline -------
 
     //'GET changes' => 'changes'
@@ -446,11 +454,12 @@ class UserController extends ActiveController
         // 1. Get the last sync timestamp or version ID from the client query params
         $lastSyncTime = Yii::$app->request->get('since');
 
-        // 2. Fetch the required data changes (e.g., all new/updated records)
+        // 2. Fetch the required data changes
         $changes = [
-            'new_orders' => \app\models\Order::getChangesSince($lastSyncTime),
-            'updated_technicians' => \app\models\Technician::getChangesSince($lastSyncTime),
-            // ... include other necessary models
+            // Add more if needed
+            'request' => \common\models\Request::getChangesSince($lastSyncTime),
+            'profile' => \common\models\Profile::getChangesSince($lastSyncTime),
+            'user' => \common\models\User::getChangesSince($lastSyncTime),
         ];
 
         Yii::$app->response->statusCode = 200;
@@ -460,7 +469,9 @@ class UserController extends ActiveController
     }
 
     //'POST batch'  => 'batch'
+    /* // NOT NEEDED
     public function actionBatch(){
+        // Either everything succeeds, or everything fails—no half-saved data.
         $transaction = Yii::$app->db->beginTransaction();
         $processedResults = [];
         $hasError = false;
@@ -505,4 +516,5 @@ class UserController extends ActiveController
 
         return ['results' => $processedResults, 'success' => !$hasError];
     }
+    */
 }

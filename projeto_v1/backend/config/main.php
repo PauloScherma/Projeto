@@ -74,12 +74,6 @@ return [
                         'PUT {id}/availability' => 'set-availability',
                         'GET {id}/availability' => 'get-availability',
 
-                        //------- PUSH NOTIFICATIONS
-                        'POST register1' => 'register-device',
-
-                        //------  NOTIFICATIONS ------
-                        'PATCH {id}/read' => 'read',
-
                         //------ SYNC OFFLINE --------
                         'GET changes' => 'changes',
                         'POST batch'  => 'batch',

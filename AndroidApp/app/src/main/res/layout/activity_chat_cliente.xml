@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1D2121">
+    android:background="@color/black">
 
     <!-- Topo com avatar + username -->
     <LinearLayout
@@ -11,7 +11,7 @@
         android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF">
+        android:background="@color/white">
 
         <ImageView
             android:layout_width="40dp"
@@ -22,7 +22,7 @@
             android:layout_marginStart="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="USERNAME"
+            android:text="@string/username"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -43,7 +43,7 @@
             <View
                 android:layout_width="220dp"
                 android:layout_height="40dp"
-                android:background="#9C9C9C"
+                android:background="@color/grey"
                 android:layout_gravity="end"
                 android:layout_marginBottom="20dp"/>
 
@@ -51,13 +51,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="nome cliente"
-                android:textColor="#FFFFFF"/>
+                android:text="@string/nome_cliente"
+                android:textColor="@color/white"/>
 
             <View
                 android:layout_width="220dp"
                 android:layout_height="40dp"
-                android:background="#9C9C9C"
+                android:background="@color/grey"
                 android:layout_marginBottom="20dp"/>
 
             <!-- Repetição simples -->
@@ -65,20 +65,20 @@
             <View
                 android:layout_width="220dp"
                 android:layout_height="40dp"
-                android:background="#9C9C9C"
+                android:background="@color/grey"
                 android:layout_gravity="end"
                 android:layout_marginBottom="20dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="nome cliente"
-                android:textColor="#FFFFFF"/>
+                android:text="@string/nome_cliente"
+                android:textColor="@color/white"/>
 
             <View
                 android:layout_width="220dp"
                 android:layout_height="40dp"
-                android:background="#9C9C9C"
+                android:background="@color/grey"
                 android:layout_marginBottom="20dp"/>
 
         </LinearLayout>
@@ -89,18 +89,18 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#FFFFFF">
+        android:background="@color/white">
 
         <EditText
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:hint="Mensagem" />
+            android:hint="@string/mensagem" />
 
         <Button
             android:layout_width="120dp"
             android:layout_height="match_parent"
-            android:text="Enviar mensagem" />
+            android:text="@string/enviar_mensagem" />
     </LinearLayout>
 
     <!-- Menu inferior -->
@@ -108,28 +108,28 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#FFFFFF">
+        android:background="@color/white">
 
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="Gestores"/>
+            android:text="@string/gestores"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="Menu Principal"/>
+            android:text="@string/menu_principal"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="Clientes"/>
+            android:text="@string/clientes"/>
     </LinearLayout>
 
 </LinearLayout>

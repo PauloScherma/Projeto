@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">PSIAssist</string>
+    <string name="username">USERNAME</string>
+    <string name="nome_cliente">nome cliente</string>
+    <string name="mensagem">Mensagem</string>
+    <string name="enviar_mensagem">Enviar mensagem</string>
+    <string name="gestores">Gestores</string>
+    <string name="menu_principal">Menu Principal</string>
+    <string name="clientes">Clientes</string>
+    <string name="documento">Documento </string>
+    <string name="descarregar_documento">Descarregar documento(se estiver algum selecionado)</string>
+    <string name="o_meu_perfil">O meu perfil</string>
+    <string name="apoio_ao_cliente">Apoio Ao Cliente</string>
 </resources>

@@ -58,6 +58,7 @@ class Request extends \yii\db\ActiveRecord
             TimestampBehavior::class,
         ];
     }
+
     /**
      * {@inheritdoc}
      */
@@ -359,5 +360,12 @@ class Request extends \yii\db\ActiveRecord
     public function setStatusToCanceled()
     {
         $this->status = self::STATUS_CANCELED;
+    }
+
+    //For sync
+    public static function getChangesSince($time)
+    {
+        return self::find()->where(['>', 'updated_at', $time])->all();
+
     }
 }
