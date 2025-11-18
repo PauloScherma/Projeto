@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'status')->dropDownList([ 'new' => 'New', 'assigned' => 'Assigned', 'in_progress' => 'In progress', 'waiting_parts' => 'Waiting parts', 'completed' => 'Completed', 'canceled' => 'Canceled', ], ['prompt' => '']) ?>
 
-    <?php // $form->field($model, 'current_technician_id')->textInput() ?>
+    <?= $form->field($model, 'current_technician_id')->dropDownList($technicianList) ?>
 
     <?php // $form->field($model, 'scheduled_start')->textInput() ?>
 

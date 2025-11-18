@@ -1,4 +1,7 @@
-<?php use common\models\User;
+<?php
+
+use common\models\User;
+use yii\helpers\Url;
 
 $username = Yii::$app->user->identity->username;
 
@@ -16,13 +19,12 @@ $username = Yii::$app->user->identity->username;
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="../web/img/user-icon.jpg" class="img-circle elevation-2" alt="User Image">
+                    <img src="<?= Url::to(['/img/user-icon.jpg']) ?> " class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info ms-5">
                 <a class="d-block "><?=$username?></a>
             </div>
         </div>
-
         <!-- SidebarSearch Form -->
         <!-- href be escaped -->
         <div class="form-inline">
@@ -40,12 +42,32 @@ $username = Yii::$app->user->identity->username;
         <nav class="mt-2">
             <?php
             echo \hail812\adminlte\widgets\Menu::widget([
-                    'items' => [
-                    //['label' => 'Services', 'header' => true],
+                'items' => [
                     ['label' => 'Management', 'header' => true],
-                        ['label' => 'Users', 'icon' => 'file-code', 'url' => ['/user'], 'target' => ''],
-                        ['label' => 'Request', 'icon' => 'file-code', 'url' => ['/request'], 'target' => ''],
+                    [
+                        'label' => 'Requests',
+                        'icon' => 'list-alt',
+                        'items' => [
+                                //'new', 'in_progress', 'completed', 'canceled'
+                            ['label' => 'All Requests', 'icon' => 'folder-open', 'url' => ['/request/index']],
+                            ['label' => 'New', 'icon' => 'plus-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'new']],
+                            ['label' => 'In Progress', 'icon' => 'sync', 'url' => ['/request/index', 'RequestSearch[status]' => 'active']],
+                            ['label' => 'Completed', 'icon' => 'check-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'closed']],
+                            ['label' => 'Canceled', 'icon' => 'times-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'closed']],
+                        ]
                     ],
+                    [
+                        'label' => 'Users',
+                        'icon' => 'users',
+                        'items' => [
+                            ['label' => 'All Users', 'icon' => 'user-friends', 'url' => ['/user/index']],
+                            ['label' => 'Admins', 'icon' => 'user-shield', 'url' => ['/user/index', 'UserSearch[role]' => 'admin']],
+                            ['label' => 'Manager', 'icon' => 'user-cog', 'url' => ['/user/index', 'UserSearch[role]' => 'gestor']],
+                            ['label' => 'Technician', 'icon' => 'user-plus', 'url' => ['/user/index', 'UserSearch[role]' => 'tecnico']],
+                            ['label' => 'Client', 'icon' => 'user', 'url' => ['/user/index', 'UserSearch[role]' => 'cliente']],
+                        ]
+                    ],
+                ],
             ]);
             ?>
         </nav>
