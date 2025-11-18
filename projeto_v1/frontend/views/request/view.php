@@ -11,13 +11,12 @@ $this->params['breadcrumbs'][] = ['label' => 'Requests', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="request-view">
+<div class="request-view mx-5">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Cancel', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -29,18 +28,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'customer_id',
+            //'id',
+            //'customer_id',
             'title',
             'description:ntext',
             'priority',
             'status',
-            'current_technician_id',
-            'scheduled_start',
-            'canceled_at',
-            'canceled_by',
-            'created_at',
-            'updated_at',
+            //'current_technician_id',
+            //'scheduled_start',
+            //'canceled_at',
+            //'canceled_by',
+            //'created_at',
+            //'updated_at',
         ],
     ]) ?>
 

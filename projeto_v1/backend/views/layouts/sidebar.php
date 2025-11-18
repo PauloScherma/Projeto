@@ -8,7 +8,7 @@ $username = Yii::$app->user->identity->username;
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
         <img src="<?=$assetDir?>/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">PSIAssit</span>
+        <span class="brand-text font-weight-light">PSIAssist</span>
     </a>
 
     <!-- Sidebar -->
@@ -16,7 +16,7 @@ $username = Yii::$app->user->identity->username;
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="<?=$assetDir?>/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img src="../web/img/user-icon.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info ms-5">
                 <a class="d-block "><?=$username?></a>
@@ -41,25 +41,10 @@ $username = Yii::$app->user->identity->username;
             <?php
             echo \hail812\adminlte\widgets\Menu::widget([
                     'items' => [
-                    [
-                        'label' => 'Yii2 Dev Tools',
-                        'icon' => 'tachometer-alt',
-                        'badge' => '<span class="right badge badge-info">2</span>',
-                        'items' => [
-                            ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],
-                            ['label' => 'Debug', 'icon' => 'bug', 'url' => ['/debug'], 'target' => '_blank'],
-                        ]
-                    ],
-                    ['label' => 'Services', 'header' => true],
-                    ['label' => 'Request',
-                        'items'=>[
-                            ['label' => 'Pending', 'icon' => 'file-code', 'url' => ['/request'], 'target' => '_blank'],
-                            ['label' => 'Active', 'icon' => 'file-code', 'url' => ['/request'], 'target' => '_blank'],
-                            ['label' => 'History', 'icon' => 'file-code', 'url' => ['/request'], 'target' => '_blank'],
-                        ],
-                    ],
+                    //['label' => 'Services', 'header' => true],
                     ['label' => 'Management', 'header' => true],
-                        ['label' => 'Users', 'icon' => 'file-code', 'url' => ['/user'], 'target' => '_blank'],
+                        ['label' => 'Users', 'icon' => 'file-code', 'url' => ['/user'], 'target' => ''],
+                        ['label' => 'Request', 'icon' => 'file-code', 'url' => ['/request'], 'target' => ''],
                     ],
             ]);
             ?>

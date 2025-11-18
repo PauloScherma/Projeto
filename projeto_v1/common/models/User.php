@@ -79,7 +79,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Retorna a função do utilizador.
+     * Retorna a role do utilizador.
      * @return string|null
      */
     public function getRoleName()
@@ -108,10 +108,9 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Hashifica a password e o token de reset antes de salvar
+     * Hashifica a password e cria a authkey antes de salvar
      * {@inheritdoc}
      */
-    //para administração
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
@@ -121,12 +120,10 @@ class User extends ActiveRecord implements IdentityInterface
                 $this->setPassword($this->password);
                 $this->generateAuthKey();
             }
-
             // Moda o status
             if ($insert) {
                 $this->status = self::STATUS_ACTIVE;
             }
-
             return true;
         }
         return false;

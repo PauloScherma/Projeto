@@ -1,11 +1,10 @@
 <?php
 
-namespace backend\controllers;
+namespace frontend\controllers;
 
 use common\models\Request;
-use backend\models\RequestSearch;
 use Yii;
-use yii\filters\AccessControl;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -23,25 +22,11 @@ class RequestController extends Controller
         return array_merge(
             parent::behaviors(),
             [
-                'access' => [
-                    'class' => AccessControl::class,
-                    'rules' => [
-                        [
-                            'allow' => true,
-                            'actions' => ['index', 'view', 'create', 'update', 'delete'],
-                            'roles' => ['admin', 'gestor'],
-                        ],
-                        [
-                            'allow' => true,
-                            'actions' => ['index', 'view', 'create', 'update', 'delete'],
-                            'roles' => ['admin', 'gestor'],
-                        ]
-                    ],
-                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
-                        'delete' => ['POST'],
+                        //ter em atenção que era POST e mudei para GET
+                        'delete' => ['GET'],
                     ],
                 ],
             ]
@@ -55,11 +40,22 @@ class RequestController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new RequestSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $currentUserId = Yii::$app->user->id;
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => Request::find()
+            ->where(['customer_id' => $currentUserId]),
+            'pagination' => [
+                'pageSize' => 50
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ]
+            ],
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -91,7 +87,7 @@ class RequestController extends Controller
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        }else {
+        } else {
             $model->loadDefaultValues();
         }
 
@@ -112,8 +108,6 @@ class RequestController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            $model->customer_id = Yii::$app->user->id;
-
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

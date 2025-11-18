@@ -140,9 +140,10 @@ class RbacController extends Controller
         $cliente = $auth->createRole('cliente');
         $auth->add($cliente);
 
-        // cliente pode criar e ver os próprios pedidos e validar orçamento
+        // cliente pode criar e ver os próprios pedidos e validar orçamento e deletar os cancelar
         $auth->addChild($cliente, $requestView);
         $auth->addChild($cliente, $requestCreate);
+        $auth->addChild($cliente, $requestDelete);
         $auth->addChild($cliente, $requestValidateBudget);
 
         // avaliar o técnico

@@ -9,7 +9,7 @@ $this->title = 'Create Request';
 $this->params['breadcrumbs'][] = ['label' => 'Requests', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="request-create">
+<div class="request-create mx-5">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
