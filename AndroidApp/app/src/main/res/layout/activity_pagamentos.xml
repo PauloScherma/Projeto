@@ -14,79 +14,66 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:orientation="horizontal"
+        android:layout_gravity="center"
         android:padding="16dp">
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_user" />
+            android:src="@drawable/userphoto" />
 
         <TextView
+            android:id="@+id/headerUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:text="USERNAME"
+            android:layout_gravity="center"
+            android:text="@string/username"
+            android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="16sp" />
     </LinearLayout>
 
-    <!-- CONTEÚDO PRINCIPAL QUE ESTAVA FALTANDO -->
+    <!-- MAIN CONTENT -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@color/black"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:background="@color/black">
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
 
-        <!-- Documento 1 -->
+        <!-- Document 1 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:orientation="horizontal"
-            android:background="#F8F8F8"
+            android:layout_marginBottom="16dp"
+            android:background="@color/white"
             android:gravity="center_vertical"
-            android:padding="16dp"
-            android:layout_marginBottom="8dp">
+            android:orientation="horizontal"
+            android:padding="16dp">
 
             <TextView
+                android:id="@+id/Pagamento"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Pagamento 1"
-                android:textSize="16sp"
-                android:textColor="#000000" />
+                android:text="@string/pagamento"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
         </LinearLayout>
 
-        <!-- Documento 2 -->
+        <!-- Document 2 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:orientation="horizontal"
-            android:background="#F8F8F8"
-            android:gravity="center_vertical"
-            android:padding="16dp"
-            android:layout_marginBottom="8dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Pagamento 2"
-                android:textSize="16sp"
-                android:textColor="#000000" />
-        </LinearLayout>
-
-        <!-- Documento 3 -->
-
-        <!-- Espaço vazio -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="8dp"
-            android:background="#F8F8F8"
+            android:layout_marginBottom="16dp"
+            android:background="@color/white"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="16dp">
@@ -95,8 +82,27 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Pagamento 3"
-                android:textColor="#000000"
+                android:text="@string/pagamento"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- Document 3 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/pagamento"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -105,15 +111,7 @@
             android:layout_height="224dp"
             android:layout_weight="1" />
 
-        <!-- Botão Descarregar -->
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="Descarregar documento(se estiver algum selecionado)"
-            android:textSize="14sp"
-            android:background="#E0E0E0"
-            android:textColor="#000000"
-            android:textAllCaps="false" />
+
 
     </LinearLayout>
 
@@ -129,20 +127,20 @@
             android:layout_weight="1"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="O meu perfil"/>
+            android:text="@string/o_meu_perfil"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="Menu Principal"/>
+            android:text="@string/menu_principal"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:layout_height="match_parent"
-            android:text="Apoio Ao Cliente"/>
+            android:text="@string/apoio_ao_cliente"/>
     </LinearLayout>
 </LinearLayout>

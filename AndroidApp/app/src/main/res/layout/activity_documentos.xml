@@ -14,8 +14,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:orientation="horizontal"
+        android:layout_gravity="center"
         android:padding="16dp">
 
         <ImageView
@@ -24,10 +25,14 @@
             android:src="@drawable/userphoto" />
 
         <TextView
+            android:id="@+id/headerUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:layout_gravity="center"
             android:text="@string/username"
+            android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="16sp" />
     </LinearLayout>
 
