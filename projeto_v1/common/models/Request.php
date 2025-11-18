@@ -363,9 +363,11 @@ class Request extends \yii\db\ActiveRecord
     }
 
     //For sync
+    //For sync
     public static function getChangesSince($time)
     {
-        return self::find()->where(['>', 'updated_at', $time])->all();
-
+        return self::find()
+            ->where(['>', 'updated_at', $time])
+            ->all();
     }
 }
