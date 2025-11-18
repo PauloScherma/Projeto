@@ -4,8 +4,10 @@ namespace backend\controllers;
 
 use common\models\Request;
 use backend\models\RequestSearch;
+use common\models\User;
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -31,11 +33,6 @@ class RequestController extends Controller
                             'actions' => ['index', 'view', 'create', 'update', 'delete'],
                             'roles' => ['admin', 'gestor'],
                         ],
-                        [
-                            'allow' => true,
-                            'actions' => ['index', 'view', 'create', 'update', 'delete'],
-                            'roles' => ['admin', 'gestor'],
-                        ]
                     ],
                 ],
                 'verbs' => [
@@ -50,7 +47,6 @@ class RequestController extends Controller
 
     /**
      * Lists all Request models.
-     *
      * @return string
      */
     public function actionIndex()
@@ -110,15 +106,16 @@ class RequestController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $technicianList = User::getAllTechnicians(); // Chama o método acima ou coloca o código aqui
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             $model->customer_id = Yii::$app->user->id;
-
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'technicianList' => $technicianList,
         ]);
     }
 
@@ -148,7 +145,6 @@ class RequestController extends Controller
         if (($model = Request::findOne(['id' => $id])) !== null) {
             return $model;
         }
-
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

@@ -30,11 +30,12 @@ class UserController extends Controller
                         'actions' => ['index', 'view', 'create', 'update', 'delete'],
                         'roles' => ['admin', 'gestor'],
                     ],
-                    [
-                        'allow' => true,
-                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
-                        'roles' => ['admin', 'gestor'],
-                    ]
+                ],
+                'verbs' => [
+                    'class' => VerbFilter::className(),
+                    'actions' => [
+                        'delete' => ['POST'],
+                    ],
                 ],
             ],
         ];
@@ -85,7 +86,7 @@ class UserController extends Controller
 
         $currentUserRoles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
 
-        $isGestor = isset($currentUserRoles['gestor']);
+        $isGestor = $currentUserRoles['gestor'];
 
         if ($isGestor) {
             if (isset($roleItems['admin'])) {
@@ -139,7 +140,7 @@ class UserController extends Controller
 
         $currentUserRoles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
 
-        $isGestor = isset($currentUserRoles['gestor']);
+        $isGestor = $currentUserRoles['gestor'];
 
         if ($isGestor) {
             if (isset($roleItems['admin'])) {
@@ -149,9 +150,9 @@ class UserController extends Controller
         //END - dropdown do gestor
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
             //START - atribuição da role
             $auth = Yii::$app->authManager;
+            $roleNameFromForm = $model->roleName;
 
             if ($roleNameFromForm) {
 
@@ -186,8 +187,22 @@ class UserController extends Controller
         $model = $this->findModel($id);
 
         $auth = Yii::$app->authManager;
-        $auth->revokeAll($model->id);
 
+        //START - Bloquear gestor de eleminar admins
+        $currentUserRoles = $auth->getRolesByUser(Yii::$app->user->getId());
+        $isGestor = $currentUserRoles['gestor'];
+
+        $targetUserRoles = $auth->getRolesByUser($model->id);
+        $isTargetAdmin = $targetUserRoles['admin'];
+
+        if($isGestor && $isTargetAdmin)
+        {
+            Yii::$app->session->setFlash('error', 'Você não tem permissão para deletar este usuário.');
+            return $this->redirect(['index']);
+        }
+        //END - Bloquear gestor de eleminar admins
+
+        $auth->revokeAll($model->id);
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
