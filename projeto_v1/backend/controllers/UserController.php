@@ -31,12 +31,6 @@ class UserController extends Controller
                         'roles' => ['admin', 'gestor'],
                     ],
                 ],
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
             ],
         ];
     }
@@ -201,6 +195,10 @@ class UserController extends Controller
             return $this->redirect(['index']);
         }
         //END - Bloquear gestor de eleminar admins
+
+        /*if(!Yii::$app->user->can('userDelete')) {
+            return $this->redirect(['index']);
+        }*/
 
         $auth->revokeAll($model->id);
         $this->findModel($id)->delete();
