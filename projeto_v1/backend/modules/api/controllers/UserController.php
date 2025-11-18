@@ -166,7 +166,7 @@ class UserController extends ActiveController
 //------- Assistances -------
 
     //'PATCH {id}/cancel'  => 'cancel'
-    public function actionCancel($id){
+    public function actionSetCancel($id){
         // Find the resource (e.g., Order, Booking)
         $model = \app\models\Order::findOne($id);
 
@@ -192,45 +192,74 @@ class UserController extends ActiveController
         Yii::$app->response->statusCode = 400; // Bad Request or Validation Error
         return ['error' => 'Resource cannot be cancelled in its current state.'];
     }
+    //'GET' {id}/status'  => 'status'
+    public function actionGetStatus($id)
+    {
+        $request = \common\models\Request::findOne($id);
+
+        if (!$request) {
+            throw new \yii\web\NotFoundHttpException("Request not found.");
+        }
+
+        return [
+            'status' => $request->status
+        ];
+    }
 
     //PATCH {id}/status'  => 'status'
-    public function actionStatus($id){
-        $model = \app\models\Order::findOne($id);
+    public function actionStatus($id)
+    {
+        $request = \common\models\Request::findOne($id);
 
-        if (!$model) {
-            throw new \yii\web\NotFoundHttpException("The requested resource was not found.");
+        if (!$request) {
+            throw new \yii\web\NotFoundHttpException("Request not found.");
         }
 
-        // Load the new status value from the request body (e.g., {'status': 'completed'})
-        // The empty string '' ensures the data is read without a form name prefix.
-        if ($model->load(Yii::$app->getRequest()->getBodyParams(), '')) {
+        // Read the incoming value from Android
+        $status = Yii::$app->request->post('status');
 
-            // You should have a validation rule in the model to check if the new status is valid
-            if ($model->save()) {
-                Yii::$app->response->statusCode = 200;
-                return [
-                    'success' => true,
-                    'message' => 'Resource status updated.',
-                    'status' => $model->status
-                ];
-            } else {
-                // Validation errors (e.g., invalid status value)
-                Yii::$app->response->statusCode = 422;
-                return $model->getErrors();
-            }
+        // Allowed ENUM values
+        $allowedStatuses = [
+            'new',
+            'assigned',
+            'in_progress',
+            'waiting_parts',
+            'completed',
+            'canceled'
+        ];
+
+        // Validate ENUM
+        if (!in_array($status, $allowedStatuses)) {
+            Yii::$app->response->statusCode = 422; // Unprocessable Entity
+            return [
+                'success' => false,
+                'error' => "Invalid status value. Must be one of: " . implode(', ', $allowedStatuses)
+            ];
         }
 
-        Yii::$app->response->statusCode = 400; // Bad Request (No data provided)
-        return ['error' => 'No status data provided for update.'];
+        // Assign the enum value
+        $request->status = $status;
+
+        if ($request->save()) {
+            return [
+                'success' => true,
+                'status' => $request->status
+            ];
+        }
+
+        return [
+            'success' => false,
+            'errors' => $request->errors
+        ];
     }
 
     //'POST {id}/rating'   => 'rating'
     public function actionRating($id){
         // Assuming you have a separate Rating model
-        $rating = new \app\models\Rating();
+        $rating = new \app\models\Request();
 
         // Set the foreign key to the main resource ID
-        $rating->resource_id = $id;
+        $rating->request_id = $id;
 
         // Set the user ID who is giving the rating
         $rating->user_id = Yii::$app->user->id;
@@ -254,9 +283,9 @@ class UserController extends ActiveController
     //'POST {id}/reports'  => 'create-report'
     public function actionCreateReports($id){
         // Assuming you have a separate Report model
-        $report = new \app\models\Report();
+        $report = new \app\models\Request();
 
-        $report->resource_id = $id;
+        $report->request_id = $id;
         $report->user_id = Yii::$app->user->id;
 
         // Load data (e.g., reason, details)
@@ -278,13 +307,9 @@ class UserController extends ActiveController
     //'GET  {id}/reports'  => 'list-reports'
     public function actionListReports($id){
         // Find all reports related to the resource ID
-        $reports = \app\models\Report::find()
-            ->where(['resource_id' => $id])
-            ->with('user') // Eager load the user who submitted the report
-            ->all();
-
         $reports = \common\models\Request::find($id)
-            ->where(['customere_id' => null]);
+            ->where(['request_id' => $id])
+            ->all();
 
         if (empty($reports)) {
             Yii::$app->response->statusCode = 404; // Not Found if no reports exist

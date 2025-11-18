@@ -64,6 +64,7 @@ return [
                         //------- ASSISTANCES -------
                         'PATCH {id}/cancel'  => 'cancel',
                         'PATCH {id}/status'  => 'status',
+                        'GET {id}/status'  => 'status',
                         'POST {id}/rating'   => 'rating',
                         'POST {id}/reports'  => 'create-report',
                         'GET  {id}/reports'  => 'list-reports',

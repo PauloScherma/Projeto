@@ -141,7 +141,10 @@ class Profile extends \yii\db\ActiveRecord
     //For sync
     public static function getChangesSince($time)
     {
-        return self::find()->where(['>', 'updated_at', $time])->all();
+        return self::find()
+            ->where(['>', 'updated_at', $time])
+            ->all();
     }
+
 
 }
