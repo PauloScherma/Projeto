@@ -1,84 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePageClienteActivity"
-    android:background="#1D2121"
-    android:orientation="vertical">
+    android:background="@color/black"
+    android:orientation="vertical"
+    tools:context=".HomePageClienteActivity">
 
     <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:orientation="horizontal"
+        android:layout_gravity="center"
         android:padding="16dp">
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_user" />
+            android:src="@drawable/userphoto" />
+
+        <TextView
+            android:id="@+id/headerUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_gravity="center"
+            android:text="@string/username"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- WELCOME SECTION -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:background="@color/black"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:text="USERNAME"
-            android:textSize="16sp" />
+            android:text="@string/bem_vindo"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/welcomeUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/username"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- CONTEÚDO PRINCIPAL DO MENU PRINCIPAL -->
+    <!-- MAIN CONTENT -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"
         android:background="@color/black"
-        android:gravity="center"
-        android:padding="40dp">
+        android:orientation="vertical"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
 
-        <!-- Aqui vai o conteúdo específico do Menu Principal -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Conteúdo do Menu Principal"
-            android:textSize="20sp"
-            android:textColor="#000000" />
+        <!-- Document 1 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp">
 
-        <!-- Adicione mais botões ou opções do menu principal aqui -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/documento"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </LinearLayout>
 
+        <!-- Document 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/documento"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- Document 3 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/documento"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- Espaço flexível -->
+
+        <!-- Download Button -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/white"
+            android:text="@string/pedir_assistencia"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
     </LinearLayout>
 
-    <!-- Menu inferior -->
+    <!-- BOTTOM MENU -->
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:layout_height="match_parent"
-            android:text="O meu perfil"/>
+            android:text="@string/o_meu_perfil"
+            android:textColor="@color/black" />
 
         <TextView
             android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:layout_height="match_parent"
-            android:text="Menu Principal"/>
+            android:text="@string/menu_principal"
+            android:textColor="@color/black" />
 
         <TextView
             android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:layout_height="match_parent"
-            android:text="Apoio ao Cliente"/>
+            android:text="@string/apoio_ao_cliente"
+            android:textColor="@color/black" />
     </LinearLayout>
 </LinearLayout>
