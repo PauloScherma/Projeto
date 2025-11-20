@@ -34,20 +34,20 @@ class UserController extends ActiveController
         // For testing trun auth behavior off
         // Para grantir que nao exixtem problemas com os request da api
         // Se a auth tiver ligada e der problema nao se sabe se o problema é da api ou dos requests
-    /*
+
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
-            'class' => QueryParamAuth::className(),
-            'except' => ['index', 'view'], //Excluir aos GETs
-            'auth' => [$this,'authintercept'],
-            //'class' => \CustomAuth::className()
+            //'class' => QueryParamAuth::className(),
+            //'except' => ['index', 'view'], //Excluir aos GETs
+            //'auth' => [$this,'authintercept'],
+            'class' => \CustomAuth::className()
 
         ];
         return $behaviors;
-    */
+
     }
 
-    /*public function authintercept($username, $password){
+    public function authintercept($username, $password){
         $user = \common\models\User::findByUsername($username);
          if ($user && $user->validatePassword($password))
          {
@@ -55,7 +55,7 @@ class UserController extends ActiveController
              return $user;
          }
          throw new \yii\web\ForbiddenHttpException('Error auth'); //403
-    }*/
+    }
 
                     //Custon functions for Api endpoints
 
