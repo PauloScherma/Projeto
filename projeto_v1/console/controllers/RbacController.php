@@ -182,6 +182,12 @@ class RbacController extends Controller
         // gestor herda tudo do técnico
         $auth->addChild($gestor, $tecnico);
 
+        //crud user
+        $auth->addChild($gestor, $userView);
+        $auth->addChild($gestor, $userCreate);
+        $auth->addChild($gestor, $userUpdate);
+        $auth->addChild($gestor, $userDelete);
+
         // gestor atribui técnicos e altera
         $auth->addChild($gestor, $assignmentAssignTechnician);
         $auth->addChild($gestor, $assignmentChangeTechnician);
@@ -207,10 +213,6 @@ class RbacController extends Controller
         $admin = $auth->createRole('admin');
         $auth->add($admin);
         $auth->addChild($admin, $gestor);
-        $auth->addChild($admin, $userView);
-        $auth->addChild($admin, $userCreate);
-        $auth->addChild($admin, $userUpdate);
-        $auth->addChild($admin, $userDelete);
         $auth->addChild($admin, $userChangeAvailability);
 
         // ---- Criação primeiro admin ----
