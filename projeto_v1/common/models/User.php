@@ -106,7 +106,22 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->roleName = $value;
     }
+    /**
+     * Pega todos os use onde a rule é tecnico
+     * @return array todos os user com rule tecnico
+     */
+    public static function getAllTechnicians()
+    {
+        $auth = Yii::$app->authManager;
 
+        $technicianIds = $auth->getUserIdsByRole('tecnico');
+
+        $technicians = User::find()
+            ->where(['id' => $technicianIds])
+            ->all();
+
+        return \yii\helpers\ArrayHelper::map($technicians, 'id', 'username');
+    }
     /**
      * Hashifica a password e cria a authkey antes de salvar
      * {@inheritdoc}

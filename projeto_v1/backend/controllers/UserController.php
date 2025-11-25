@@ -30,11 +30,6 @@ class UserController extends Controller
                         'actions' => ['index', 'view', 'create', 'update', 'delete'],
                         'roles' => ['admin', 'gestor'],
                     ],
-                    [
-                        'allow' => true,
-                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
-                        'roles' => ['admin', 'gestor'],
-                    ]
                 ],
             ],
         ];
@@ -149,9 +144,9 @@ class UserController extends Controller
         //END - dropdown do gestor
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
             //START - atribuição da role
             $auth = Yii::$app->authManager;
+            $roleNameFromForm = $model->roleName;
 
             if ($roleNameFromForm) {
 
@@ -186,8 +181,26 @@ class UserController extends Controller
         $model = $this->findModel($id);
 
         $auth = Yii::$app->authManager;
-        $auth->revokeAll($model->id);
 
+        //START - Bloquear gestor de eleminar admins
+        $currentUserRoles = $auth->getRolesByUser(Yii::$app->user->getId());
+        $isGestor = isset($currentUserRoles['gestor']);
+
+        $targetUserRoles = $auth->getRolesByUser($model->id);
+        $isTargetAdmin = isset($targetUserRoles['admin']);
+
+        if($isGestor && $isTargetAdmin)
+        {
+            Yii::$app->session->setFlash('error', 'Você não tem permissão para deletar este usuário.');
+            return $this->redirect(['index']);
+        }
+        //END - Bloquear gestor de eleminar admins
+
+        /*if(!Yii::$app->user->can('userDelete')) {
+            return $this->redirect(['index']);
+        }*/
+
+        $auth->revokeAll($model->id);
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

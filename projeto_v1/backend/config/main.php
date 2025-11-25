@@ -64,6 +64,7 @@ return [
                         //------- ASSISTANCES -------
                         'PATCH {id}/cancel'  => 'cancel',
                         'PATCH {id}/status'  => 'status',
+                        'GET {id}/status'  => 'status',
                         'POST {id}/rating'   => 'rating',
                         'POST {id}/reports'  => 'create-report',
                         'GET  {id}/reports'  => 'list-reports',
@@ -73,12 +74,6 @@ return [
                         // ------ TECHNICIANS -------
                         'PUT {id}/availability' => 'set-availability',
                         'GET {id}/availability' => 'get-availability',
-
-                        //------- PUSH NOTIFICATIONS
-                        'POST register1' => 'register-device',
-
-                        //------  NOTIFICATIONS ------
-                        'PATCH {id}/read' => 'read',
 
                         //------ SYNC OFFLINE --------
                         'GET changes' => 'changes',

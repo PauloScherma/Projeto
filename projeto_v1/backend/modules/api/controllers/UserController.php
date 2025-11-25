@@ -2,6 +2,7 @@
 
 namespace backend\modules\api\controllers;
 
+use app\models\User;
 use Yii;
 use yii\filters\auth\QueryParamAuth;
 use yii\rest\ActiveController;
@@ -33,20 +34,20 @@ class UserController extends ActiveController
         // For testing trun auth behavior off
         // Para grantir que nao exixtem problemas com os request da api
         // Se a auth tiver ligada e der problema nao se sabe se o problema é da api ou dos requests
-    /*
+
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
-            'class' => QueryParamAuth::className(),
-            'except' => ['index', 'view'], //Excluir aos GETs
-            'auth' => [$this,'authintercept'],
-            //'class' => \CustomAuth::className()
+            //'class' => QueryParamAuth::className(),
+            //'except' => ['index', 'view'], //Excluir aos GETs
+            //'auth' => [$this,'authintercept'],
+            'class' => \CustomAuth::className()
 
         ];
         return $behaviors;
-    */
+
     }
 
-    /*public function authintercept($username, $password){
+    public function authintercept($username, $password){
         $user = \common\models\User::findByUsername($username);
          if ($user && $user->validatePassword($password))
          {
@@ -54,7 +55,7 @@ class UserController extends ActiveController
              return $user;
          }
          throw new \yii\web\ForbiddenHttpException('Error auth'); //403
-    }*/
+    }
 
                     //Custon functions for Api endpoints
 
@@ -165,7 +166,7 @@ class UserController extends ActiveController
 //------- Assistances -------
 
     //'PATCH {id}/cancel'  => 'cancel'
-    public function actionCancel($id){
+    public function actionSetCancel($id){
         // Find the resource (e.g., Order, Booking)
         $model = \app\models\Order::findOne($id);
 
@@ -191,45 +192,74 @@ class UserController extends ActiveController
         Yii::$app->response->statusCode = 400; // Bad Request or Validation Error
         return ['error' => 'Resource cannot be cancelled in its current state.'];
     }
+    //'GET' {id}/status'  => 'status'
+    public function actionGetStatus($id)
+    {
+        $request = \common\models\Request::findOne($id);
+
+        if (!$request) {
+            throw new \yii\web\NotFoundHttpException("Request not found.");
+        }
+
+        return [
+            'status' => $request->status
+        ];
+    }
 
     //PATCH {id}/status'  => 'status'
-    public function actionStatus($id){
-        $model = \app\models\Order::findOne($id);
+    public function actionStatus($id)
+    {
+        $request = \common\models\Request::findOne($id);
 
-        if (!$model) {
-            throw new \yii\web\NotFoundHttpException("The requested resource was not found.");
+        if (!$request) {
+            throw new \yii\web\NotFoundHttpException("Request not found.");
         }
 
-        // Load the new status value from the request body (e.g., {'status': 'completed'})
-        // The empty string '' ensures the data is read without a form name prefix.
-        if ($model->load(Yii::$app->getRequest()->getBodyParams(), '')) {
+        // Read the incoming value from Android
+        $status = Yii::$app->request->post('status');
 
-            // You should have a validation rule in the model to check if the new status is valid
-            if ($model->save()) {
-                Yii::$app->response->statusCode = 200;
-                return [
-                    'success' => true,
-                    'message' => 'Resource status updated.',
-                    'status' => $model->status
-                ];
-            } else {
-                // Validation errors (e.g., invalid status value)
-                Yii::$app->response->statusCode = 422;
-                return $model->getErrors();
-            }
+        // Allowed ENUM values
+        $allowedStatuses = [
+            'new',
+            'assigned',
+            'in_progress',
+            'waiting_parts',
+            'completed',
+            'canceled'
+        ];
+
+        // Validate ENUM
+        if (!in_array($status, $allowedStatuses)) {
+            Yii::$app->response->statusCode = 422; // Unprocessable Entity
+            return [
+                'success' => false,
+                'error' => "Invalid status value. Must be one of: " . implode(', ', $allowedStatuses)
+            ];
         }
 
-        Yii::$app->response->statusCode = 400; // Bad Request (No data provided)
-        return ['error' => 'No status data provided for update.'];
+        // Assign the enum value
+        $request->status = $status;
+
+        if ($request->save()) {
+            return [
+                'success' => true,
+                'status' => $request->status
+            ];
+        }
+
+        return [
+            'success' => false,
+            'errors' => $request->errors
+        ];
     }
 
     //'POST {id}/rating'   => 'rating'
     public function actionRating($id){
         // Assuming you have a separate Rating model
-        $rating = new \app\models\Rating();
+        $rating = new \app\models\Request();
 
         // Set the foreign key to the main resource ID
-        $rating->resource_id = $id;
+        $rating->request_id = $id;
 
         // Set the user ID who is giving the rating
         $rating->user_id = Yii::$app->user->id;
@@ -253,9 +283,9 @@ class UserController extends ActiveController
     //'POST {id}/reports'  => 'create-report'
     public function actionCreateReports($id){
         // Assuming you have a separate Report model
-        $report = new \app\models\Report();
+        $report = new \app\models\Request();
 
-        $report->resource_id = $id;
+        $report->request_id = $id;
         $report->user_id = Yii::$app->user->id;
 
         // Load data (e.g., reason, details)
@@ -277,9 +307,8 @@ class UserController extends ActiveController
     //'GET  {id}/reports'  => 'list-reports'
     public function actionListReports($id){
         // Find all reports related to the resource ID
-        $reports = \app\models\Report::find()
-            ->where(['resource_id' => $id])
-            ->with('user') // Eager load the user who submitted the report
+        $reports = \common\models\Request::find($id)
+            ->where(['request_id' => $id])
             ->all();
 
         if (empty($reports)) {
@@ -293,6 +322,7 @@ class UserController extends ActiveController
     }
 
     //'POST {id}/messages' => 'send-message'
+   /* Not Going to Implement
     public function actionSendMessages($id){
         // Assuming you have a separate Message model
         $message = new \app\models\Message();
@@ -315,8 +345,9 @@ class UserController extends ActiveController
             return $message->getErrors();
         }
     }
-
+    */
     //'GET  {id}/messages' => 'messages'
+   /*
     public function actionMessages($id){
         // Find all messages related to the resource ID, ordered by time
         $messages = \app\models\Message::find()
@@ -329,60 +360,61 @@ class UserController extends ActiveController
         // Return the list of messages
         return $messages;
     }
+   */
 
 //------- Technicians -------
 
     //'PUT {id}/availability' => 'set-availability'
-    public function actionSetAvailability($id){
-        // Find the Technician model
-        $technician = \app\models\Technician::findOne($id);
+    public function actionSetAvailability($userid)
+    {
+        $profileTech = \common\models\Profile::findOne($userid);
 
-        if (!$technician) {
+        if (!$profileTech) {
             throw new \yii\web\NotFoundHttpException("Technician not found.");
         }
 
-        // Load ALL data from the request body into the model (e.g., availability array)
-        // NOTE: Availability data is complex; you might use a separate Availability model
-        // or a specialized form model for better validation. For simplicity here,
-        // we assume the Technician model handles the update.
-        if ($technician->load(Yii::$app->getRequest()->getBodyParams(), '') && $technician->save()) {
+        // This reads "true" or "false" from Android
+        $value = Yii::$app->request->post('availability');
 
-            Yii::$app->response->statusCode = 200; // HTTP 200 OK (Successful update)
+        // Convert the incoming string to actual boolean
+        $profileTech->availability = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+
+        if ($profileTech->save()) {
             return [
                 'success' => true,
-                'message' => "Availability for Technician #$id updated successfully."
+                'availability' => (bool) $profileTech->availability
             ];
-
-        } else {
-            Yii::$app->response->statusCode = 422; // Unprocessable Entity
-            return $technician->getErrors();
         }
+
+        return [
+            'success' => false,
+            'errors' => $profileTech->errors
+        ];
     }
 
-    //'GET {id}/availability' => 'get-availability'
-    public function actionGetAvailability($id){
-        // Find the Technician model, and potentially eager-load related availability records
-        $technician = \app\models\Technician::find()
-            ->where(['id' => $id])
-            ->with('availability') // Assuming 'availability' is a relation
-            ->one();
 
-        if (!$technician) {
+    //'GET {id}/availability' => 'get-availability'
+    public function actionGetAvailability($id)
+    {
+        $profile = \common\models\Profile::findOne($id);
+
+        if (!$profile) {
             throw new \yii\web\NotFoundHttpException("Technician not found.");
         }
 
-        Yii::$app->response->statusCode = 200;
-
-        // Return just the availability data from the model relation
-        return $technician->availability;
+        return [
+            'availability' => (bool) $profile->availability
+        ];
     }
 
-//------- Push Notifications -------
+
+//------- Push Notifications ------- // not going to implement not necessary
 
     //'POST register' => 'register-device'
+   /*
     public function actionRegisterDevice($id){
         // Assume you have a Device model to store tokens
-        $device = new \app\models\Device();
+        $device = new \app\models\();
 
         // Load data: device_token, platform (ios/android), and user_id (if authenticated)
         if ($device->load(Yii::$app->getRequest()->getBodyParams(), '')) {
@@ -408,10 +440,11 @@ class UserController extends ActiveController
         Yii::$app->response->statusCode = 400;
         return ['error' => 'Missing device token or platform information.'];
     }
-
+*/
 //------- Notifications -------
 
-    //'PATCH {id}/read' => 'read'
+    //'PATCH {id}/read' => 'read' //Not going to implement
+  /*
     public function actionRead($id){
         // Find the Notification model. Ensure it belongs to the current user.
         $notification = \app\models\Notification::findOne([
@@ -438,7 +471,7 @@ class UserController extends ActiveController
         Yii::$app->response->statusCode = 500;
         return ['error' => 'Could not update notification status.'];
     }
-
+*/
 //------- Sync Offline -------
 
     //'GET changes' => 'changes'
@@ -446,11 +479,12 @@ class UserController extends ActiveController
         // 1. Get the last sync timestamp or version ID from the client query params
         $lastSyncTime = Yii::$app->request->get('since');
 
-        // 2. Fetch the required data changes (e.g., all new/updated records)
+        // 2. Fetch the required data changes
         $changes = [
-            'new_orders' => \app\models\Order::getChangesSince($lastSyncTime),
-            'updated_technicians' => \app\models\Technician::getChangesSince($lastSyncTime),
-            // ... include other necessary models
+            // Add more if needed
+            'request' => \common\models\Request::getChangesSince($lastSyncTime),
+            'profile' => \common\models\Profile::getChangesSince($lastSyncTime),
+            'user' => \common\models\User::getChangesSince($lastSyncTime),
         ];
 
         Yii::$app->response->statusCode = 200;
@@ -460,7 +494,9 @@ class UserController extends ActiveController
     }
 
     //'POST batch'  => 'batch'
+    /* // NOT NEEDED
     public function actionBatch(){
+        // Either everything succeeds, or everything fails—no half-saved data.
         $transaction = Yii::$app->db->beginTransaction();
         $processedResults = [];
         $hasError = false;
@@ -505,4 +541,5 @@ class UserController extends ActiveController
 
         return ['results' => $processedResults, 'success' => !$hasError];
     }
+    */
 }

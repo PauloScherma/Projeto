@@ -73,14 +73,15 @@ class UserSearch extends user
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'verification_token', $this->verification_token]);
 
+        //START - Lógica show user menos admin se gestor
         $currentUserRoles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
         $isGestor = isset($currentUserRoles['gestor']);
-
         if ($isGestor) {
             $query->leftJoin('auth_assignment', 'id = user_id');
             $query->andWhere(['<>', 'auth_assignment.item_name', 'admin']);
             $query->groupBy('id');
         }
+        //END - Lógica show user menos admin se gestor
 
         return $dataProvider;
     }
