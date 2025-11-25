@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< Updated upstream
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+=======
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+>>>>>>> Stashed changes
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,6 +15,7 @@
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
+<<<<<<< Updated upstream
     <!-- Container do topo com as duas imagens -->
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,20 +34,53 @@
             android:layout_marginStart="-2dp"
             android:layout_marginTop="-5dp"
             android:scaleType="centerCrop"
+=======
+    <!-- Container do topo com as cruzes e logotipo -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="310dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="20dp">
+
+        <!-- Imagem das cruzes no topo -->
+
+        <!-- Logotipo PSIASSIST sobreposto -->
+
+        <ImageView
+            android:id="@+id/topo_image"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitStart"
+>>>>>>> Stashed changes
             android:src="@drawable/img1" />
 
         <ImageView
             android:id="@+id/logo_image"
+<<<<<<< Updated upstream
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_centerInParent="true"
             android:contentDescription="Logotipo PSIASSIST"
+=======
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_alignBottom="@id/topo_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="-63dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/logo_desc"
+>>>>>>> Stashed changes
             android:scaleType="fitCenter"
             android:src="@drawable/logo" />
 
     </RelativeLayout>
 
+<<<<<<< Updated upstream
     <!-- Container do formulário de login -->
+=======
+    <!-- Container principal do formulário -->
+>>>>>>> Stashed changes
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -50,17 +91,29 @@
         android:paddingRight="40dp">
 
         <!-- Título Login -->
+<<<<<<< Updated upstream
+=======
+
+        <!-- Subtítulo Faz login para continuar -->
+>>>>>>> Stashed changes
         <TextView
             android:id="@+id/login_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+<<<<<<< Updated upstream
             android:layout_marginTop="0dp"
+=======
+            android:layout_marginTop="20dp"
+>>>>>>> Stashed changes
             android:text="Login"
             android:textColor="@android:color/black"
             android:textSize="28sp"
             android:textStyle="bold" />
 
+<<<<<<< Updated upstream
         <!-- Subtítulo -->
+=======
+>>>>>>> Stashed changes
         <TextView
             android:id="@+id/login_subtitle"
             android:layout_width="wrap_content"
@@ -70,6 +123,7 @@
             android:textColor="#888888"
             android:textSize="14sp" />
 
+<<<<<<< Updated upstream
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -131,17 +185,75 @@
             android:layout_height="50dp"
             android:layout_marginTop="24dp"
             android:backgroundTint="@color/black"
+=======
+        <!-- Espaçamento -->
+        <!-- Campo NOME -->
+
+        <TextView
+            android:id="@+id/nome_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Insere o teu nome"
+            android:textColor="#888888"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/input_name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="NOME"
+            android:inputType="textPersonName"
+            android:padding="14dp"
+            android:text="Maria"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/pass_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Insere a tua password"
+            android:textColor="#888888"
+            android:textSize="14sp" />
+
+        <!-- Campo PASSWORD -->
+        <EditText
+            android:id="@+id/input_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/edittext_bg"
+            android:hint="PASSWORD"
+            android:inputType="textPassword"
+            android:padding="14dp"
+            android:text="••••••"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <!-- Botão Log in -->
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:background="@android:color/black"
+>>>>>>> Stashed changes
             android:text="Log in"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
 
+<<<<<<< Updated upstream
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".01" />
 
         <!-- Link recuperar password -->
+=======
+        <!-- Link Esqueceste-te da password? -->
+>>>>>>> Stashed changes
         <TextView
             android:id="@+id/forgot_password"
             android:layout_width="wrap_content"
@@ -151,12 +263,16 @@
             android:textColor="#777777"
             android:textSize="12sp" />
 
+<<<<<<< Updated upstream
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".01" />
 
         <!-- Link criar conta -->
+=======
+        <!-- Link Não tens conta? Cria uma aqui! -->
+>>>>>>> Stashed changes
         <TextView
             android:id="@+id/create_account"
             android:layout_width="wrap_content"
@@ -166,10 +282,13 @@
             android:textColor="#777777"
             android:textSize="12sp" />
 
+<<<<<<< Updated upstream
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".01" />
+=======
+>>>>>>> Stashed changes
     </LinearLayout>
 
 </LinearLayout>
