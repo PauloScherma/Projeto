@@ -41,34 +41,69 @@ $username = Yii::$app->user->identity->username;
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <?php
-            echo \hail812\adminlte\widgets\Menu::widget([
-                'items' => [
-                    ['label' => 'Management', 'header' => true],
-                    [
-                        'label' => 'Requests',
-                        'icon' => 'list-alt',
-                        'items' => [
+
+            $currentUserRoles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
+            $isGestor = isset($currentUserRoles['gestor']);
+
+            if ($isGestor) {
+                echo \hail812\adminlte\widgets\Menu::widget([
+                    'items' => [
+                        ['label' => 'Management', 'header' => true],
+                        [
+                            'label' => 'Requests',
+                            'icon' => 'list-alt',
+                            'items' => [
                                 //'new', 'in_progress', 'completed', 'canceled'
-                            ['label' => 'All Requests', 'icon' => 'folder-open', 'url' => ['/request/index']],
-                            ['label' => 'New', 'icon' => 'plus-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'new']],
-                            ['label' => 'In Progress', 'icon' => 'sync', 'url' => ['/request/index', 'RequestSearch[status]' => 'active']],
-                            ['label' => 'Completed', 'icon' => 'check-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'closed']],
-                            ['label' => 'Canceled', 'icon' => 'times-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'closed']],
-                        ]
+                                ['label' => 'All Requests', 'icon' => 'folder-open', 'url' => ['/request/index']],
+                                ['label' => 'New', 'icon' => 'plus-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'new']],
+                                ['label' => 'In Progress', 'icon' => 'sync', 'url' => ['/request/index', 'RequestSearch[status]' => 'active']],
+                                ['label' => 'Completed', 'icon' => 'check-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'closed']],
+                                ['label' => 'Canceled', 'icon' => 'times-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'closed']],
+                            ]
+                        ],
+                        [
+                            'label' => 'Users',
+                            'icon' => 'users',
+                            'items' => [
+                                ['label' => 'All Users', 'icon' => 'user-friends', 'url' => ['/user/index']],
+                                ['label' => 'Manager', 'icon' => 'user-cog', 'url' => ['/user/index', 'UserSearch[role]' => 'gestor']],
+                                ['label' => 'Technician', 'icon' => 'user-plus', 'url' => ['/user/index', 'UserSearch[role]' => 'tecnico']],
+                                ['label' => 'Client', 'icon' => 'user', 'url' => ['/user/index', 'UserSearch[role]' => 'cliente']],
+                            ]
+                        ],
                     ],
-                    [
-                        'label' => 'Users',
-                        'icon' => 'users',
+                ]);
+            }
+            else{
+                    echo \hail812\adminlte\widgets\Menu::widget([
                         'items' => [
-                            ['label' => 'All Users', 'icon' => 'user-friends', 'url' => ['/user/index']],
-                            ['label' => 'Admins', 'icon' => 'user-shield', 'url' => ['/user/index', 'UserSearch[role]' => 'admin']],
-                            ['label' => 'Manager', 'icon' => 'user-cog', 'url' => ['/user/index', 'UserSearch[role]' => 'gestor']],
-                            ['label' => 'Technician', 'icon' => 'user-plus', 'url' => ['/user/index', 'UserSearch[role]' => 'tecnico']],
-                            ['label' => 'Client', 'icon' => 'user', 'url' => ['/user/index', 'UserSearch[role]' => 'cliente']],
-                        ]
-                    ],
-                ],
-            ]);
+                            ['label' => 'Management', 'header' => true],
+                            [
+                                'label' => 'Requests',
+                                'icon' => 'list-alt',
+                                'items' => [
+                                    //'new', 'in_progress', 'completed', 'canceled'
+                                    ['label' => 'All Requests', 'icon' => 'folder-open', 'url' => ['/request/index']],
+                                    ['label' => 'New', 'icon' => 'plus-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'new']],
+                                    ['label' => 'In Progress', 'icon' => 'sync', 'url' => ['/request/index', 'RequestSearch[status]' => 'in_progress']],
+                                    ['label' => 'Completed', 'icon' => 'check-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'completed']],
+                                    ['label' => 'Canceled', 'icon' => 'times-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'canceled']],
+                                ]
+                            ],
+                            [
+                                'label' => 'Users',
+                                'icon' => 'users',
+                                'items' => [
+                                    ['label' => 'All Users', 'icon' => 'user-friends', 'url' => ['/user/index']],
+                                    ['label' => 'Admins', 'icon' => 'user-shield', 'url' => ['/user/index', 'UserSearch[role]' => 'admin']],
+                                    ['label' => 'Manager', 'icon' => 'user-cog', 'url' => ['/user/index', 'UserSearch[role]' => 'gestor']],
+                                    ['label' => 'Technician', 'icon' => 'user-plus', 'url' => ['/user/index', 'UserSearch[role]' => 'tecnico']],
+                                    ['label' => 'Client', 'icon' => 'user', 'url' => ['/user/index', 'UserSearch[role]' => 'cliente']],
+                                ]
+                            ],
+                        ],
+                    ]);
+            }
             ?>
         </nav>
         <!-- /.sidebar-menu -->

@@ -10,14 +10,17 @@ use common\models\user;
 /**
  * UserSearch represents the model behind the search form of `common\models\user`.
  */
-class UserSearch extends user
+class UserSearch extends User
 {
+    public $role;
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
+            [['role'], 'safe'],
             [['id', 'status', 'created_at', 'updated_at'], 'integer'],
             [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'verification_token'], 'safe'],
         ];
@@ -82,6 +85,15 @@ class UserSearch extends user
             $query->groupBy('id');
         }
         //END - Lógica show user menos admin se gestor
+
+        //START - Lógica do filtro da sidebar
+        //query diretamente com a tabela auth_assigment na base de dados
+        $query->leftJoin('{{%auth_assignment}}', '{{%auth_assignment}}.user_id = {{%user}}.id');
+        //filtra pela role
+        $query->andFilterWhere(['like', '{{%auth_assignment}}.item_name', $this->role]);
+        //agropa pelo id do user
+        $query->groupBy('user.id');
+        //END - Lógica do filtro da sidebar
 
         return $dataProvider;
     }
