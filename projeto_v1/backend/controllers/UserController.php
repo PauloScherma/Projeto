@@ -80,7 +80,7 @@ class UserController extends Controller
 
         $currentUserRoles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
 
-        $isGestor = $currentUserRoles['gestor'];
+        $isGestor = isset($currentUserRoles['gestor']);
 
         if ($isGestor) {
             if (isset($roleItems['admin'])) {
@@ -134,7 +134,7 @@ class UserController extends Controller
 
         $currentUserRoles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
 
-        $isGestor = $currentUserRoles['gestor'];
+        $isGestor = isset($currentUserRoles['gestor']);
 
         if ($isGestor) {
             if (isset($roleItems['admin'])) {
@@ -184,10 +184,10 @@ class UserController extends Controller
 
         //START - Bloquear gestor de eleminar admins
         $currentUserRoles = $auth->getRolesByUser(Yii::$app->user->getId());
-        $isGestor = $currentUserRoles['gestor'];
+        $isGestor = isset($currentUserRoles['gestor']);
 
         $targetUserRoles = $auth->getRolesByUser($model->id);
-        $isTargetAdmin = $targetUserRoles['admin'];
+        $isTargetAdmin = isset($targetUserRoles['admin']);
 
         if($isGestor && $isTargetAdmin)
         {
