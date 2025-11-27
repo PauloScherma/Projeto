@@ -82,6 +82,8 @@ class RequestController extends Controller
     {
         $model = new Request();
         $model->customer_id = Yii::$app->user->id;
+        $technicianList = User::getAllTechnicians(); // Chama o método acima ou coloca o código aqui
+
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -93,6 +95,7 @@ class RequestController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'technicianList' => $technicianList,
         ]);
     }
 

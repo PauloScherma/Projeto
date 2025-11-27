@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'priority')->dropDownList([ 'low' => 'Low', 'medium' => 'Medium', 'high' => 'High', ], ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'status')->dropDownList([ 'new' => 'New', 'assigned' => 'Assigned', 'in_progress' => 'In progress', 'waiting_parts' => 'Waiting parts', 'completed' => 'Completed', 'canceled' => 'Canceled', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'status')->dropDownList([ 'new' => 'New',  'in_progress' => 'In progress', 'completed' => 'Completed', 'canceled' => 'Canceled', ]) ?>
 
     <?= $form->field($model, 'current_technician_id')->dropDownList($technicianList) ?>
 

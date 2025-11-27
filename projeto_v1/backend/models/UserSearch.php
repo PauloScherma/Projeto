@@ -88,11 +88,11 @@ class UserSearch extends User
 
         //START - Lógica do filtro da sidebar
         //query diretamente com a tabela auth_assigment na base de dados
-        $query->leftJoin('{{%auth_assignment}}', '{{%auth_assignment}}.user_id = {{%user}}.id');
-        //filtra pela role
-        $query->andFilterWhere(['like', '{{%auth_assignment}}.item_name', $this->role]);
-        //agropa pelo id do user
-        $query->groupBy('user.id');
+//        $query->leftJoin('{{%auth_assignment}}', '{{%auth_assignment}}.user_id = {{%user}}.id');
+//        //filtra pela role
+//        $query->andFilterWhere(['like', '{{%auth_assignment}}.item_name', $this->role]);
+//        //agropa pelo id do user
+//        $query->groupBy('user.id');
         //END - Lógica do filtro da sidebar
 
         return $dataProvider;

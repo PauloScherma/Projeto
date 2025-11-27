@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'description',
             'priority',
             'status',
-            //'current_technician_id',
+            'current_technician_id',
             //'scheduled_start',
             //'canceled_at',
             //'canceled_by',

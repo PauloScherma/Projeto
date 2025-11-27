@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\Request;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -22,6 +23,21 @@ class RequestController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                            'roles' => ['cliente'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['index', 'view', 'update'],
+                            'roles' => ['tecnico'],
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -42,6 +58,12 @@ class RequestController extends Controller
     {
         $currentUserId = Yii::$app->user->id;
 
+        $auth = Yii::$app->authManager;
+        $currentUserRoles = $auth->getRolesByUser(Yii::$app->user->getId());
+        $isCliente = isset($currentUserRoles['cliente']);
+
+        //perguntar ao stor se isto deve ficar aqui, meio que é lógica de negocio
+        if($isCliente){
         $dataProvider = new ActiveDataProvider([
             'query' => Request::find()
             ->where(['customer_id' => $currentUserId]),
@@ -54,6 +76,21 @@ class RequestController extends Controller
                 ]
             ],
         ]);
+        }
+        else{
+            $dataProvider = new ActiveDataProvider([
+                'query' => Request::find()
+                    ->where(['current_technician_id' => $currentUserId]),
+                'pagination' => [
+                    'pageSize' => 50
+                ],
+                'sort' => [
+                    'defaultOrder' => [
+                        'id' => SORT_DESC,
+                    ]
+                ],
+            ]);
+        }
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
