@@ -18,4 +18,5 @@
     <string name="password">**********</string>
     <string name="confirmarPassword">***</string>
     <string name="btnCriarPassword">Criar Password</string>
+    <string name="logo_desc">logo_desc</string>
 </resources>
