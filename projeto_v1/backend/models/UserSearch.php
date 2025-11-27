@@ -87,12 +87,11 @@ class UserSearch extends User
         //END - Lógica show user menos admin se gestor
 
         //START - Lógica do filtro da sidebar
-        //query diretamente com a tabela auth_assigment na base de dados
-//        $query->leftJoin('{{%auth_assignment}}', '{{%auth_assignment}}.user_id = {{%user}}.id');
-//        //filtra pela role
-//        $query->andFilterWhere(['like', '{{%auth_assignment}}.item_name', $this->role]);
-//        //agropa pelo id do user
-//        $query->groupBy('user.id');
+        if(!$isGestor){         //para não doblicar o leftJoin quando se é gestor
+            $query->leftJoin('auth_assignment', 'auth_assignment.user_id = user.id');
+        }
+        $query->andFilterWhere(['like', 'auth_assignment.item_name', $this->role]);
+        $query->groupBy('user.id');
         //END - Lógica do filtro da sidebar
 
         return $dataProvider;

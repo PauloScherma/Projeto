@@ -56,9 +56,9 @@ $username = Yii::$app->user->identity->username;
                                 //'new', 'in_progress', 'completed', 'canceled'
                                 ['label' => 'All Requests', 'icon' => 'folder-open', 'url' => ['/request/index']],
                                 ['label' => 'New', 'icon' => 'plus-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'new']],
-                                ['label' => 'In Progress', 'icon' => 'sync', 'url' => ['/request/index', 'RequestSearch[status]' => 'active']],
-                                ['label' => 'Completed', 'icon' => 'check-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'closed']],
-                                ['label' => 'Canceled', 'icon' => 'times-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'closed']],
+                                ['label' => 'In Progress', 'icon' => 'sync', 'url' => ['/request/index', 'RequestSearch[status]' => 'in_progress']],
+                                ['label' => 'Completed', 'icon' => 'check-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'completed']],
+                                ['label' => 'Canceled', 'icon' => 'times-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'canceled']],
                             ]
                         ],
                         [

@@ -31,11 +31,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'customer_id',
+            [
+                'label' => 'Nome do cliente',
+                'value' => $model->customer->username,
+            ],
             'title',
             'description:ntext',
             'priority',
             'status',
             'current_technician_id',
+            [
+                'label' => 'Nome técnico',
+                'value' => $model->currentTechnician->username,
+            ],
             'scheduled_start',
             'canceled_at',
             'canceled_by',

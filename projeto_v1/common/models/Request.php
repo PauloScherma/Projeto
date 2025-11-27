@@ -8,6 +8,7 @@ use app\models\RequestAttachment;
 use app\models\RequestMessage;
 use app\models\RequestRating;
 use app\models\RequestStatusHistory;
+use Yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
@@ -107,6 +108,27 @@ class Request extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+
+    /**
+     * Substitui o delete padrão (hard delete) por um soft delete (cancelamento).
+     * @return bool|int O resultado do save() ou false.
+     */
+    public function delete()
+    {
+        // Verifica se o pedido já foi cancelado
+        if ($this->canceled_at !== null) {
+            Yii::$app->session->setFlash('error', 'Este pedido já se encontra cancelado.');
+            return false;
+        }
+
+        // Atribui os valores do "soft delete"
+        $this->canceled_at = time();
+        $this->canceled_by = Yii::$app->user->id;
+        $this->status = self::STATUS_CANCELED;
+
+        // Salva o modelo (realiza o soft delete)
+        return $this->save(false);
     }
 
     /**
@@ -362,7 +384,6 @@ class Request extends \yii\db\ActiveRecord
         $this->status = self::STATUS_CANCELED;
     }
 
-    //For sync
     //For sync
     public static function getChangesSince($time)
     {

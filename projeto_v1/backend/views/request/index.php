@@ -30,13 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'customer_id',
+            [
+                'attribute' => 'customer_id',
+                'value' => 'customer.username',
+                'label' => 'Cliente',
+            ],
             'title',
             //'description',
             'priority',
             'status',
-            'current_technician_id',
-            //'scheduled_start',
+            [
+                'attribute' => 'current_technician_id',
+                'value' => 'currentTechnician.username',
+                'label' => 'Técnico Atual',
+            ],            //'scheduled_start',
             //'canceled_at',
             //'canceled_by',
             //'created_at',
