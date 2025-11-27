@@ -7,6 +7,7 @@ use common\widgets\Alert;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\rest\IndexAction;
 use yii\web\Controller;
 use yii\web\Response;
 
@@ -32,7 +33,7 @@ class SiteController extends Controller
                     [
                         'actions' => ['logout', 'index'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['admin', 'gestor'],
                     ],
                 ],
             ],

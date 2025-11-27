@@ -17,7 +17,21 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Request', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php
+
+        $auth = Yii::$app->authManager;
+        $currentUserRoles = $auth->getRolesByUser(Yii::$app->user->getId());
+        $isCliente = isset($currentUserRoles['cliente']);
+
+        if($isCliente){
+            echo Html::a('Create Request', ['create'], ['class' => 'btn btn-success']);
+        }
+        else{
+            //ver melhor como posso fazer isto
+            echo Html::a('History', ['create'], ['class' => 'btn btn-success']);
+        }
+
+        ?>
     </p>
 
 
@@ -26,19 +40,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'customer_id',
+            //'id',
+            //'customer_id',
             'title',
             'description:ntext',
             'priority',
-            //'status',
-            //'current_technician_id',
+            'status',
+            'current_technician_id',
             //'scheduled_start',
             //'canceled_at',
             //'canceled_by',
             //'created_at',
             //'updated_at',
             [
+                //ver como tirar o icon do caixote do lixo para o tecnico
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Request $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
