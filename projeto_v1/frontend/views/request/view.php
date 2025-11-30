@@ -53,4 +53,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <?php foreach ($model->requestAttachments as $attachment): ?>
+        <p><a href="<?= Yii::getAlias('@web/' . $attachment->file_path) ?>" target="_blank"><?= $attachment->file_name ?></a></p>
+    <?php endforeach; ?>
+
 </div>

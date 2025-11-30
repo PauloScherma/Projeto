@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'current_technician_id',
                 'value' => 'currentTechnician.username',
-                'label' => 'Técnico Atual',
+                'label' => 'Technician',
             ],
             //'scheduled_start',
             //'canceled_at',

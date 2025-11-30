@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'customer_id',
                 'value' => 'customer.username',
-                'label' => 'Cliente',
+                'label' => 'Customer',
             ],
             'title',
             //'description',
@@ -42,8 +42,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'current_technician_id',
                 'value' => 'currentTechnician.username',
-                'label' => 'Técnico Atual',
-            ],            //'scheduled_start',
+                'label' => 'Technician',
+            ],
+            //'scheduled_start',
             //'canceled_at',
             //'canceled_by',
             //'created_at',

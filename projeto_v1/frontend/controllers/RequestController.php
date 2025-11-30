@@ -3,11 +3,13 @@
 namespace frontend\controllers;
 
 use common\models\Request;
+use common\models\RequestAttachment;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 
 /**
@@ -93,7 +95,12 @@ class RequestController extends Controller
         ]);
     }
 
-
+    /**
+     * Displays the Requests completed or canceled.
+     * @param int $id ID
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionHistory()
     {
         $currentUserId = Yii::$app->user->id;
@@ -132,6 +139,7 @@ class RequestController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
     /**
      * Displays a single Request model.
      * @param int $id ID
@@ -180,6 +188,34 @@ class RequestController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+
+            $files = UploadedFile::getInstances($model, 'request_attachments');
+
+            if (!empty($files)) {
+
+                // Criar o diretório se não existir, etc. (como discutido anteriormente)
+                $baseUploadDir = Yii::getAlias('@frontend/web/uploads/attachments/');
+
+                foreach ($files as $file) {
+
+                    // Lógica de geração de nome único e saveAs...
+                    $uniqueFileName = md5(uniqid(rand(), true)) . '.' . $file->extension;
+                    $fullPathOnServer = $baseUploadDir . $uniqueFileName;
+
+                    if ($file->saveAs($fullPathOnServer)) {
+
+                        $attachment = new RequestAttachment();
+                        $attachment->request_id = $model->id;
+                        $attachment->uploaded_by = Yii::$app->user->id;
+                        $attachment->file_name = $file->baseName . '.' . $file->extension;
+                        $attachment->file_path = 'uploads/attachments/' . $uniqueFileName;
+                        $attachment->type = 'generic';
+
+                        $attachment->save(false); // Salva o novo registo na tabela request_attachment
+                    }
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

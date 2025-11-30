@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'customer_id',
             [
-                'label' => 'Nome do cliente',
+                'label' => 'Customer',
                 'value' => $model->customer->username,
             ],
             'title',
@@ -46,7 +46,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     if ($model->currentTechnician) {
                         return $model->currentTechnician->username;
                     }
-                    return 'N/A';
                 },
             ],
             'scheduled_start',

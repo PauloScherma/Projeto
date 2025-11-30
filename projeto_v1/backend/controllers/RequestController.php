@@ -18,7 +18,8 @@ use yii\filters\VerbFilter;
 class RequestController extends Controller
 {
     /**
-     * @inheritDoc
+     * Definie o comportamentos
+     *
      */
     public function behaviors()
     {
@@ -82,7 +83,8 @@ class RequestController extends Controller
     {
         $model = new Request();
         $model->customer_id = Yii::$app->user->id;
-        $technicianList = User::getAllTechnicians(); // Chama o método acima ou coloca o código aqui
+        $technicianList = User::getAllTechnicians();
+        $clientName = $model->customer->username;
 
 
         if ($this->request->isPost) {
@@ -96,6 +98,7 @@ class RequestController extends Controller
         return $this->render('create', [
             'model' => $model,
             'technicianList' => $technicianList,
+            'clientName' => $clientName
         ]);
     }
 
@@ -109,16 +112,18 @@ class RequestController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $technicianList = User::getAllTechnicians(); // Chama o método acima ou coloca o código aqui
+        $technicianList = User::getAllTechnicians();
+        $clientName = $model->customer->username;
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            $model->customer_id = Yii::$app->user->id;
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
             'technicianList' => $technicianList,
+            'clientName' => $clientName
         ]);
     }
 
