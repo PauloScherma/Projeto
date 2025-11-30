@@ -25,7 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
+    <?php
+
+    echo DetailView::widget([
         'model' => $model,
         'attributes' => [
             //'id',
@@ -35,8 +37,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'priority',
             'status',
             [
-                'value' => $model->currentTechnician->username,
-                'label' => 'Técnico Atual',
+                'label' => 'Technician',
+                'value' => function ($model) {
+                    if ($model->currentTechnician) {
+                        return $model->currentTechnician->username;
+                    }
+                    return 'N/A';
+                },
             ],
             //'scheduled_start',
             //'canceled_at',

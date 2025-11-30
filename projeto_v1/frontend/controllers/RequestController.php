@@ -28,12 +28,12 @@ class RequestController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                            'actions' => ['index', 'view', 'create', 'update', 'delete', 'history'],
                             'roles' => ['cliente'],
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['index', 'view', 'update'],
+                            'actions' => ['index', 'view', 'update', 'history'],
                             'roles' => ['tecnico'],
                         ],
                     ],
@@ -57,16 +57,26 @@ class RequestController extends Controller
     public function actionIndex()
     {
         $currentUserId = Yii::$app->user->id;
+        $whereClause = "";
 
         $auth = Yii::$app->authManager;
-        $currentUserRoles = $auth->getRolesByUser(Yii::$app->user->getId());
+        $currentUserRoles = $auth->getRolesByUser($currentUserId);
+
         $isCliente = isset($currentUserRoles['cliente']);
 
-        //perguntar ao stor se isto deve ficar aqui, meio que é lógica de negocio
+        //otimizar depois
         if($isCliente){
+            $whereClause = "customer_id";
+        }
+        else{
+            $whereClause = "current_technician_id";
+        }
+
         $dataProvider = new ActiveDataProvider([
             'query' => Request::find()
-            ->where(['customer_id' => $currentUserId]),
+                ->where([$whereClause => $currentUserId])
+                ->andWhere(['not', ['status' => 'completed']])
+                ->andWhere(['not', ['status' => 'canceled']]),
             'pagination' => [
                 'pageSize' => 50
             ],
@@ -76,27 +86,52 @@ class RequestController extends Controller
                 ]
             ],
         ]);
-        }
-        else{
-            $dataProvider = new ActiveDataProvider([
-                'query' => Request::find()
-                    ->where(['current_technician_id' => $currentUserId]),
-                'pagination' => [
-                    'pageSize' => 50
-                ],
-                'sort' => [
-                    'defaultOrder' => [
-                        'id' => SORT_DESC,
-                    ]
-                ],
-            ]);
-        }
+
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
     }
 
+
+    public function actionHistory()
+    {
+        $currentUserId = Yii::$app->user->id;
+        $whereClause = "";
+
+        $auth = Yii::$app->authManager;
+        $currentUserRoles = $auth->getRolesByUser($currentUserId);
+
+        $isCliente = isset($currentUserRoles['cliente']);
+
+        //otimizar depois
+        if($isCliente){
+            $whereClause = "customer_id";
+        }
+        else{
+            $whereClause = "current_technician_id";
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => Request::find()
+                ->where([$whereClause => $currentUserId])
+                ->andWhere(['not', ['status' => 'new']])
+                ->andWhere(['not', ['status' => 'in_progress']]),
+        'pagination' => [
+                'pageSize' => 50
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ]
+            ],
+        ]);
+
+
+        return $this->render('history', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     /**
      * Displays a single Request model.
      * @param int $id ID

@@ -41,8 +41,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'status',
             'current_technician_id',
             [
-                'label' => 'Nome técnico',
-                'value' => $model->currentTechnician->username,
+                'label' => 'Technician',
+                'value' => function ($model) {
+                    if ($model->currentTechnician) {
+                        return $model->currentTechnician->username;
+                    }
+                    return 'N/A';
+                },
             ],
             'scheduled_start',
             'canceled_at',

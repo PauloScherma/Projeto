@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Requests';
+$this->title = 'Requests History';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="request-index mx-5">
@@ -17,21 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php
-
-        $auth = Yii::$app->authManager;
-        $currentUserRoles = $auth->getRolesByUser(Yii::$app->user->getId());
-        $isCliente = isset($currentUserRoles['cliente']);
-
-        if($isCliente){
-            echo Html::a('Create Request', ['create'], ['class' => 'btn btn-success']);
-            echo Html::a('History', ['history'], ['class' => 'btn btn-success ms-3']);
-        }
-        else{
-            echo Html::a('History', ['history'], ['class' => 'btn btn-success']);
-        }
-
-        ?>
+        <?= Html::a('Requests', ['index'], ['class' => 'btn btn-success']); ?>
     </p>
 
 
