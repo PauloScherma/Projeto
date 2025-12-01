@@ -39,6 +39,12 @@ use yii\widgets\ActiveForm;
 
     <?php // $form->field($model, 'updated_at')->textInput() ?>
 
+    <?= $form->field($model, 'request_attachement', [
+            'options' => [
+                    'class' => 'my-2',
+            ],
+    ])->fileInput(['multiple' => true])->label('Carregar Ficheiros');?>
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
