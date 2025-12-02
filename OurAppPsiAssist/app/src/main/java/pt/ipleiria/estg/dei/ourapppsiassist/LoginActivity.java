@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if(isPasswordValid(password) && isEmailValid(email)) {
-            Intent intent = new Intent(LoginActivity.this, /*MenuMainActivity.class*/);
+            Intent intent = new Intent(LoginActivity.this,pt.ipleiria.estg.dei.ouarppssiasist.MenuMainActivity.class);
             intent.putExtra("EMAIL", email);
             startActivity(intent);
             finish();
