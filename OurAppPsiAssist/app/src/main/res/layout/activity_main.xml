@@ -25,28 +25,31 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:padding="8dp"
-        android:background="#EEEEEE">
+        android:background="@color/dark_blue">
 
         <Button
             android:id="@+id/btnHome"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Home" />
+            android:text="Home"
+            android:background="transparent"/>
 
         <Button
             android:id="@+id/btnProfile"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Profile" />
+            android:text="requests"
+            android:background="transparent"/>
 
         <Button
             android:id="@+id/btnSettings"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Settings" />
+            android:text="documents"
+            android:background="transparent"/>
 
     </LinearLayout>
 
