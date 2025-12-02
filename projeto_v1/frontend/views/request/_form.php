@@ -14,7 +14,6 @@ use yii\widgets\ActiveForm;
             'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
-
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
@@ -33,7 +32,7 @@ use yii\widgets\ActiveForm;
     #endregion
     ?>
 
-    <?= $form->field($model, 'request_attachement', [
+    <?= $form->field($model, 'request_attachment[]', [
         'options' => [
             'class' => 'my-2',
         ],

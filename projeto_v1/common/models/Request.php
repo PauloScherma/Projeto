@@ -1,6 +1,7 @@
 <?php
 
 namespace common\models;
+use Cassandra\Date;
 use common\models\User;
 use common\models\CalendarEvent;
 use common\models\RequestAssignment;
@@ -18,17 +19,16 @@ use yii\behaviors\TimestampBehavior;
  * @property int $customer_id
  * @property string $title
  * @property string|null $description
- * @property string $priority
- * @property string $status
  * @property int|null $current_technician_id
  * @property int|null $scheduled_start
- * @property int|null $canceled_at
- * @property int|null $canceled_by
- * @property int $created_at
- * @property int $updated_at
+ * @property string $priority
+ * @property string $status
+ * @property string|null $canceled_at
+ * @property string|null $canceled_by
+ * @property string $created_at
+ * @property string $updated_at
  *
  * @property CalendarEvent[] $calendarEvents
- * @property User $canceledBy
  * @property User $currentTechnician
  * @property User $customer
  * @property RequestAssignment[] $requestAssignments
@@ -57,7 +57,7 @@ class Request extends \yii\db\ActiveRecord
     #endregion
 
     #region Variaveis apoio
-    public $request_attachement;
+    public $request_attachment;
     #endregion
 
     public function behaviors()
@@ -84,21 +84,15 @@ class Request extends \yii\db\ActiveRecord
             [['description', 'current_technician_id', 'scheduled_start', 'canceled_at', 'canceled_by'], 'default', 'value' => null],
             [['priority'], 'default', 'value' => 'medium'],
             [['status'], 'default', 'value' => 'new'],
-            [['customer_id', 'title'], 'required'],
-            [['customer_id', 'current_technician_id', 'scheduled_start', 'canceled_at', 'canceled_by', 'created_at', 'updated_at'], 'integer'],
+            [['customer_id', 'title', 'created_at', 'updated_at'], 'required'],
+            [['customer_id', 'current_technician_id', 'scheduled_start'], 'integer'],
             [['description', 'priority', 'status'], 'string'],
+            [['canceled_at', 'canceled_by', 'created_at', 'updated_at'], 'safe'],
             [['title'], 'string', 'max' => 140],
             ['priority', 'in', 'range' => array_keys(self::optsPriority())],
             ['status', 'in', 'range' => array_keys(self::optsStatus())],
-            [['canceled_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['canceled_by' => 'id']],
             [['current_technician_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['current_technician_id' => 'id']],
             [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['customer_id' => 'id']],
-            [['request_attachement'], 'file',
-                'skipOnEmpty' => true,
-                'extensions' => 'png, jpg, pdf, docx, zip, txt',
-                'maxFiles' => 3,
-                'maxSize' => 1024 * 1024 * 5
-            ],
         ];
     }
 
@@ -142,6 +136,33 @@ class Request extends \yii\db\ActiveRecord
 
         // Salva o modelo (realiza o soft delete)
         return $this->save(false);
+    }
+
+    /**
+     * Instancia os ficheiros carregados e guarda-os na BD
+     *
+     * @return boolean
+     */
+    public function upload()
+    {
+        if ($this->validate()) {
+            foreach ($this->request_attachment as $file) {
+                $file->saveAs(Yii::getAlias('@frontend/web') . '/uploads/attachments/' . $file->baseName . '.' . $file->extension);
+
+                $attachment = new RequestAttachment();
+                $attachment->request_id = $this->id;
+                $attachment->created_at = \date('Y-m-d H:i:s');
+                $attachment->uploaded_by = Yii::$app->user->id;
+                $attachment->file_name = $file->baseName . '.' . $file->extension;
+                $attachment->file_path = 'uploads/attachments/' . $file->baseName . '.' . $file->extension;
+                $attachment->type = 'generic';
+
+                $attachment->save();
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

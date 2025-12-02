@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
@@ -30,8 +31,8 @@ $attachments = $model->requestAttachments;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'customer_id',
+            //'id',
+            //'customer_id',
             [
                 'label' => 'Customer',
                 'value' => $model->customer->username,
@@ -40,7 +41,7 @@ $attachments = $model->requestAttachments;
             'description:ntext',
             'priority',
             'status',
-            'current_technician_id',
+            //'current_technician_id',
             [
                 'label' => 'Technician',
                 'value' => function ($model) {
@@ -69,7 +70,7 @@ $attachments = $model->requestAttachments;
         foreach ($attachments as $attachment) {
             ?>
             <p>
-                <a href="<?= \yii\helpers\Url::to('@web/' . $attachment->file_path) ?>" target="_blank">
+                <a href="<?= (Yii::$app->urlManagerFrontend->baseUrl . '/' . $attachment->file_path) ?>" target="_blank">
                     <?= $attachment->file_name ?>
                 </a>
             </p>
