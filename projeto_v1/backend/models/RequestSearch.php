@@ -72,7 +72,8 @@ class RequestSearch extends Request
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'description', $this->description])
             ->andFilterWhere(['like', 'priority', $this->priority])
-            ->andFilterWhere(['like', 'status', $this->status]);
+            ->andFilterWhere(['like', 'status', $this->status])
+            ->orderBy(['status' => SORT_ASC]);
 
         return $dataProvider;
     }

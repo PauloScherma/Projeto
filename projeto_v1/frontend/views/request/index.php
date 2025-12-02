@@ -25,10 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
         if($isCliente){
             echo Html::a('Create Request', ['create'], ['class' => 'btn btn-success']);
+            echo Html::a('History', ['history'], ['class' => 'btn btn-success ms-3']);
         }
         else{
-            //ver melhor como posso fazer isto
-            echo Html::a('History', ['create'], ['class' => 'btn btn-success']);
+            echo Html::a('History', ['history'], ['class' => 'btn btn-success']);
         }
 
         ?>
@@ -46,7 +46,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'description:ntext',
             'priority',
             'status',
-            'current_technician_id',
+            [
+                'attribute' => 'current_technician_id',
+                'value' => 'currentTechnician.username',
+                'label' => 'Technician',
+            ],
             //'scheduled_start',
             //'canceled_at',
             //'canceled_by',
@@ -61,6 +65,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-
-
 </div>

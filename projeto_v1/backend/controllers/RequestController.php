@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Request;
 use backend\models\RequestSearch;
+use common\models\RequestAttachment;
 use common\models\User;
 use Yii;
 use yii\filters\AccessControl;
@@ -11,6 +12,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * RequestController implements the CRUD actions for Request model.
@@ -18,7 +20,8 @@ use yii\filters\VerbFilter;
 class RequestController extends Controller
 {
     /**
-     * @inheritDoc
+     * Definie o comportamentos
+     *
      */
     public function behaviors()
     {
@@ -82,7 +85,8 @@ class RequestController extends Controller
     {
         $model = new Request();
         $model->customer_id = Yii::$app->user->id;
-        $technicianList = User::getAllTechnicians(); // Chama o método acima ou coloca o código aqui
+        $technicianList = User::getAllTechnicians();
+        $clientName = $model->customer->username;
 
 
         if ($this->request->isPost) {
@@ -96,6 +100,7 @@ class RequestController extends Controller
         return $this->render('create', [
             'model' => $model,
             'technicianList' => $technicianList,
+            'clientName' => $clientName
         ]);
     }
 
@@ -109,16 +114,44 @@ class RequestController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $technicianList = User::getAllTechnicians(); // Chama o método acima ou coloca o código aqui
+        $technicianList = User::getAllTechnicians();
+        $clientName = $model->customer->username;
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            $model->customer_id = Yii::$app->user->id;
+
+
+            if (!empty($files)) {
+
+                // Criar o diretório se não existir, etc. (como discutido anteriormente)
+                $baseUploadDir = Yii::getAlias('@frontend/web/uploads/attachments/');
+
+                foreach ($files as $file) {
+
+                    // Lógica de geração de nome único e saveAs...
+                    $uniqueFileName = md5(uniqid(rand(), true)) . '.' . $file->extension;
+                    $fullPathOnServer = $baseUploadDir . $uniqueFileName;
+
+                    if ($file->saveAs($fullPathOnServer)) {
+
+                        $attachment = new RequestAttachment();
+                        $attachment->request_id = $model->id;
+                        $attachment->uploaded_by = Yii::$app->user->id;
+                        $attachment->file_name = $file->baseName . '.' . $file->extension;
+                        $attachment->file_path = 'uploads/attachments/' . $uniqueFileName;
+                        $attachment->type = 'generic';
+
+                        $attachment->save(false); // Salva o novo registo na tabela request_attachment
+                    }
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
             'technicianList' => $technicianList,
+            'clientName' => $clientName
         ]);
     }
 

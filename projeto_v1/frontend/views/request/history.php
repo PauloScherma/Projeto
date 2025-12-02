@@ -7,42 +7,35 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var backend\models\RequestSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Requests';
+$this->title = 'Requests History';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="request-index">
+<div class="request-index mx-5">
 
-    <h1><?php // Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Request', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Requests', ['index'], ['class' => 'btn btn-success']); ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            [
-                'attribute' => 'customer_id',
-                'value' => 'customer.username',
-                'label' => 'Customer',
-            ],
+            //'customer_id',
             'title',
-            //'description',
+            'description:ntext',
             'priority',
             'status',
             [
                 'attribute' => 'current_technician_id',
                 'value' => 'currentTechnician.username',
-                'label' => 'Technician',
+                'label' => 'Técnico Atual',
             ],
             //'scheduled_start',
             //'canceled_at',
@@ -50,6 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'created_at',
             //'updated_at',
             [
+                //ver como tirar o icon do caixote do lixo para o tecnico
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Request $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
@@ -57,5 +51,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-
 </div>

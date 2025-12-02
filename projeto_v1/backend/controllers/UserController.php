@@ -72,39 +72,40 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
-
-        //START - logica do dropdown do gestor
         $auth = Yii::$app->authManager;
+
+        #region Lógica do Dropdown de Roles do Gestor
+
+        //getRoles() returna um array de objetos
         $roles = $auth->getRoles();
+        //converte para array simples
         $roleItems = ArrayHelper::map($roles, 'name', 'name');
 
         $currentUserRoles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
 
         $isGestor = isset($currentUserRoles['gestor']);
-
         if ($isGestor) {
             if (isset($roleItems['admin'])) {
                 unset($roleItems['admin']);
             }
         }
-        //END - logica do dropdown do gestor
+        #endregion
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            //START - atribuição da role
-            $auth = Yii::$app->authManager;
-            $roleNameFromForm = $model->roleName;
+            #region Atribuição de role
+            $roleNameForm = $model->roleName;
 
-            if ($roleNameFromForm) {
+            if ($roleNameForm) {
 
-                $newRole = $auth->getRole($roleNameFromForm);
+                $newRole = $auth->getRole($roleNameForm);
 
                 if ($newRole) {
                     $auth->revokeAll($model->id);
                     $auth->assign($newRole, $model->id);
                 }
             }
-            //END - atribuição da role
+            #endregion
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -127,7 +128,7 @@ class UserController extends Controller
         $model = $this->findModel($id);
         $roleNameFromForm = $model->getRoleName();
 
-        //START - dropdown do gestor
+        #region Lógica do Dropdown de Roles do Gestor
         $auth = Yii::$app->authManager;
         $roles = $auth->getRoles();
         $roleItems = ArrayHelper::map($roles, 'name', 'name');
@@ -141,13 +142,14 @@ class UserController extends Controller
                 unset($roleItems['admin']);
             }
         }
-        //END - dropdown do gestor
+        #endregion
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             //START - atribuição da role
             $auth = Yii::$app->authManager;
             $roleNameFromForm = $model->roleName;
 
+            #region Atribuição de role
             if ($roleNameFromForm) {
 
                 $newRole = $auth->getRole($roleNameFromForm);
@@ -157,7 +159,7 @@ class UserController extends Controller
                     $auth->assign($newRole, $model->id);
                 }
             }
-            //END - atribuição da role
+            #endregion
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -196,11 +198,6 @@ class UserController extends Controller
         }
         //END - Bloquear gestor de eleminar admins
 
-        /*if(!Yii::$app->user->can('userDelete')) {
-            return $this->redirect(['index']);
-        }*/
-
-        $auth->revokeAll($model->id);
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

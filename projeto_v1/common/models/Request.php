@@ -2,12 +2,13 @@
 
 namespace common\models;
 use common\models\User;
-use app\models\CalendarEvent;
-use app\models\RequestAssignment;
-use app\models\RequestAttachment;
-use app\models\RequestMessage;
-use app\models\RequestRating;
-use app\models\RequestStatusHistory;
+use common\models\CalendarEvent;
+use common\models\RequestAssignment;
+use common\models\RequestAttachment;
+use common\models\RequestMessage;
+use common\models\RequestRating;
+use common\models\RequestStatusHistory;
+use Yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
@@ -42,6 +43,8 @@ class Request extends \yii\db\ActiveRecord
     /**
      * ENUM field values
      */
+
+    #region Constants
     const PRIORITY_LOW = 'low';
     const PRIORITY_MEDIUM = 'medium';
     const PRIORITY_HIGH = 'high';
@@ -51,6 +54,11 @@ class Request extends \yii\db\ActiveRecord
     const STATUS_WAITING_PARTS = 'waiting_parts';
     const STATUS_COMPLETED = 'completed';
     const STATUS_CANCELED = 'canceled';
+    #endregion
+
+    #region Variaveis apoio
+    public $request_attachement;
+    #endregion
 
     public function behaviors()
     {
@@ -85,6 +93,12 @@ class Request extends \yii\db\ActiveRecord
             [['canceled_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['canceled_by' => 'id']],
             [['current_technician_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['current_technician_id' => 'id']],
             [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['customer_id' => 'id']],
+            [['request_attachement'], 'file',
+                'skipOnEmpty' => true,
+                'extensions' => 'png, jpg, pdf, docx, zip, txt',
+                'maxFiles' => 3,
+                'maxSize' => 1024 * 1024 * 5
+            ],
         ];
     }
 
@@ -107,6 +121,27 @@ class Request extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+
+    /**
+     * Substitui o delete padrão (hard delete) por um soft delete (cancelamento).
+     * @return bool|int O resultado do save() ou false.
+     */
+    public function delete()
+    {
+        // Verifica se o pedido já foi cancelado
+        if ($this->canceled_at !== null) {
+            Yii::$app->session->setFlash('error', 'Este pedido já se encontra cancelado.');
+            return false;
+        }
+
+        // Atribui os valores do "soft delete"
+        $this->canceled_at = time();
+        $this->canceled_by = Yii::$app->user->id;
+        $this->status = self::STATUS_CANCELED;
+
+        // Salva o modelo (realiza o soft delete)
+        return $this->save(false);
     }
 
     /**
@@ -198,7 +233,6 @@ class Request extends \yii\db\ActiveRecord
     {
         return $this->hasMany(RequestStatusHistory::class, ['request_id' => 'id']);
     }
-
 
     /**
      * column priority ENUM value labels
@@ -362,7 +396,6 @@ class Request extends \yii\db\ActiveRecord
         $this->status = self::STATUS_CANCELED;
     }
 
-    //For sync
     //For sync
     public static function getChangesSince($time)
     {
