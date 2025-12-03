@@ -53,7 +53,6 @@ $username = Yii::$app->user->identity->username;
                             'label' => 'Requests',
                             'icon' => 'list-alt',
                             'items' => [
-                                //'new', 'in_progress', 'completed', 'canceled'
                                 ['label' => 'All Requests', 'icon' => 'folder-open', 'url' => ['/request/index']],
                                 ['label' => 'New', 'icon' => 'plus-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'new']],
                                 ['label' => 'In Progress', 'icon' => 'sync', 'url' => ['/request/index', 'RequestSearch[status]' => 'in_progress']],
