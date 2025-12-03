@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 9.1.0, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.42, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dbprojeto_v1
 -- ------------------------------------------------------
@@ -263,11 +263,10 @@ CREATE TABLE `request` (
   `priority` enum('low','medium','high') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'medium',
   `status` enum('new','in_progress','completed','canceled') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new',
   `current_technician_id` int DEFAULT NULL,
-  `scheduled_start` int DEFAULT NULL,
   `canceled_at` datetime DEFAULT NULL,
   `canceled_by` int DEFAULT NULL,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_request_customer_created` (`customer_id`,`created_at`),
   KEY `idx_request_status` (`status`),
@@ -275,7 +274,7 @@ CREATE TABLE `request` (
   KEY `fk_request_canceled_by` (`canceled_by`),
   CONSTRAINT `fk_request_currtech` FOREIGN KEY (`current_technician_id`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_request_customer` FOREIGN KEY (`customer_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabela central dos pedidos de serviço. Guarda o cliente, técnico atual, estado, prioridade e timestamps.';
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabela central dos pedidos de serviço. Guarda o cliente, técnico atual, estado, prioridade e timestamps.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,7 +283,7 @@ CREATE TABLE `request` (
 
 LOCK TABLES `request` WRITE;
 /*!40000 ALTER TABLE `request` DISABLE KEYS */;
-INSERT INTO `request` VALUES (24,55,'new','new','medium','canceled',56,NULL,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00','0000-00-00 00:00:00');
+INSERT INTO `request` VALUES (24,55,'new','new','medium','canceled',56,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(25,53,'teste','teste','medium','in_progress',56,NULL,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(26,53,'teste','teste','medium','new',56,NULL,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(27,53,'bom dia','bom dia','medium','new',56,NULL,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(28,55,'requestCliente','requestCliente','medium','new',NULL,NULL,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(29,53,'wqerwqe','BLALALSDLASDA','medium','new',56,NULL,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `request` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -349,7 +348,7 @@ CREATE TABLE `request_attachment` (
   CONSTRAINT `fk_attach_request` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_attach_user` FOREIGN KEY (`uploaded_by`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_request_attachment_approved_by` FOREIGN KEY (`approved_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Anexos associados a um pedido. Pode incluir fotos, relatórios ou orçamentos que requerem aprovação do cliente.';
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Anexos associados a um pedido. Pode incluir fotos, relatórios ou orçamentos que requerem aprovação do cliente.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -358,7 +357,6 @@ CREATE TABLE `request_attachment` (
 
 LOCK TABLES `request_attachment` WRITE;
 /*!40000 ALTER TABLE `request_attachment` DISABLE KEYS */;
-INSERT INTO `request_attachment` VALUES (15,24,53,'uploads/attachments/new.txt','new.txt','2025-12-02 16:47:36','generic',NULL,NULL,NULL,NULL),(16,24,53,'uploads/attachments/new.txt','new.txt','2025-12-02 16:52:19','generic',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `request_attachment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -508,4 +506,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-03 20:59:04
+-- Dump completed on 2025-12-03 21:47:31

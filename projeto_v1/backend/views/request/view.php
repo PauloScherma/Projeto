@@ -50,7 +50,6 @@ $attachments = $model->requestAttachments;
                     }
                 },
             ],
-            'scheduled_start',
             'canceled_at',
             'canceled_by',
             'created_at',

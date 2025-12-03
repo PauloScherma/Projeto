@@ -20,7 +20,6 @@ use yii\behaviors\TimestampBehavior;
  * @property string $title
  * @property string|null $description
  * @property int|null $current_technician_id
- * @property int|null $scheduled_start
  * @property string $priority
  * @property string $status
  * @property string|null $canceled_at
@@ -43,7 +42,6 @@ class Request extends \yii\db\ActiveRecord
     /**
      * ENUM field values
      */
-
     #region Constants
     const PRIORITY_LOW = 'low';
     const PRIORITY_MEDIUM = 'medium';
@@ -63,8 +61,8 @@ class Request extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::class,
-        ];
+            TimestampBehavior::class
+            ];
     }
 
     /**
@@ -81,11 +79,11 @@ class Request extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['description', 'current_technician_id', 'scheduled_start', 'canceled_at', 'canceled_by'], 'default', 'value' => null],
+            [['description', 'current_technician_id', 'canceled_at', 'canceled_by'], 'default', 'value' => null],
             [['priority'], 'default', 'value' => 'medium'],
             [['status'], 'default', 'value' => 'new'],
-            [['customer_id', 'title', 'created_at', 'updated_at'], 'required'],
-            [['customer_id', 'current_technician_id', 'scheduled_start'], 'integer'],
+            [['customer_id', 'title', 'created_at'], 'required'],
+            [['customer_id', 'current_technician_id'], 'integer'],
             [['description', 'priority', 'status'], 'string'],
             [['canceled_at', 'canceled_by', 'created_at', 'updated_at'], 'safe'],
             [['title'], 'string', 'max' => 140],
@@ -109,7 +107,6 @@ class Request extends \yii\db\ActiveRecord
             'priority' => 'Priority',
             'status' => 'Status',
             'current_technician_id' => 'Current Technician ID',
-            'scheduled_start' => 'Scheduled Start',
             'canceled_at' => 'Canceled At',
             'canceled_by' => 'Canceled By',
             'created_at' => 'Created At',

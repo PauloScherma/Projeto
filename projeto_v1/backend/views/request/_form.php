@@ -12,8 +12,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
-    <?= $form->field($model, 'customer_id')->textInput() ?>
-
     <?= $form->field($model, 'client_display')->textInput([
             'value' => $clientName,
             'readonly' => true,
@@ -29,9 +27,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'current_technician_id')->dropDownList($technicianList)->label('Technician') ?>
 
-    <?php // $form->field($model, 'scheduled_start')->textInput()
+    <?php
+    // $form->field($model, 'scheduled_start')->textInput()
 
-     // $form->field($model, 'canceled_at')->textInput()
+    // $form->field($model, 'customer_id')->textInput()
+
+    // $form->field($model, 'canceled_at')->textInput()
 
      // $form->field($model, 'canceled_by')->textInput()
 

@@ -17,7 +17,7 @@ class RequestSearch extends Request
     public function rules()
     {
         return [
-            [['id', 'customer_id', 'current_technician_id', 'scheduled_start', 'canceled_at', 'canceled_by', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'customer_id', 'current_technician_id', 'canceled_at', 'canceled_by', 'created_at', 'updated_at'], 'integer'],
             [['title', 'description', 'priority', 'status'], 'safe'],
         ];
     }
@@ -62,7 +62,6 @@ class RequestSearch extends Request
             'id' => $this->id,
             'customer_id' => $this->customer_id,
             'current_technician_id' => $this->current_technician_id,
-            'scheduled_start' => $this->scheduled_start,
             'canceled_at' => $this->canceled_at,
             'canceled_by' => $this->canceled_by,
             'created_at' => $this->created_at,

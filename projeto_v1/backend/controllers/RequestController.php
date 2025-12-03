@@ -5,6 +5,7 @@ namespace backend\controllers;
 use common\models\Request;
 use backend\models\RequestSearch;
 use common\models\RequestAttachment;
+use yii\db\Expression;
 use common\models\User;
 use Yii;
 use yii\filters\AccessControl;
@@ -89,13 +90,15 @@ class RequestController extends Controller
         $clientName = $model->customer->username;
 
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post())){
 
-                $model->created_at = \date('Y-m-d H:i:s');
+            $model->request_attachment = UploadedFile::getInstances($model, 'request_attachment');
+            $model->created_at = new Expression('NOW()');
 
+            if($model->save() && $model->upload()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
+
         }else {
             $model->loadDefaultValues();
         }
@@ -123,14 +126,10 @@ class RequestController extends Controller
         if ($this->request->isPost && $model->load($this->request->post())){
 
             $model->request_attachment = UploadedFile::getInstances($model, 'request_attachment');
-            $model->updated_at = \date('Y-m-d H:i:s');
+            $model->updated_at = new Expression('NOW()');
 
             if($model->save() && $model->upload()) {
                 return $this->redirect(['view', 'id' => $model->id]);
-            } else {
-                if ($model->hasErrors()) {
-                    var_dump($model->getErrors());
-                }
             }
         }
 

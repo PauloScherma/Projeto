@@ -163,10 +163,15 @@ class RequestController extends Controller
         $model = new Request();
         $model->customer_id = Yii::$app->user->id;
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post())){
+
+            $model->request_attachment = UploadedFile::getInstances($model, 'request_attachment');
+            $model->created_at = \date('Y-m-d H:i:s');
+
+            if($model->save() && $model->upload()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
+
         } else {
             $model->loadDefaultValues();
         }
@@ -190,6 +195,7 @@ class RequestController extends Controller
         if ($this->request->isPost && $model->load($this->request->post())){
 
             $model->request_attachment = UploadedFile::getInstances($model, 'request_attachment');
+            $model->updated_at = \date('Y-m-d H:i:s');
 
             if($model->save() && $model->upload()) {
                 return $this->redirect(['view', 'id' => $model->id]);
