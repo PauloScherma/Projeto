@@ -6,7 +6,7 @@ use app\models\User;
 use Yii;
 use yii\filters\auth\QueryParamAuth;
 use yii\rest\ActiveController;
-use yii\web\Controller;
+use yii\rest\Controller;
 use function ActiveRecord\all;
 use common\models\LoginForm;
 
@@ -112,55 +112,74 @@ class UserController extends ActiveController
 
     //'POST login'    => 'login'
     public function actionLogin(){
+        $username = Yii::$app->getRequest()->getBodyParam('username');
+        $password = Yii::$app->getRequest()->getBodyParam('password');
 
-        $model = new LoginForm();
+        $user = User::findOne(['username' => $username]);
 
-        // Load POST data from the request body (important for JSON APIs)
-        if ($model->load(Yii::$app->getRequest()->getBodyParams(), '') && $model->login()) {
-
-            // Success: Return an access token (AuthKey) or user data
-            // NOTE: Ensure your User model implements getAuthKey() from IdentityInterface
+        if (!$user || !$user->validatePassword($password)) {
+            Yii::$app->response->statusCode = 401; // Unauthorized
             return [
-                'success' => true,
-                'access_token' => Yii::$app->user->identity->getAuthKey(),
-                'user_id' => Yii::$app->user->id,
+                'status' => 'error',
+                'message' => 'Invalid username or password'
             ];
-
-        } else {
-            // Failure: Return the validation errors
-            Yii::$app->response->statusCode = 422; // Unprocessable Entity (Standard for validation errors)
-            return $model->getErrors();
         }
 
+        $token = Yii::$app->security->generateRandomString();
+        $expirationTime = time() + (3600); // Token expires in 1 hour
+
+        $user->access_token = $token;
+        $user->token_expires = $expirationTime;
+
+        if (!$user->save()) {
+            Yii::$app->response->statusCode = 500;
+            Yii::error("Failed to save user token after login: " . json_encode($user->getErrors()));
+            return [
+                'status' => 'error',
+                'message' => 'Internal server error during token issuance.'
+            ];
+        }
+
+        return [
+            'status' => 'success',
+            'access_token' => $token,
+            'token_expires_at' => $expirationTime,
+        ];
     }
 
     //'POST logout'   => 'logout'
-    public function actionLogout(){
-        // 1. Get the current authenticated user's Identity object
-        $user = Yii::$app->user->identity;
+    public function actionLogout()
+    {
+        // Get access token from headers (typical for API)
+        $accessToken = Yii::$app->request->headers->get('Authorization');
 
-        if ($user) {
-            // 2. Invalidate the existing token by generating a new one
-            // This makes the previous token (which the client is currently using) invalid.
-            $user->generateAuthKey();
-
-            // 3. Save the new token (invalidating the old one in the process)
-            if ($user->save(false)) { // Save(false) to skip validation since we only changed auth_key
-
-                // Success: Token invalidated on the server
-                return [
-                    'success' => true,
-                    'message' => 'Token invalidated. User logged out successfully.'
-                ];
-            }
+        if (!$accessToken) {
+            Yii::$app->response->statusCode = 400;
+            return ['status' => 'error', 'message' => 'Access token missing'];
         }
 
-        // Fallback or if the user was somehow not authenticated (shouldn't happen with proper behaviors)
-        Yii::$app->response->statusCode = 401; // HTTP 401 Unauthorized
-        return [
-            'success' => false,
-            'message' => 'User could not be logged out or is not authenticated.'
-        ];
+        // If token comes as: "Bearer xxxxxx", extract the value
+        $accessToken = str_replace('Bearer ', '', $accessToken);
+
+        // Find user by access token
+        $user = User::findOne(['accessToken' => $accessToken]);
+
+        if (!$user) {
+            Yii::$app->response->statusCode = 401;
+            return ['status' => 'error', 'message' => 'Invalid token'];
+        }
+
+        // Clear token and expire time
+        $user->accessToken = null;
+        $user->token_expires = null;
+
+        if ($user->save(false)) {
+            Yii::$app->response->statusCode = 200;
+            return ['status' => 'success'];
+        }
+
+        Yii::$app->response->statusCode = 500;
+        return ['status' => 'error', 'message' => 'Failed to logout'];
     }
 
 //------- Assistances -------
@@ -362,10 +381,10 @@ class UserController extends ActiveController
     }
    */
 
-//------- Technicians -------
+//*/------- Technicians -------
 
     //'PUT {id}/availability' => 'set-availability'
-    public function actionSetAvailability($userid)
+   /* public function actionSetAvailability($userid)
     {
         $profileTech = \common\models\Profile::findOne($userid);
 
@@ -405,7 +424,7 @@ class UserController extends ActiveController
         return [
             'availability' => (bool) $profile->availability
         ];
-    }
+    }*/
 
 
 //------- Push Notifications ------- // not going to implement not necessary

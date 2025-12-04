@@ -1,4 +1,4 @@
-package pt.ipleiria.estg.dei.ourapppsiassist;
+package pt.ipleiria.estg.dei.ourapppsiassist.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,9 +20,11 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import pt.ipleiria.estg.dei.ourapppsiassist.R;
+
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel mViewModel;
+    private pt.ipleiria.estg.dei.ourapppsiassist.models.HomeViewModel mViewModel;
     private ProgressBar progressBar;
     private TextView dataText;
 

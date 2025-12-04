@@ -1,3 +1,5 @@
+package pt.ipleiria.estg.dei.ourapppsiassist.fragments;
+
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -9,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import pt.ipleiria.estg.dei.ourapppsiassist.ProfileViewModel;
+import pt.ipleiria.estg.dei.ourapppsiassist.models.ProfileViewModel;
 import pt.ipleiria.estg.dei.ourapppsiassist.R;
 
 public class ProfileFragment extends Fragment {

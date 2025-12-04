@@ -1,4 +1,4 @@
-package pt.ipleiria.estg.dei.ourapppsiassist;
+package pt.ipleiria.estg.dei.ourapppsiassist.models;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -32,10 +32,3 @@ public class ProfileViewModel extends ViewModel {
     }
 }
 
-// Example repository
-class ApiRepository {
-    public String getInfo() {
-        // Replace this with your actual API call
-        return "Some data from API";
-    }
-}

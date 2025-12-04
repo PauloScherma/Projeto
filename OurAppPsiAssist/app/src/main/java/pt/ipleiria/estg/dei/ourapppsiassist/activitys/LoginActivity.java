@@ -1,4 +1,4 @@
-package pt.ipleiria.estg.dei.ourapppsiassist;
+package pt.ipleiria.estg.dei.ourapppsiassist.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import pt.ipleiria.estg.dei.ourapppsiassist.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -62,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if(isPasswordValid(password) && isEmailValid(email)) {
-            Intent intent = new Intent(LoginActivity.this,pt.ipleiria.estg.dei.ouarppssiasist.MenuMainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, MenuMainActivity.class);
             intent.putExtra("EMAIL", email);
             startActivity(intent);
             finish();

@@ -1,4 +1,4 @@
-package pt.ipleiria.estg.dei.ourapppsiassist;
+package pt.ipleiria.estg.dei.ourapppsiassist.activitys;
 
 import android.os.Bundle;
 import android.util.Patterns;
@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import pt.ipleiria.estg.dei.ourapppsiassist.R;
 
 public class CreateAccountActivity extends AppCompatActivity {
 

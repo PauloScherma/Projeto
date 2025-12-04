@@ -65,15 +65,15 @@ return [
                         'PATCH {id}/cancel'  => 'cancel',
                         'PATCH {id}/status'  => 'status',
                         'GET {id}/status'  => 'status',
-                        'POST {id}/rating'   => 'rating',
+//                        'POST {id}/rating'   => 'rating',
                         'POST {id}/reports'  => 'create-report',
                         'GET  {id}/reports'  => 'list-reports',
-                        'POST {id}/messages' => 'send-message',
-                        'GET  {id}/messages' => 'messages',
+                       /* 'POST {id}/messages' => 'send-message',
+                        'GET  {id}/messages' => 'messages',*/
 
-                        // ------ TECHNICIANS -------
+                        /*// ------ TECHNICIANS -------
                         'PUT {id}/availability' => 'set-availability',
-                        'GET {id}/availability' => 'get-availability',
+                        'GET {id}/availability' => 'get-availability',*/
 
                         //------ SYNC OFFLINE --------
                         'GET changes' => 'changes',
