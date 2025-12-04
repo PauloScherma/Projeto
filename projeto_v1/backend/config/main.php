@@ -64,6 +64,7 @@ return [
                         'POST logout'   => 'logout',
 
                         //------- ASSISTANCES -------
+
                         'PUT {id}/delete'  => 'delete',
                         'PUT {id}/setStatus'  => 'setStatus',
                         'GET {id}/getStatus'  => 'getStatus',
@@ -75,7 +76,7 @@ return [
 
                         // ------ TECHNICIANS -------
                         'PUT {id}/availability' => 'set-availability',
-                        'GET {id}/availability' => 'get-availability',
+                        'GET {id}/availability' => 'get-availability',*/
 
                         //------ SYNC OFFLINE --------
                         'GET changes' => 'changes',

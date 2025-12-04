@@ -1,4 +1,4 @@
-package pt.ipleiria.estg.dei.ourapppsiassist;
+package pt.ipleiria.estg.dei.ourapppsiassist.activitys;
 
 import static pt.ipleiria.estg.dei.ourapppsiassist.R.string.invalid_password;
 
@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import pt.ipleiria.estg.dei.ourapppsiassist.R;
 
 public class PasswordResetActivity extends AppCompatActivity {
     private EditText etNewPassword;

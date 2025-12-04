@@ -17,7 +17,7 @@
         android:text="User"
         android:textSize="20sp"
         android:textColor="@android:color/white"
-        android:backgroundTint="@android:color/transparent" />
+        android:backgroundTint="@color/dark_blue"/>
 
     <!-- SPACER (pushes right button to the right) -->
     <View
@@ -30,7 +30,7 @@
         android:id="@+id/btnMenu"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@android:color/transparent"
+        android:backgroundTint="@color/dark_blue"
         android:src="@drawable/ic_action_name"
         app:tint="@android:color/white" />
 

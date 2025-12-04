@@ -1,4 +1,4 @@
-package pt.ipleiria.estg.dei.ourapppsiassist;
+package pt.ipleiria.estg.dei.ourapppsiassist.models;
 
 import androidx.lifecycle.ViewModel;
 

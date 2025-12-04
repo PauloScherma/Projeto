@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DocumentsFragment">
+    tools:context=".fragments.DocumentsFragment">
 
     <Space
         android:layout_width="match_parent"
@@ -24,8 +24,7 @@
         android:layout_gravity="center"
         android:text="PH -> Load document details"
         android:textColor="@color/black"
-        android:onClick="onClickLoadDetails"
-        android:background="transparent"/>
+        android:onClick="onClickLoadDetails" />
 
 
     <Space

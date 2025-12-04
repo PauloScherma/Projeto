@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CreateAccountActivity">
+    tools:context=".activitys.CreateAccountActivity">
 
     <Space
         android:layout_width="match_parent"
@@ -38,7 +38,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="go back to login"
-            android:background="transparent"
             android:textColor="@color/black"/>
 
         <Space

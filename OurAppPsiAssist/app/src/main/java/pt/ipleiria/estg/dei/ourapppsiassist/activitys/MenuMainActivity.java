@@ -1,25 +1,12 @@
-package pt.ipleiria.estg.dei.ouarppssiasist;
+package pt.ipleiria.estg.dei.ourapppsiassist.activitys;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.core.view.GravityCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-
 import com.google.android.material.navigation.NavigationView;
-import pt.ipleiria.estg.dei.ourapppsiassist.R;
 
-public class MenuMainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MenuMainActivity extends AppCompatActivity {
 
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -63,13 +50,13 @@ public class MenuMainActivity extends AppCompatActivity
         }
     }
 
-    /*private void carregarFragmentoInicial() {
-        navigationView.setCheckedItem(R.id.navEstatico);
+    private void carregarFragmentoInicial() {
+        navigationView.setCheckedItem(R.id.nav_view);
         fragmentManager.beginTransaction()
-                .replace(R.id.contentFragment, new EstaticoFragment())
+                .replace(R.id.)
                 .commit();
         setTitle("Livro Estático");
-    }*/
+    }
 
     /*@Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -104,5 +91,5 @@ public class MenuMainActivity extends AppCompatActivity
 
         drawer.closeDrawer(GravityCompat.START);
         return true;*/
-    }
+    //}
 }
