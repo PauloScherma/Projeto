@@ -2,13 +2,16 @@
 
 namespace backend\modules\api\controllers;
 
-use app\models\User;
+use common\models\User;
+use frontend\models\SignupForm;
 use Yii;
 use yii\filters\auth\QueryParamAuth;
 use yii\rest\ActiveController;
 use yii\web\Controller;
+use yii\web\Response;
 use function ActiveRecord\all;
 use common\models\LoginForm;
+
 
 /**
  * Default controller for the `api` module
@@ -31,33 +34,15 @@ class UserController extends ActiveController
 
     public function behavior()
     {
-        // For testing trun auth behavior off
-        // Para grantir que nao exixtem problemas com os request da api
-        // Se a auth tiver ligada e der problema nao se sabe se o problema é da api ou dos requests
-
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             //'class' => QueryParamAuth::className(),
             //'except' => ['index', 'view'], //Excluir aos GETs
             //'auth' => [$this,'authintercept'],
             'class' => \CustomAuth::className()
-
         ];
         return $behaviors;
-
     }
-
-    public function authintercept($username, $password){
-        $user = \common\models\User::findByUsername($username);
-         if ($user && $user->validatePassword($password))
-         {
-             $this->user=$user; //Guardar user autenticado
-             return $user;
-         }
-         throw new \yii\web\ForbiddenHttpException('Error auth'); //403
-    }
-
-                    //Custon functions for Api endpoints
 
     public function actionCount(){
 
@@ -66,109 +51,75 @@ class UserController extends ActiveController
         return ['count' => count($recs)];
     }
 
-//------- AUTH -------
-
-    //'POST register' => 'register'
+    //------- AUTH -------
     public function actionRegister(){
-        // Use the User model (or a specific SignupForm model if preferred)
-        $model = new \common\models\User();
 
-        // Load data from the request body (important for JSON APIs)
-        // The empty string '' tells load() to get data without a form name prefix.
-        if ($model->load(Yii::$app->getRequest()->getBodyParams(), '')) {
+        $username = Yii::$app->getRequest()->getBodyParam('username');
+        $email = Yii::$app->getRequest()->getBodyParam('email');
+        $password = Yii::$app->getRequest()->getBodyParam('password');
 
-            // 1. Set Password Hash
-            $model->setPassword($model->password);
+        if($username && $email && $password) {
 
-            // 2. Generate Authentication Key (the access_token for the mobile app)
-            $model->generateAuthKey();
+            $user = new User();
+            $user->username = $username;
+            $user->email = $email;
+            $user->status = User::STATUS_ACTIVE;
+            //falar com o professor
+            $user->roleName = "cliente";
 
-            // 3. Set Status (e.g., active)
-            $model->status = \common\models\User::STATUS_ACTIVE;
+            $user->setPassword($password);
+            $user->generateAuthKey();
 
-            // 4. Validate and Save
-            if ($model->save()) {
+            if ($user->save()) {
 
-                // Success: Return the new user's access token and ID
-                Yii::$app->response->statusCode = 201; // HTTP 201 Created
+                Yii::$app->response->statusCode = 201;
                 return [
                     'success' => true,
-                    'user_id' => $model->id,
-                    'access_token' => $model->getAuthKey(), // Mobile app will use this for future requests
+                    'user_id' => $user->id,
+                    'access_token' => $user->getAuthKey(),
                 ];
 
             } else {
-                // Failure: Validation errors occurred on save
-                // Set the HTTP status code to 422 (Unprocessable Entity)
                 Yii::$app->response->statusCode = 422;
-                return $model->getErrors();
+                return $user->getErrors();
             }
         }
 
-        // Failure: Data load failed (e.g., missing POST data)
-        Yii::$app->response->statusCode = 400; // HTTP 400 Bad Request
+        Yii::$app->response->statusCode = 400;
         return ['error' => 'Invalid data provided.'];
     }
 
-    //'POST login'    => 'login'
     public function actionLogin(){
-
-        $model = new LoginForm();
-
-        // Load POST data from the request body (important for JSON APIs)
-        if ($model->load(Yii::$app->getRequest()->getBodyParams(), '') && $model->login()) {
-
-            // Success: Return an access token (AuthKey) or user data
-            // NOTE: Ensure your User model implements getAuthKey() from IdentityInterface
-            return [
-                'success' => true,
-                'access_token' => Yii::$app->user->identity->getAuthKey(),
-                'user_id' => Yii::$app->user->id,
-            ];
-
-        } else {
-            // Failure: Return the validation errors
-            Yii::$app->response->statusCode = 422; // Unprocessable Entity (Standard for validation errors)
-            return $model->getErrors();
-        }
 
     }
 
-    //'POST logout'   => 'logout'
     public function actionLogout(){
-        // 1. Get the current authenticated user's Identity object
+
         $user = Yii::$app->user->identity;
 
         if ($user) {
-            // 2. Invalidate the existing token by generating a new one
-            // This makes the previous token (which the client is currently using) invalid.
             $user->generateAuthKey();
 
-            // 3. Save the new token (invalidating the old one in the process)
-            if ($user->save(false)) { // Save(false) to skip validation since we only changed auth_key
-
-                // Success: Token invalidated on the server
+            if ($user->save(false)) {
                 return [
                     'success' => true,
-                    'message' => 'Token invalidated. User logged out successfully.'
+                    'message' => 'User logged out successfully.'
                 ];
             }
         }
 
-        // Fallback or if the user was somehow not authenticated (shouldn't happen with proper behaviors)
-        Yii::$app->response->statusCode = 401; // HTTP 401 Unauthorized
+        Yii::$app->response->statusCode = 401;
         return [
             'success' => false,
             'message' => 'User could not be logged out or is not authenticated.'
         ];
     }
 
-//------- Assistances -------
+    //------- Assistances -------
 
-    //'PATCH {id}/cancel'  => 'cancel'
     public function actionSetCancel($id){
-        // Find the resource (e.g., Order, Booking)
-        $model = \app\models\Order::findOne($id);
+
+        $model = \common\models\Request::findOne($id);
 
         if (!$model) {
             throw new \yii\web\NotFoundHttpException("The requested resource was not found.");
@@ -304,7 +255,6 @@ class UserController extends ActiveController
         }
     }
 
-    //'GET  {id}/reports'  => 'list-reports'
     public function actionListReports($id){
         // Find all reports related to the resource ID
         $reports = \common\models\Request::find($id)
