@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 
 public class ProfileViewModel extends ViewModel {
     // TODO: Implement the ViewModel
-    private final ApiRepository repository = new ApiRepository();
+   /* private final ApiRepository repository = new ApiRepository();
     private final MutableLiveData<String> data = new MutableLiveData<>();
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -29,6 +29,6 @@ public class ProfileViewModel extends ViewModel {
 
     public void loadProfile() {
 
-    }
+    }*/
 }
 

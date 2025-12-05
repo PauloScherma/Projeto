@@ -31,7 +31,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             return insets;
         });
         setTitle("CreateAccount");
-        etUserName = findViewById();
+        etUserName = findViewById(R.id.etName);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
     }

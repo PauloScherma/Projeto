@@ -25,9 +25,6 @@ return [
         //'view' => [],
         'request' => [
             'csrfParam' => '_csrf-backend',
-            'parsers' => [
-                'application/json' => 'yii\web\JsonParser',
-            ]
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -57,6 +54,7 @@ return [
                 ['class' => 'yii\rest\UrlRule',
                     'controller' => 'api/user', 'pluralize' => false,
                     'extraPatterns'=>[
+                        'GET count' => 'count',
 
                         //------- AUTH --------------
                         'POST register' => 'register',
@@ -64,17 +62,16 @@ return [
                         'POST logout'   => 'logout',
 
                         //------- ASSISTANCES -------
+//                        'PATCH {id}/cancel'  => 'cancel',
+                        'PATCH {id}/status'  => 'status',
+                        'GET {id}/status'  => 'status',
+//                        'POST {id}/rating'   => 'rating',
+                        'POST {id}/reports'  => 'create-report',
+                        'GET  {id}/reports'  => 'list-reports',
+                       /* 'POST {id}/messages' => 'send-message',
+                        'GET  {id}/messages' => 'messages',*/
 
-                        'PUT {id}/delete'  => 'delete',
-                        'PUT {id}/setStatus'  => 'setStatus',
-                        'GET {id}/getStatus'  => 'getStatus',
-                        'POST {id}/rating'   => 'rating',
-                        'POST {id}/reports'  => 'createReport',
-                        'GET  {id}/reports'  => 'listReports',
-                        'POST {id}/messages' => 'sendMessage',
-                        'GET  {id}/messages' => 'messages',
-
-                        // ------ TECHNICIANS -------
+                        /*// ------ TECHNICIANS -------
                         'PUT {id}/availability' => 'set-availability',
                         'GET {id}/availability' => 'get-availability',
 

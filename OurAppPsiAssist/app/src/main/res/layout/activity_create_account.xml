@@ -38,7 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="go back to login"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:backgroundTint="@android:color/transparent"/>
 
         <Space
             android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package pt.ipleiria.estg.dei.ourapppsiassist.activitys;
 
 import static pt.ipleiria.estg.dei.ourapppsiassist.R.string.invalid_password;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,7 @@ public class PasswordResetActivity extends AppCompatActivity {
     private Button btnChangePassword;
     String email; // <-- Coming from previous activity
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +50,7 @@ public class PasswordResetActivity extends AppCompatActivity {
         if(!isPasswordValid(newpassword) || !isPasswordValid(confirmnewpassword)){
             // error msg
             etNewPassword.setError(getString(invalid_password));
-            etConfirmNewPassword.setError(invalid_password);
+            etConfirmNewPassword.setError("invalid_password");
             Toast.makeText(this, "Invalid Password (Min 8 chars)", Toast.LENGTH_SHORT).show();
         }
         // if password format is valid compare the two

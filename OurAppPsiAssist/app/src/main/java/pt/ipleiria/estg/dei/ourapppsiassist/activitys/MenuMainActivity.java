@@ -8,7 +8,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MenuMainActivity extends AppCompatActivity {
 
-    private DrawerLayout drawer;
+    /*private DrawerLayout drawer;
     private NavigationView navigationView;
     private FragmentManager fragmentManager;
 
@@ -56,7 +56,7 @@ public class MenuMainActivity extends AppCompatActivity {
                 .replace(R.id.)
                 .commit();
         setTitle("Livro Estático");
-    }
+    }*/
 
     /*@Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

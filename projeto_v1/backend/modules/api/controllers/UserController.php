@@ -3,14 +3,11 @@
 namespace backend\modules\api\controllers;
 
 use common\models\User;
-use frontend\models\SignupForm;
 use Yii;
 use yii\filters\auth\QueryParamAuth;
 use yii\rest\ActiveController;
 use yii\rest\Controller;
 use function ActiveRecord\all;
-use common\models\LoginForm;
-
 
 /**
  * Default controller for the `api` module
@@ -33,15 +30,33 @@ class UserController extends ActiveController
 
     public function behavior()
     {
+        // For testing trun auth behavior off
+        // Para grantir que nao exixtem problemas com os request da api
+        // Se a auth tiver ligada e der problema nao se sabe se o problema é da api ou dos requests
+
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             //'class' => QueryParamAuth::className(),
             //'except' => ['index', 'view'], //Excluir aos GETs
             //'auth' => [$this,'authintercept'],
             'class' => \CustomAuth::className()
+
         ];
         return $behaviors;
+
     }
+
+    public function authintercept($username, $password){
+        $user = \common\models\User::findByUsername($username);
+         if ($user && $user->validatePassword($password))
+         {
+             $this->user=$user; //Guardar user autenticado
+             return $user;
+         }
+         throw new \yii\web\ForbiddenHttpException('Error auth'); //403
+    }
+
+                    //Custon functions for Api endpoints
 
     public function actionCount(){
 
@@ -50,14 +65,17 @@ class UserController extends ActiveController
         return ['count' => count($recs)];
     }
 
-    //------- AUTH -------
+//------- AUTH -------
+
+    //'POST register' => 'register'
     public function actionRegister(){
 
-        $username = Yii::$app->getRequest()->getBodyParam('username');
-        $email = Yii::$app->getRequest()->getBodyParam('email');
-        $password = Yii::$app->getRequest()->getBodyParam('password');
+        $model = new \common\models\User();
 
-        if($username && $email && $password) {
+
+        if ($model->load(Yii::$app->getRequest()->getBodyParams(), '')) {
+
+            $model->setPassword($model->password);
 
             $user = new User();
             $user->username = $username;
@@ -65,10 +83,12 @@ class UserController extends ActiveController
             $user->status = User::STATUS_ACTIVE;
             $user->roleName = "cliente";
 
-            $user->setPassword($password);
-            $user->generateAuthKey();
 
-            if ($user->save()) {
+            // 3. Set Status (e.g., active)
+            $model->status = \common\models\User::STATUS_ACTIVE;
+
+            // 4. Validate and Save
+            if ($model->save()) {
 
                 $auth = Yii::$app->authManager;
                 $roleName = 'cliente';
@@ -79,26 +99,27 @@ class UserController extends ActiveController
 
                 return [
                     'success' => true,
-                    'user_id' => $user->id,
-                    'access_token' => $user->getAuthKey(),
+                    'user_id' => $model->id,
+                    'access_token' => $model->getAuthKey(), // Mobile app will use this for future requests
                 ];
 
             } else {
+                // Failure: Validation errors occurred on save
+                // Set the HTTP status code to 422 (Unprocessable Entity)
                 Yii::$app->response->statusCode = 422;
-                return $user->getErrors();
+                return $model->getErrors();
             }
         }
 
-        Yii::$app->response->statusCode = 400;
+        // Failure: Data load failed (e.g., missing POST data)
+        Yii::$app->response->statusCode = 400; // HTTP 400 Bad Request
         return ['error' => 'Invalid data provided.'];
     }
 
+    //'POST login'    => 'login' WORKING
     public function actionLogin(){
         $username = Yii::$app->getRequest()->getBodyParam('username');
         $password = Yii::$app->getRequest()->getBodyParam('password');
-    }
-
-    public function actionLogout(){
 
         $user = User::findOne(['username' => $username]);
 
@@ -132,10 +153,10 @@ class UserController extends ActiveController
         ];
     }
 
-    //'POST logout'   => 'logout'
-    /*public function actionLogout()
+
+    //'POST logout'   => 'logout' WORKING
+    public function actionLogout()
     {
-        // Get access token from headers (typical for API)
         $accessToken = Yii::$app->request->headers->get('Authorization');
 
         if (!$accessToken) {
@@ -143,10 +164,6 @@ class UserController extends ActiveController
             return ['status' => 'error', 'message' => 'Access token missing'];
         }
 
-        // If token comes as: "Bearer xxxxxx", extract the value
-        $accessToken = str_replace('Bearer ', '', $accessToken);
-
-        // Find user by access token
         $user = User::findOne(['accessToken' => $accessToken]);
 
         if (!$user) {
@@ -154,7 +171,6 @@ class UserController extends ActiveController
             return ['status' => 'error', 'message' => 'Invalid token'];
         }
 
-        // Clear token and expire time
         $user->accessToken = null;
         $user->token_expires = null;
 
@@ -167,34 +183,46 @@ class UserController extends ActiveController
         return ['status' => 'error', 'message' => 'Failed to logout'];
     }*/
 
-    //------- Assistances -------
+//------- Assistances -------
 
-    public function actionSetCancel($id){
+    //'Put {id}/cancel'  => 'cancel'
+    /*public function actionSetCancel($id)
+    {
+        // Find the request
+        $request = Request::findOne($id);
 
-        $model = \common\models\Request::findOne($id);
-
-        if (!$model) {
+        if (!$request) {
             throw new \yii\web\NotFoundHttpException("The requested resource was not found.");
         }
 
-        // Check if the resource can be canceled (e.g., not already completed)
-        if ($model->isCancellable()) {
+        // Check if the request can be cancelled
+        if ($request->isCancellable()) {
 
             // Update the status
-            $model->status = \app\models\Order::STATUS_CANCELLED;
+            $request->status = \common\models\Request::STATUS_CANCELLED;
 
-            if ($model->save(false)) { // Save(false) skips validation for simple status change
+            // Save without validation (safe if only updating 1 field)
+            if ($request->save(false)) {
                 Yii::$app->response->statusCode = 200;
+
                 return [
                     'success' => true,
                     'message' => 'Resource successfully cancelled.'
                 ];
             }
+
+            Yii::$app->response->statusCode = 500;
+            return [
+                'error' => 'Failed to save cancellation state.'
+            ];
         }
 
-        Yii::$app->response->statusCode = 400; // Bad Request or Validation Error
-        return ['error' => 'Resource cannot be cancelled in its current state.'];
-    }
+        Yii::$app->response->statusCode = 400;
+        return [
+            'error' => 'Resource cannot be cancelled in its current state.'
+        ];
+    }*/
+
     //'GET' {id}/status'  => 'status'
     public function actionGetStatus($id)
     {
@@ -307,6 +335,7 @@ class UserController extends ActiveController
         }
     }
 
+    //'GET  {id}/reports'  => 'list-reports'
     public function actionListReports($id){
         // Find all reports related to the resource ID
         $reports = \common\models\Request::find($id)
