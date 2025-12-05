@@ -63,7 +63,6 @@ class UserController extends ActiveController
             $user->username = $username;
             $user->email = $email;
             $user->status = User::STATUS_ACTIVE;
-            //falar com o professor
             $user->roleName = "cliente";
 
             $user->setPassword($password);
@@ -71,7 +70,13 @@ class UserController extends ActiveController
 
             if ($user->save()) {
 
+                $auth = Yii::$app->authManager;
+                $roleName = 'cliente';
+                $role = $auth->getRole($roleName);
+                $auth->assign($role, $user->id);
+
                 Yii::$app->response->statusCode = 201;
+
                 return [
                     'success' => true,
                     'user_id' => $user->id,
@@ -128,7 +133,7 @@ class UserController extends ActiveController
     }
 
     //'POST logout'   => 'logout'
-    public function actionLogout()
+    /*public function actionLogout()
     {
         // Get access token from headers (typical for API)
         $accessToken = Yii::$app->request->headers->get('Authorization');
@@ -160,7 +165,7 @@ class UserController extends ActiveController
 
         Yii::$app->response->statusCode = 500;
         return ['status' => 'error', 'message' => 'Failed to logout'];
-    }
+    }*/
 
     //------- Assistances -------
 

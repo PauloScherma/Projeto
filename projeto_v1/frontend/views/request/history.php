@@ -42,12 +42,27 @@ $this->params['breadcrumbs'][] = $this->title;
             //'canceled_by',
             //'created_at',
             //'updated_at',
+
             [
-                //ver como tirar o icon do caixote do lixo para o tecnico
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Request $model, $key, $index, $column) {
+                'template' => '{view} {update} {delete} {star}',
+
+                'buttons' => [
+                    'star' => function ($url, $model, $key) {
+                        return Html::a(
+                            '<i class="fas fa-star"></i>', // Ícone estrela
+                            ['request/rate', 'id' => $model->id],
+                            [
+                                'title' => 'Destacar',
+                                'style' => 'margin-left:5px; ',
+                            ]
+                        );
+                    },
+                ],
+
+                'urlCreator' => function ($action, $model, $key, $index) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                },
             ],
         ],
     ]); ?>
