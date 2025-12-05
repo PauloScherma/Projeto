@@ -62,7 +62,7 @@ return [
                         'POST logout'   => 'logout',
 
                         //------- ASSISTANCES -------
-                        'PATCH {id}/cancel'  => 'cancel',
+//                        'PATCH {id}/cancel'  => 'cancel',
                         'PATCH {id}/status'  => 'status',
                         'GET {id}/status'  => 'status',
 //                        'POST {id}/rating'   => 'rating',

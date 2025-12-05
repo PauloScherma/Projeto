@@ -2,13 +2,12 @@
 
 namespace backend\modules\api\controllers;
 
-use app\models\User;
+use common\models\User;
 use Yii;
 use yii\filters\auth\QueryParamAuth;
 use yii\rest\ActiveController;
 use yii\rest\Controller;
 use function ActiveRecord\all;
-use common\models\LoginForm;
 
 /**
  * Default controller for the `api` module
@@ -110,7 +109,7 @@ class UserController extends ActiveController
         return ['error' => 'Invalid data provided.'];
     }
 
-    //'POST login'    => 'login'
+    //'POST login'    => 'login' WORKING
     public function actionLogin(){
         $username = Yii::$app->getRequest()->getBodyParam('username');
         $password = Yii::$app->getRequest()->getBodyParam('password');
@@ -147,10 +146,9 @@ class UserController extends ActiveController
         ];
     }
 
-    //'POST logout'   => 'logout'
+    //'POST logout'   => 'logout' WORKING
     public function actionLogout()
     {
-        // Get access token from headers (typical for API)
         $accessToken = Yii::$app->request->headers->get('Authorization');
 
         if (!$accessToken) {
@@ -158,10 +156,6 @@ class UserController extends ActiveController
             return ['status' => 'error', 'message' => 'Access token missing'];
         }
 
-        // If token comes as: "Bearer xxxxxx", extract the value
-        $accessToken = str_replace('Bearer ', '', $accessToken);
-
-        // Find user by access token
         $user = User::findOne(['accessToken' => $accessToken]);
 
         if (!$user) {
@@ -169,7 +163,6 @@ class UserController extends ActiveController
             return ['status' => 'error', 'message' => 'Invalid token'];
         }
 
-        // Clear token and expire time
         $user->accessToken = null;
         $user->token_expires = null;
 
@@ -184,33 +177,44 @@ class UserController extends ActiveController
 
 //------- Assistances -------
 
-    //'PATCH {id}/cancel'  => 'cancel'
-    public function actionSetCancel($id){
-        // Find the resource (e.g., Order, Booking)
-        $model = \app\models\Order::findOne($id);
+    //'Put {id}/cancel'  => 'cancel'
+    /*public function actionSetCancel($id)
+    {
+        // Find the request
+        $request = Request::findOne($id);
 
-        if (!$model) {
+        if (!$request) {
             throw new \yii\web\NotFoundHttpException("The requested resource was not found.");
         }
 
-        // Check if the resource can be canceled (e.g., not already completed)
-        if ($model->isCancellable()) {
+        // Check if the request can be cancelled
+        if ($request->isCancellable()) {
 
             // Update the status
-            $model->status = \app\models\Order::STATUS_CANCELLED;
+            $request->status = \common\models\Request::STATUS_CANCELLED;
 
-            if ($model->save(false)) { // Save(false) skips validation for simple status change
+            // Save without validation (safe if only updating 1 field)
+            if ($request->save(false)) {
                 Yii::$app->response->statusCode = 200;
+
                 return [
                     'success' => true,
                     'message' => 'Resource successfully cancelled.'
                 ];
             }
+
+            Yii::$app->response->statusCode = 500;
+            return [
+                'error' => 'Failed to save cancellation state.'
+            ];
         }
 
-        Yii::$app->response->statusCode = 400; // Bad Request or Validation Error
-        return ['error' => 'Resource cannot be cancelled in its current state.'];
-    }
+        Yii::$app->response->statusCode = 400;
+        return [
+            'error' => 'Resource cannot be cancelled in its current state.'
+        ];
+    }*/
+
     //'GET' {id}/status'  => 'status'
     public function actionGetStatus($id)
     {
