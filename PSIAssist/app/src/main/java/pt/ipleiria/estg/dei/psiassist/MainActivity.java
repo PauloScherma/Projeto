@@ -1,4 +1,4 @@
-package pt.ipleiria.estg.dei.ourapppsiassist.activitys;
+package pt.ipleiria.estg.dei.psiassist;
 
 import android.os.Bundle;
 
@@ -7,9 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-import pt.ipleiria.estg.dei.ourapppsiassist.R;
-import pt.ipleiria.estg.dei.ourapppsiassist.fragments.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,10 +20,5 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new HomeFragment())
-                    .commit();
-        }
     }
 }

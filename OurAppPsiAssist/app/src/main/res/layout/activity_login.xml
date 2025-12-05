@@ -70,14 +70,29 @@
             android:textStyle="bold" />
 
         <!-- Subtítulo -->
-        <TextView
+        <!--<TextView
             android:id="@+id/tvLoginSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@string/login_to_continue"
             android:textColor="#888888"
-            android:textSize="14sp" />
+            android:textSize="14sp" />-->
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/tvLoginSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/login_to_continue"
+            android:textColor="#888888"
+            android:textSize="14sp"
+            android:backgroundTint="@android:color/transparent"/>
 
         <Space
             android:layout_width="match_parent"
@@ -129,6 +144,12 @@
 
         <!-- Botão Log in -->
         <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
+        <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -146,35 +167,49 @@
 
         <!-- Link recuperar password -->
         <!-- Link Esqueceste-te da password? -->
-        <TextView
+       <!-- <TextView
             android:id="@+id/tvForgotPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/forgot_password"
             android:textColor="#777777"
-            android:textSize="12sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".01" />
+            android:textSize="12sp" />-->
+        <Button
+            android:id="@+id/btnForgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/forgot_password"
+            android:textColor="#777777"
+            android:textSize="12sp"
+            android:backgroundTint="@android:color/transparent"/>
 
         <!-- Link criar conta -->
         <!-- Link Não tens conta? Cria uma aqui! -->
-        <TextView
+        <!--<TextView
             android:id="@+id/tvCreateAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/no_account_create_one_here"
             android:textColor="#777777"
-            android:textSize="12sp" />
-
+            android:textSize="12sp" />-->
+        <Button
+            android:id="@+id/btnCreateAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/no_account_create_one_here"
+            android:textColor="#777777"
+            android:textSize="12sp"
+            android:backgroundTint="@android:color/transparent"/>
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".01" />
+
+
     </LinearLayout>
 
 </LinearLayout>

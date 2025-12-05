@@ -109,10 +109,10 @@ class UserController extends ActiveController
         return ['error' => 'Invalid data provided.'];
     }
 
-    //'POST login'    => 'login' WORKING
+    //'POST login'    => 'login'
     public function actionLogin(){
-        $username = Yii::$app->getRequest()->getBodyParam('username');
-        $password = Yii::$app->getRequest()->getBodyParam('password');
+        $username = Yii::$app->request->getBodyParam('username');
+        $password = Yii::$app->request->getBodyParam('password');
 
         $user = User::findOne(['username' => $username]);
 
@@ -127,7 +127,7 @@ class UserController extends ActiveController
         $token = Yii::$app->security->generateRandomString();
         $expirationTime = time() + (3600); // Token expires in 1 hour
 
-        $user->access_token = $token;
+        /* $user->access_token = $token;
         $user->token_expires = $expirationTime;
 
         if (!$user->save()) {
@@ -137,7 +137,7 @@ class UserController extends ActiveController
                 'status' => 'error',
                 'message' => 'Internal server error during token issuance.'
             ];
-        }
+        } */
 
         return [
             'status' => 'success',
