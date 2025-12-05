@@ -30,7 +30,7 @@ class RequestController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'actions' => ['index', 'view', 'create', 'update', 'delete', 'history'],
+                            'actions' => ['index', 'view', 'create', 'update', 'delete', 'history', 'rate'],
                             'roles' => ['@'],
                         ],
                         [
@@ -96,7 +96,7 @@ class RequestController extends Controller
     }
 
     /**
-     * Displays the Requests completed or canceled.
+     * Displays all the User Requests completed or canceled.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -140,6 +140,34 @@ class RequestController extends Controller
         ]);
     }
 
+    /**
+     * Displays the Requests completed or canceled.
+     * @param int $id ID
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionRate()
+    {
+        $model = new Request();
+        $model->customer_id = Yii::$app->user->id;
+
+        if ($this->request->isPost && $model->load($this->request->post())){
+
+            $model->request_attachment = UploadedFile::getInstances($model, 'request_attachment');
+            $model->created_at = \date('Y-m-d H:i:s');
+
+            if($model->save() && $model->upload()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
     /**
      * Displays a single Request model.
      * @param int $id ID

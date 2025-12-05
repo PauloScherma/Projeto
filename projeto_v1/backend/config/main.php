@@ -76,7 +76,7 @@ return [
 
                         /*// ------ TECHNICIANS -------
                         'PUT {id}/availability' => 'set-availability',
-                        'GET {id}/availability' => 'get-availability',*/
+                        'GET {id}/availability' => 'get-availability',
 
                         //------ SYNC OFFLINE --------
                         'GET changes' => 'changes',

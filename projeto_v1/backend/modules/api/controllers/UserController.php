@@ -69,18 +69,20 @@ class UserController extends ActiveController
 
     //'POST register' => 'register'
     public function actionRegister(){
-        // Use the User model (or a specific SignupForm model if preferred)
+
         $model = new \common\models\User();
 
-        // Load data from the request body (important for JSON APIs)
-        // The empty string '' tells load() to get data without a form name prefix.
+
         if ($model->load(Yii::$app->getRequest()->getBodyParams(), '')) {
 
-            // 1. Set Password Hash
             $model->setPassword($model->password);
 
-            // 2. Generate Authentication Key (the access_token for the mobile app)
-            $model->generateAuthKey();
+            $user = new User();
+            $user->username = $username;
+            $user->email = $email;
+            $user->status = User::STATUS_ACTIVE;
+            $user->roleName = "cliente";
+
 
             // 3. Set Status (e.g., active)
             $model->status = \common\models\User::STATUS_ACTIVE;
@@ -88,8 +90,13 @@ class UserController extends ActiveController
             // 4. Validate and Save
             if ($model->save()) {
 
-                // Success: Return the new user's access token and ID
-                Yii::$app->response->statusCode = 201; // HTTP 201 Created
+                $auth = Yii::$app->authManager;
+                $roleName = 'cliente';
+                $role = $auth->getRole($roleName);
+                $auth->assign($role, $user->id);
+
+                Yii::$app->response->statusCode = 201;
+
                 return [
                     'success' => true,
                     'user_id' => $model->id,
@@ -146,6 +153,7 @@ class UserController extends ActiveController
         ];
     }
 
+
     //'POST logout'   => 'logout' WORKING
     public function actionLogout()
     {
@@ -173,7 +181,7 @@ class UserController extends ActiveController
 
         Yii::$app->response->statusCode = 500;
         return ['status' => 'error', 'message' => 'Failed to logout'];
-    }
+    }*/
 
 //------- Assistances -------
 

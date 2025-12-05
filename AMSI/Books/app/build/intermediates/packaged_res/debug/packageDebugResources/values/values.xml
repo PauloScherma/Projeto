@@ -8,6 +8,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ndClose">Close</string>
     <string name="ndOpen">Open\n</string>
+    <string name="pesquisa">Pesquisa</string>
     <string name="txt_bemVindo">Bem-Vindo!</string>
     <string name="txt_email">Inserir email</string>
     <string name="txt_login">Login</string>

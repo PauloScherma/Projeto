@@ -1,198 +1,282 @@
 [
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable-xxhdpi_ic_menu_grelha.png.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable-xxhdpi\\ic_menu_grelha.png"
+        "merged": "com.example.books.app-debug-35:/drawable-xhdpi_ic_action_pesquisar.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-xhdpi/ic_action_pesquisar.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable_ic_launcher_foreground.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable\\ic_launcher_foreground.xml"
+        "merged": "com.example.books.app-debug-35:/drawable-mdpi_ic_action_pesquisar.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-mdpi/ic_action_pesquisar.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+        "merged": "com.example.books.app-debug-35:/layout_activity_main.xml.flat",
+        "source": "com.example.books.app-main-37:/layout/activity_main.xml"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\mipmap-mdpi\\ic_launcher_round.webp"
+        "merged": "com.example.books.app-debug-35:/drawable-hdpi_ic_menu_email.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-hdpi/ic_menu_email.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\xml_backup_rules.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\xml\\backup_rules.xml"
+        "merged": "com.example.books.app-debug-35:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.books.app-main-37:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable-hdpi_ic_menu_lista.png.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable-hdpi\\ic_menu_lista.png"
+        "merged": "com.example.books.app-debug-35:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.books.app-main-37:/drawable/ic_launcher_foreground.xml"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\layout_activity_detalhes_livro.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\layout\\activity_detalhes_livro.xml"
+        "merged": "com.example.books.app-debug-35:/xml_backup_rules.xml.flat",
+        "source": "com.example.books.app-main-37:/xml/backup_rules.xml"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable-anydpi_ic_menu_email.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable-anydpi\\ic_menu_email.xml"
+        "merged": "com.example.books.app-debug-35:/menu_menu_main.xml.flat",
+        "source": "com.example.books.app-main-37:/menu/menu_main.xml"
     },
     {
-        "merged": "com.example.books.app-debug-34:/layout_activity_detalhes_livro.xml.flat",
-        "source": "com.example.books.app-main-36:/layout/activity_detalhes_livro.xml"
+        "merged": "com.example.books.app-debug-35:/drawable-xxhdpi_ic_action_pesquisar.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-xxhdpi/ic_action_pesquisar.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\mipmap-anydpi-v26\\ic_launcher.xml"
+        "merged": "com.example.books.app-debug-35:/layout_activity_detalhes_livro.xml.flat",
+        "source": "com.example.books.app-main-37:/layout/activity_detalhes_livro.xml"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\mipmap-hdpi\\ic_launcher.webp"
+        "merged": "com.example.books.app-debug-35:/drawable_programarandroid2.jpg.flat",
+        "source": "com.example.books.app-main-37:/drawable/programarandroid2.jpg"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\xml_data_extraction_rules.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\xml\\data_extraction_rules.xml"
+        "merged": "com.example.books.app-debug-35:/drawable-xxhdpi_ic_action_guardar.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-xxhdpi/ic_action_guardar.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\layout_fragment_grelha_livros.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\layout\\fragment_grelha_livros.xml"
+        "merged": "com.example.books.app-debug-35:/drawable-xhdpi_ic_menu_grelha.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-xhdpi/ic_menu_grelha.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\mipmap-xhdpi\\ic_launcher.webp"
+        "merged": "com.example.books.app-debug-35:/layout_fragment_estatico.xml.flat",
+        "source": "com.example.books.app-main-37:/layout/fragment_estatico.xml"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable_ic_launcher_background.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable\\ic_launcher_background.xml"
+        "merged": "com.example.books.app-debug-35:/drawable-hdpi_ic_action_remover.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-hdpi/ic_action_remover.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\layout_activity_detalhes_dinamico.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\layout\\activity_detalhes_dinamico.xml"
+        "merged": "com.example.books.app-debug-35:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.books.app-main-37:/mipmap-xxxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\layout_app_bar_main.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\layout\\app_bar_main.xml"
+        "merged": "com.example.books.app-debug-35:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.books.app-main-37:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable-mdpi_ic_menu_lista.png.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable-mdpi\\ic_menu_lista.png"
+        "merged": "com.example.books.app-debug-35:/drawable-xxhdpi_ic_menu_grelha.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-xxhdpi/ic_menu_grelha.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable-anydpi_ic_menu_grelha.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable-anydpi\\ic_menu_grelha.xml"
+        "merged": "com.example.books.app-debug-35:/drawable-hdpi_ic_action_adicionar.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-hdpi/ic_action_adicionar.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable-xxhdpi_ic_menu_email.png.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable-xxhdpi\\ic_menu_email.png"
+        "merged": "com.example.books.app-debug-35:/drawable-xxhdpi_ic_menu_lista.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-xxhdpi/ic_menu_lista.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+        "merged": "com.example.books.app-debug-35:/layout_fragment_dinamico.xml.flat",
+        "source": "com.example.books.app-main-37:/layout/fragment_dinamico.xml"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\layout_activity_menu_main.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\layout\\activity_menu_main.xml"
+        "merged": "com.example.books.app-debug-35:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.books.app-main-37:/mipmap-hdpi/ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\layout_fragment_dinamico.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\layout\\fragment_dinamico.xml"
+        "merged": "com.example.books.app-debug-35:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.books.app-main-37:/mipmap-xhdpi/ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable_programarandroid1.jpg.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable\\programarandroid1.jpg"
+        "merged": "com.example.books.app-debug-35:/drawable-anydpi_ic_action_pesquisar.xml.flat",
+        "source": "com.example.books.app-main-37:/drawable-anydpi/ic_action_pesquisar.xml"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\mipmap-hdpi\\ic_launcher_round.webp"
+        "merged": "com.example.books.app-debug-35:/drawable_logoipl.png.flat",
+        "source": "com.example.books.app-main-37:/drawable/logoipl.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable-xhdpi_ic_menu_grelha.png.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable-xhdpi\\ic_menu_grelha.png"
+        "merged": "com.example.books.app-debug-35:/drawable-mdpi_ic_menu_email.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-mdpi/ic_menu_email.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\mipmap-xhdpi\\ic_launcher_round.webp"
+        "merged": "com.example.books.app-debug-35:/layout_activity_menu_main.xml.flat",
+        "source": "com.example.books.app-main-37:/layout/activity_menu_main.xml"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\layout_fragment_estatico.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\layout\\fragment_estatico.xml"
+        "merged": "com.example.books.app-debug-35:/drawable-xhdpi_ic_action_guardar.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-xhdpi/ic_action_guardar.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\mipmap-xxhdpi\\ic_launcher.webp"
+        "merged": "com.example.books.app-debug-35:/layout_activity_detalhes_estatico.xml.flat",
+        "source": "com.example.books.app-main-37:/layout/activity_detalhes_estatico.xml"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\layout_activity_main.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\layout\\activity_main.xml"
+        "merged": "com.example.books.app-debug-35:/drawable-anydpi_ic_menu_email.xml.flat",
+        "source": "com.example.books.app-main-37:/drawable-anydpi/ic_menu_email.xml"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable-xhdpi_ic_menu_email.png.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable-xhdpi\\ic_menu_email.png"
+        "merged": "com.example.books.app-debug-35:/drawable-xhdpi_ic_action_remover.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-xhdpi/ic_action_remover.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\menu_menu_main.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\menu\\menu_main.xml"
+        "merged": "com.example.books.app-debug-35:/drawable-mdpi_ic_action_remover.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-mdpi/ic_action_remover.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable-anydpi_ic_menu_lista.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable-anydpi\\ic_menu_lista.xml"
+        "merged": "com.example.books.app-debug-35:/drawable_programarandroid1.jpg.flat",
+        "source": "com.example.books.app-main-37:/drawable/programarandroid1.jpg"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+        "merged": "com.example.books.app-debug-35:/drawable-xxhdpi_ic_action_adicionar.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-xxhdpi/ic_action_adicionar.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\layout_activity_login.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\layout\\activity_login.xml"
+        "merged": "com.example.books.app-debug-35:/drawable-hdpi_ic_menu_grelha.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-hdpi/ic_menu_grelha.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable-hdpi_ic_menu_email.png.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable-hdpi\\ic_menu_email.png"
+        "merged": "com.example.books.app-debug-35:/layout_item_lista_livro.xml.flat",
+        "source": "com.example.books.app-main-37:/layout/item_lista_livro.xml"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\layout_activity_detalhes_estatico.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\layout\\activity_detalhes_estatico.xml"
+        "merged": "com.example.books.app-debug-35:/layout_fragment_grelha_livros.xml.flat",
+        "source": "com.example.books.app-main-37:/layout/fragment_grelha_livros.xml"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable-mdpi_ic_menu_grelha.png.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable-mdpi\\ic_menu_grelha.png"
+        "merged": "com.example.books.app-debug-35:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.books.app-main-37:/mipmap-xxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\layout_fragment_lista_livro.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\layout\\fragment_lista_livro.xml"
+        "merged": "com.example.books.app-debug-35:/drawable-xhdpi_ic_menu_email.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-xhdpi/ic_menu_email.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable_programarandroid2.jpg.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable\\programarandroid2.jpg"
+        "merged": "com.example.books.app-debug-35:/drawable-xhdpi_ic_action_adicionar.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-xhdpi/ic_action_adicionar.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable-hdpi_ic_menu_grelha.png.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable-hdpi\\ic_menu_grelha.png"
+        "merged": "com.example.books.app-debug-35:/layout_fragment_lista_livro.xml.flat",
+        "source": "com.example.books.app-main-37:/layout/fragment_lista_livro.xml"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\mipmap-xxxhdpi\\ic_launcher.webp"
+        "merged": "com.example.books.app-debug-35:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.books.app-main-37:/mipmap-mdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable_logoipl.png.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable\\logoipl.png"
+        "merged": "com.example.books.app-debug-35:/drawable-mdpi_ic_action_adicionar.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-mdpi/ic_action_adicionar.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable-mdpi_ic_menu_email.png.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable-mdpi\\ic_menu_email.png"
+        "merged": "com.example.books.app-debug-35:/layout_activity_login.xml.flat",
+        "source": "com.example.books.app-main-37:/layout/activity_login.xml"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\layout_item_lista_livro.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\layout\\item_lista_livro.xml"
+        "merged": "com.example.books.app-debug-35:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.books.app-main-37:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\layout_nav_header_main.xml.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\layout\\nav_header_main.xml"
+        "merged": "com.example.books.app-debug-35:/drawable-mdpi_ic_action_guardar.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-mdpi/ic_action_guardar.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\mipmap-mdpi\\ic_launcher.webp"
+        "merged": "com.example.books.app-debug-35:/drawable-mdpi_ic_menu_grelha.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-mdpi/ic_menu_grelha.png"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable-xhdpi_ic_menu_lista.png.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable-xhdpi\\ic_menu_lista.png"
+        "merged": "com.example.books.app-debug-35:/drawable-anydpi_ic_action_remover.xml.flat",
+        "source": "com.example.books.app-main-37:/drawable-anydpi/ic_action_remover.xml"
     },
     {
-        "merged": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-debug-34:\\drawable-xxhdpi_ic_menu_lista.png.flat",
-        "source": "C:\\Users\\paulo\\.gradle\\daemon\\8.13\\com.example.books.app-main-36:\\drawable-xxhdpi\\ic_menu_lista.png"
+        "merged": "com.example.books.app-debug-35:/drawable-anydpi_ic_menu_lista.xml.flat",
+        "source": "com.example.books.app-main-37:/drawable-anydpi/ic_menu_lista.xml"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/drawable-hdpi_ic_menu_lista.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-hdpi/ic_menu_lista.png"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.books.app-main-37:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/drawable-anydpi_ic_action_guardar.xml.flat",
+        "source": "com.example.books.app-main-37:/drawable-anydpi/ic_action_guardar.xml"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/menu_menu_remover.xml.flat",
+        "source": "com.example.books.app-main-37:/menu/menu_remover.xml"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/drawable-hdpi_ic_action_guardar.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-hdpi/ic_action_guardar.png"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/drawable-xxhdpi_ic_action_remover.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-xxhdpi/ic_action_remover.png"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.books.app-main-37:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.books.app-main-37:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/layout_app_bar_main.xml.flat",
+        "source": "com.example.books.app-main-37:/layout/app_bar_main.xml"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/menu_menu_pesquisa.xml.flat",
+        "source": "com.example.books.app-main-37:/menu/menu_pesquisa.xml"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/drawable-anydpi_ic_action_adicionar.xml.flat",
+        "source": "com.example.books.app-main-37:/drawable-anydpi/ic_action_adicionar.xml"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.books.app-main-37:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.books.app-main-37:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/drawable-mdpi_ic_menu_lista.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-mdpi/ic_menu_lista.png"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/drawable-anydpi_ic_menu_grelha.xml.flat",
+        "source": "com.example.books.app-main-37:/drawable-anydpi/ic_menu_grelha.xml"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.books.app-main-37:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/layout_activity_detalhes_dinamico.xml.flat",
+        "source": "com.example.books.app-main-37:/layout/activity_detalhes_dinamico.xml"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/drawable-xhdpi_ic_menu_lista.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-xhdpi/ic_menu_lista.png"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/drawable-xxhdpi_ic_menu_email.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-xxhdpi/ic_menu_email.png"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/drawable-hdpi_ic_action_pesquisar.png.flat",
+        "source": "com.example.books.app-main-37:/drawable-hdpi/ic_action_pesquisar.png"
+    },
+    {
+        "merged": "com.example.books.app-debug-35:/layout_nav_header_main.xml.flat",
+        "source": "com.example.books.app-main-37:/layout/nav_header_main.xml"
     }
 ]
