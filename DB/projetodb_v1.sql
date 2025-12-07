@@ -72,7 +72,7 @@ CREATE TABLE `auth_assignment` (
 
 LOCK TABLES `auth_assignment` WRITE;
 /*!40000 ALTER TABLE `auth_assignment` DISABLE KEYS */;
-INSERT INTO `auth_assignment` VALUES ('admin','53',1764689785),('cliente','55',1764689904),('cliente','57',1764693766),('gestor','54',1764689852),('tecnico','56',1764689926);
+INSERT INTO `auth_assignment` VALUES ('admin','53',1764689785),('cliente','55',1764689904),('cliente','57',1764693766),('gestor','54',1764689852),('tecnico','56',1764689926),('tecnico','58',1765126489);
 /*!40000 ALTER TABLE `auth_assignment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -274,7 +274,7 @@ CREATE TABLE `request` (
   KEY `fk_request_canceled_by` (`canceled_by`),
   CONSTRAINT `fk_request_currtech` FOREIGN KEY (`current_technician_id`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_request_customer` FOREIGN KEY (`customer_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabela central dos pedidos de serviço. Guarda o cliente, técnico atual, estado, prioridade e timestamps.';
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabela central dos pedidos de serviço. Guarda o cliente, técnico atual, estado, prioridade e timestamps.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -283,7 +283,7 @@ CREATE TABLE `request` (
 
 LOCK TABLES `request` WRITE;
 /*!40000 ALTER TABLE `request` DISABLE KEYS */;
-INSERT INTO `request` VALUES (24,55,'new','new','medium','canceled',56,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(25,53,'teste','teste','medium','in_progress',56,NULL,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(26,53,'teste','teste','medium','new',56,NULL,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(27,53,'bom dia','bom dia','medium','new',56,NULL,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(28,55,'requestCliente','requestCliente','medium','new',NULL,NULL,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(29,53,'wqerwqe','BLALALSDLASDA','medium','new',56,NULL,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00');
+INSERT INTO `request` VALUES (37,55,'clienteRequest','clienteRequest','medium','completed',58,NULL,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `request` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -297,20 +297,20 @@ DROP TABLE IF EXISTS `request_assignment`;
 CREATE TABLE `request_assignment` (
   `id` int NOT NULL AUTO_INCREMENT,
   `request_id` int NOT NULL,
-  `technician_id` int NOT NULL,
-  `assigned_by` int DEFAULT NULL,
-  `assigned_at` int NOT NULL,
-  `unassigned_at` int DEFAULT NULL,
-  `reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `from_technician` int DEFAULT NULL,
+  `to_technician` int NOT NULL,
+  `changed_by` int NOT NULL,
+  `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uq_ra_one_active` (`request_id`,((`unassigned_at` is null))),
-  KEY `idx_ra_request` (`request_id`),
-  KEY `idx_ra_technician_active` (`technician_id`,`unassigned_at`),
-  KEY `fk_ra_assigned_by` (`assigned_by`),
-  CONSTRAINT `fk_ra_assigned_by` FOREIGN KEY (`assigned_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `fk_ra_request` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_ra_technician` FOREIGN KEY (`technician_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Regista as atribuições e desatribuições de técnicos aos pedidos, incluindo quem atribuiu e quando.';
+  KEY `fk_oldTechnician_idx` (`from_technician`),
+  KEY `fk_newTechnician_idx` (`to_technician`),
+  KEY `fk_requestID_idx` (`request_id`),
+  KEY `fk_changedByID_idx` (`changed_by`),
+  CONSTRAINT `fk_changedBy` FOREIGN KEY (`changed_by`) REFERENCES `user` (`id`),
+  CONSTRAINT `fk_newTechnician` FOREIGN KEY (`to_technician`) REFERENCES `user` (`id`),
+  CONSTRAINT `fk_oldTechnician` FOREIGN KEY (`from_technician`) REFERENCES `user` (`id`),
+  CONSTRAINT `fk_requestID` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -319,6 +319,7 @@ CREATE TABLE `request_assignment` (
 
 LOCK TABLES `request_assignment` WRITE;
 /*!40000 ALTER TABLE `request_assignment` DISABLE KEYS */;
+INSERT INTO `request_assignment` VALUES (1,37,58,56,53,'2025-12-07 17:07:47'),(2,37,58,56,53,'2025-12-07 17:07:59'),(3,37,56,58,53,'2025-12-07 17:08:03');
 /*!40000 ALTER TABLE `request_assignment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -348,7 +349,7 @@ CREATE TABLE `request_attachment` (
   CONSTRAINT `fk_attach_request` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_attach_user` FOREIGN KEY (`uploaded_by`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_request_attachment_approved_by` FOREIGN KEY (`approved_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Anexos associados a um pedido. Pode incluir fotos, relatórios ou orçamentos que requerem aprovação do cliente.';
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Anexos associados a um pedido. Pode incluir fotos, relatórios ou orçamentos que requerem aprovação do cliente.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -357,6 +358,7 @@ CREATE TABLE `request_attachment` (
 
 LOCK TABLES `request_attachment` WRITE;
 /*!40000 ALTER TABLE `request_attachment` DISABLE KEYS */;
+INSERT INTO `request_attachment` VALUES (29,37,55,'uploads/attachments/clienteRequest.txt','clienteRequest.txt','2025-12-07 14:50:24','generic',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `request_attachment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -403,22 +405,18 @@ DROP TABLE IF EXISTS `request_rating`;
 CREATE TABLE `request_rating` (
   `id` int NOT NULL AUTO_INCREMENT,
   `request_id` int NOT NULL,
-  `author_id` int NOT NULL,
-  `target_id` int NOT NULL,
-  `direction` enum('customer_to_technician','technician_to_customer') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `score` tinyint NOT NULL,
-  `comment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` int NOT NULL,
-  `updated_at` int NOT NULL,
+  `created_at` datetime NOT NULL,
+  `created_by` int NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uq_request_author_direction` (`request_id`,`author_id`,`direction`),
+  UNIQUE KEY `uq_request_author_direction` (`request_id`),
   KEY `idx_rr_request` (`request_id`),
-  KEY `idx_rr_target` (`target_id`),
-  KEY `fk_rr_author` (`author_id`),
-  CONSTRAINT `fk_rr_author` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_rr_request` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_rr_target` FOREIGN KEY (`target_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Avaliações de pedidos: cliente avalia técnico e técnico avalia cliente.';
+  KEY `fk_rr_created_by_idx` (`created_by`),
+  CONSTRAINT `fk_rr_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
+  CONSTRAINT `fk_rr_request` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Avaliações de pedidos: cliente avalia técnico e técnico avalia cliente.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -440,17 +438,16 @@ DROP TABLE IF EXISTS `request_status_history`;
 CREATE TABLE `request_status_history` (
   `id` int NOT NULL AUTO_INCREMENT,
   `request_id` int NOT NULL,
-  `from_status` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `from_status` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `to_status` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `changed_by` int DEFAULT NULL,
-  `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` int NOT NULL,
+  `changed_by` int NOT NULL,
+  `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_rsh_request_created` (`request_id`,`created_at`),
   KEY `fk_rsh_user` (`changed_by`),
-  CONSTRAINT `fk_rsh_request` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_rsh_user` FOREIGN KEY (`changed_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Histórico das mudanças de estado de cada pedido, indicando quem alterou e quando.';
+  CONSTRAINT `fk_changeby` FOREIGN KEY (`changed_by`) REFERENCES `user` (`id`),
+  CONSTRAINT `fk_rsh_request` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Histórico das mudanças de estado de cada pedido, indicando quem alterou e quando.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -459,6 +456,7 @@ CREATE TABLE `request_status_history` (
 
 LOCK TABLES `request_status_history` WRITE;
 /*!40000 ALTER TABLE `request_status_history` DISABLE KEYS */;
+INSERT INTO `request_status_history` VALUES (1,37,'new','in_progress',53,'2025-12-07 15:57:06'),(2,37,'in_progress','completed',53,'2025-12-07 16:08:56');
 /*!40000 ALTER TABLE `request_status_history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -484,7 +482,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Guarda as credenciais básicas dos utilizadores (login, email, password_hash e estado da conta).';
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Guarda as credenciais básicas dos utilizadores (login, email, password_hash e estado da conta).';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -493,7 +491,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (53,'admin','A9bF7OybwFOrlBLkB-nUYNTqDwqvC8vC','$2y$13$zJvX4LaHPq4YYURgtH0M3.aarSCP091rm/HFjxuTHK5/VlNfhbAMi',NULL,'admin@admin.com',10,1764689785,1764689785,'TbqaslkiM2BcfpG-JSMJGxMfMP44_uiV_1764689785'),(54,'gestor','iATxPhqLTVNrhdqydtldSObEtsYWjkI2','$2y$13$jZaPFxIiXHVOdu2.Ng0DYud978TcLHHP/HF2kf7Idc6XzK2Onaqz6',NULL,'gestor@gestor.com',10,1764689852,1764689852,NULL),(55,'cliente','LH_h9k6fCvl03aarl1yLGt6oiuUYG0zY','$2y$13$Oskqi5CNgaIuNd31Kzl7KO974ubdtB82evKX4xe0UQYJ0mAoKLSa.',NULL,'cliente@cliente.com',10,1764689903,1764689903,NULL),(56,'tecnico','zpWQR8LDTrFPcW5Wvb1D3aDGPcKb8a1q','$2y$13$nDpNxHGQUtY.nC3ByZ/xy.Tm3qwrvqxQM6KoGbzba5DGrj/lIilwS',NULL,'tecnico@tecnico.com',10,1764689926,1764689926,NULL),(57,'teste','Fepmp17Anf679XKILmUim22dLAO2ynmD','$2y$13$BYc8NrlJnf.h0e1IcO0Pg.AhTzTlFSD4vJwlVotir37nNhwDUJmhW',NULL,'teste@teste.com',10,1764693766,1764693766,NULL);
+INSERT INTO `user` VALUES (53,'admin','A9bF7OybwFOrlBLkB-nUYNTqDwqvC8vC','$2y$13$zJvX4LaHPq4YYURgtH0M3.aarSCP091rm/HFjxuTHK5/VlNfhbAMi',NULL,'admin@admin.com',10,1764689785,1764689785,'TbqaslkiM2BcfpG-JSMJGxMfMP44_uiV_1764689785'),(54,'gestor','iATxPhqLTVNrhdqydtldSObEtsYWjkI2','$2y$13$jZaPFxIiXHVOdu2.Ng0DYud978TcLHHP/HF2kf7Idc6XzK2Onaqz6',NULL,'gestor@gestor.com',10,1764689852,1764689852,NULL),(55,'cliente','LH_h9k6fCvl03aarl1yLGt6oiuUYG0zY','$2y$13$Oskqi5CNgaIuNd31Kzl7KO974ubdtB82evKX4xe0UQYJ0mAoKLSa.',NULL,'cliente@cliente.com',10,1764689903,1764689903,NULL),(56,'tecnico','zpWQR8LDTrFPcW5Wvb1D3aDGPcKb8a1q','$2y$13$nDpNxHGQUtY.nC3ByZ/xy.Tm3qwrvqxQM6KoGbzba5DGrj/lIilwS',NULL,'tecnico@tecnico.com',10,1764689926,1764689926,NULL),(57,'teste','Fepmp17Anf679XKILmUim22dLAO2ynmD','$2y$13$BYc8NrlJnf.h0e1IcO0Pg.AhTzTlFSD4vJwlVotir37nNhwDUJmhW',NULL,'teste@teste.com',10,1764693766,1764693766,NULL),(58,'technician2','hV3vxP9ocN1l91mNzuWYOVSigbRJw8Ge','$2y$13$tAd.FVBWUJVD6AhaVdpWD.IXc.IaFju/NIIW328RJGMdu3A0s4URC',NULL,'technician2@technician2.com',10,1765126489,1765126489,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -506,4 +504,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-03 21:47:31
+-- Dump completed on 2025-12-07 17:36:25
