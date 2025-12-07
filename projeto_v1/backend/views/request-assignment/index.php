@@ -1,20 +1,20 @@
 <?php
 
-use common\models\RequestStatusHistory;
+use common\models\RequestAssignment;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var backend\models\RequestStatusHistorySearch $searchModel */
+/** @var backend\models\RequestAssignmentSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Request Status Histories';
+$this->title = 'Request Assignments';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="request-status-history-index">
-    
+<div class="request-assignment-index">
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -24,14 +24,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            //'request_id',
-            'from_status',
-            'to_status',
+            'request_id',
+            'from_technician',
+            'to_technician',
             'changed_by',
-            'created_at',
+            //'created_at',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, RequestStatusHistory $model, $key, $index, $column) {
+                'urlCreator' => function ($action, RequestAssignment $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],

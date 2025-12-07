@@ -45,16 +45,26 @@ $this->params['breadcrumbs'][] = $this->title;
             //'updated_at',
             [
                 'class' => ActionColumn::className(),
-                'template' => '{view} {update} {delete} {log}',
+                'template' => '{view} {update} {delete} {status_log} {assignment_log}',
 
                 'buttons' => [
-                        'log' => function ($url, $model, $key) {
+                        'status_log' => function ($url, $model, $key) {
                             return Html::a(
                                     '<i class="fas fa-history"></i>',
                                     //dúvida 2.
                                     ['..\request-status-history\index', /*'request-id' => $model->id*/],
                                     [
                                             'title' => 'Status Log',
+                                    ]
+                            );
+                        },
+                        'assignment_log' => function ($url, $model, $key) {
+                            return Html::a(
+                                    '<i class="fas fa-hourglass-half"></i>',
+                                    //dúvida 2.
+                                    ['..\request-assignment\index', /*'request-id' => $model->id*/],
+                                    [
+                                            'title' => 'Attachement Log',
                                     ]
                             );
                         },

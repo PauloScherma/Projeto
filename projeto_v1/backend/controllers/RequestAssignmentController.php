@@ -2,17 +2,16 @@
 
 namespace backend\controllers;
 
-use common\models\RequestStatusHistory;
-use backend\models\RequestStatusHistorySearch;
-use yii\filters\AccessControl;
+use backend\models\RequestAssignmentSearch;
+use common\models\RequestAssignment;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
- * RequestStatusHistoryController implements the CRUD actions for RequestStatusHistory model.
+ * RequestAssignmentController implements the CRUD actions for RequestAssignment model.
  */
-class RequestStatusHistoryController extends Controller
+class RequestAssignmentController extends Controller
 {
     /**
      * @inheritDoc
@@ -22,16 +21,6 @@ class RequestStatusHistoryController extends Controller
         return array_merge(
             parent::behaviors(),
             [
-                'access' => [
-                    'class' => AccessControl::class,
-                    'rules' => [
-                        [
-                            'allow' => true,
-                            'actions' => ['index', 'view'],
-                            'roles' => ['admin', 'gestor'],
-                        ],
-                    ],
-                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -43,13 +32,13 @@ class RequestStatusHistoryController extends Controller
     }
 
     /**
-     * Lists all RequestStatusHistory models.
+     * Lists all RequestAssignment models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new RequestStatusHistorySearch();
+        $searchModel = new RequestAssignmentSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -59,7 +48,7 @@ class RequestStatusHistoryController extends Controller
     }
 
     /**
-     * Displays a single RequestStatusHistory model.
+     * Displays a single RequestAssignment model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -71,17 +60,16 @@ class RequestStatusHistoryController extends Controller
         ]);
     }
 
-
     /**
-     * Finds the RequestStatusHistory model based on its primary key value.
+     * Finds the RequestAssignment model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return RequestStatusHistory the loaded model
+     * @return RequestAssignment the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = RequestStatusHistory::findOne(['id' => $id])) !== null) {
+        if (($model = RequestAssignment::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

@@ -4,14 +4,16 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var common\models\RequestStatusHistory $model */
+/** @var common\models\RequestAssignment $model */
 
-$this->title = $model->request_id;
-$this->params['breadcrumbs'][] = ['label' => 'Request Status Histories', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Request Assignments', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="request-status-history-view">
+<div class="request-assignment-view">
+
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -27,10 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            //'id',
             'request_id',
-            'from_status',
-            'to_status',
+            'from_technician',
+            'to_technician',
             'changed_by',
             'created_at',
         ],
