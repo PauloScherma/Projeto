@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Request;
 use backend\models\RequestSearch;
+use common\models\RequestAssignment;
 use common\models\RequestAttachment;
 use common\models\RequestStatusHistory;
 use yii\db\Expression;
@@ -125,6 +126,7 @@ class RequestController extends Controller
         $clientName = $model->customer->username;
         $currentUserId = Yii::$app->user->id;
         $oldStatus = $model->status;
+        $oldTechnician = $model->currentTechnician->id;
 
         if ($this->request->isPost && $model->load($this->request->post())){
 
@@ -135,13 +137,25 @@ class RequestController extends Controller
             //request-status-history
             $newStatus = $model->status;
             if ($newStatus != $oldStatus) {
-                $statusHistory = new RequestStatusHistory();
-                $statusHistory->request_id = $model->id;
-                $statusHistory->from_status = $oldStatus;
-                $statusHistory->to_status = $newStatus;
-                $statusHistory->changed_by = $currentUserId;
-                $statusHistory->created_at = \date('Y-m-d H:i:s');
-                $statusHistory->save();
+                $newStatusHistory = new RequestStatusHistory();
+                $newStatusHistory->request_id = $model->id;
+                $newStatusHistory->from_status = $oldStatus;
+                $newStatusHistory->to_status = $newStatus;
+                $newStatusHistory->changed_by = $currentUserId;
+                $newStatusHistory->created_at = \date('Y-m-d H:i:s');
+                $newStatusHistory->save();
+            }
+
+            //request-assignment
+            $newTechnician = $model->currentTechnician->id;
+            if($newTechnician != $oldTechnician){
+                $newAssignment = new RequestAssignment();
+                $newAssignment->request_id = $model->id;
+                $newAssignment->from_technician = $oldTechnician;
+                $newAssignment->to_technician = $newTechnician;
+                $newAssignment->changed_by = $currentUserId;
+                $newAssignment->created_at = \date('Y-m-d H:i:s');
+                $newAssignment->save();
             }
 
             if($model->save() && $model->upload()) {
