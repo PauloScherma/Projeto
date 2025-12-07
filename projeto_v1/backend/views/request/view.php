@@ -19,14 +19,18 @@ $comment = $model->requestRatings;
     <h1><?php //Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Assignment History', ['..\request-assignment\index', /*'request-id' => $model->id*/], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Status History', ['..\request-status-history\index', /*'request-id' => $model->id*/], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
+
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
+                'class' => 'btn btn-danger',
+                'data' => [
+                        'confirm' => 'Are you sure you want to delete this item?',
+                        'method' => 'post',
+                ],
         ]) ?>
+
     </p>
 
     <?= DetailView::widget([
