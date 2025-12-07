@@ -22,19 +22,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            //'id',
-            //'request_id',
+            [
+                'attribute' => 'request_id',
+                'value' => 'request.title',
+                'label' => 'Request Title',
+            ],
             'from_status',
             'to_status',
-            'changed_by',
-            'created_at',
             [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, RequestStatusHistory $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                'attribute' => 'changed_by',
+                'value' => 'changedBy.username',
+                'label' => 'Changed By',
             ],
+            'created_at',
         ],
     ]); ?>
 
