@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => ActionColumn::className(),
-                'template' => '{view} {update} {delete} {star}',
+                'template' => '{view} {star}',
 
                 'buttons' => [
                     'star' => function ($url, $model, $key) {

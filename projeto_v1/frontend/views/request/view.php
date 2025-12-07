@@ -9,7 +9,6 @@ use yii\widgets\DetailView;
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Requests', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
 $attachments = $model->requestAttachments;
 $comment = $model->requestRatings;
 ?>
@@ -91,7 +90,6 @@ $comment = $model->requestRatings;
             <div><?= $uniqueComment->title?></div>
             <h5 class="my-1 p-0">Description</h5>
             <div><?= $uniqueComment->description?></div>
-
         <?php
         }
     }

@@ -62,10 +62,14 @@ AppAsset::register($this);
                 'label' => 'Signup', 'url' => ['/site/signup']
         ];
     }
-    if (!Yii::$app->user->isGuest) {
-        $menuItems[] = [
-            'label' => 'Request', 'url' => ['/request/index']
+    else {
+        $authItems = [
+                ['label' => 'Request', 'url' => ['/request/index']],
+                ['label' => 'Profile', 'url' => ['/profile/index']],
         ];
+
+        // Merge the new items into the main $menuItems array
+        $menuItems = array_merge($menuItems, $authItems);
     }
 
     echo Nav::widget([

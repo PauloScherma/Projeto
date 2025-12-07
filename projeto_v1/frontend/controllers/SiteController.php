@@ -147,16 +147,6 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays service page.
-     *
-     * @return mixed
-     */
-    public function actionService()
-    {
-        return $this->render('service');
-    }
-
-    /**
      * Signs user up.
      *
      * @return mixed

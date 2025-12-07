@@ -21,7 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
             [
                     'attribute' => 'request_id',
                     'value' => 'request.title',
@@ -42,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'changedBy.username',
                 'label' => 'Changed By',
             ],
-            //'created_at',
+            'created_at',
         ],
     ]);
     ?>

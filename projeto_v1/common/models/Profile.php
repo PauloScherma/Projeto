@@ -13,8 +13,8 @@ use Yii;
  * @property string|null $last_name
  * @property string|null $phone
  * @property string|null $availability
- * @property int $created_at
- * @property int $updated_at
+ * @property string $created_at
+ * @property string $updated_at
  *
  * @property Address $address
  * @property User $user
@@ -45,8 +45,9 @@ class Profile extends \yii\db\ActiveRecord
             [['first_name', 'last_name', 'phone'], 'default', 'value' => null],
             [['availability'], 'default', 'value' => 'disponivel'],
             [['user_id', 'created_at', 'updated_at'], 'required'],
-            [['user_id', 'created_at', 'updated_at'], 'integer'],
+            [['user_id'], 'integer'],
             [['availability'], 'string'],
+            [['created_at', 'updated_at'], 'safe'],
             [['first_name', 'last_name'], 'string', 'max' => 64],
             [['phone'], 'string', 'max' => 32],
             ['availability', 'in', 'range' => array_keys(self::optsAvailability())],
@@ -138,13 +139,4 @@ class Profile extends \yii\db\ActiveRecord
     {
         $this->availability = self::AVAILABILITY_INDISPONIVEL;
     }
-    //For sync
-    public static function getChangesSince($time)
-    {
-        return self::find()
-            ->where(['>', 'updated_at', $time])
-            ->all();
-    }
-
-
 }

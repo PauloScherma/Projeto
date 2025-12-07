@@ -245,11 +245,20 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Pega o id
      */
     public function getId()
     {
         return $this->getPrimaryKey();
+    }
+
+    /**
+     * Pega o profile
+     */
+    public function getProfile()
+    {
+        return $this->hasOne(Profile::className(), ['user_id' => 'id']);
+
     }
 
     /**
@@ -312,7 +321,6 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->verification_token = Yii::$app->security->generateRandomString() . '_' . time();
     }
-
     /**
      * Removes password reset token
      */
