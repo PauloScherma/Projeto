@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /** @var common\models\Request $model */
 
 $this->title = 'Rate Request';
-$this->params['breadcrumbs'][] = ['label' => 'Requests', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Requests History', 'url' => ['history']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="request-create mx-5">

@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Request;
 use common\models\RequestAttachment;
+use common\models\RequestRating;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -148,26 +149,32 @@ class RequestController extends Controller
      */
     public function actionRate()
     {
-        $model = new Request();
-        $model->customer_id = Yii::$app->user->id;
+        $model = new RequestRating();
+        $model->created_by = Yii::$app->user->id;
+        $model->request_id = Yii::$app->request->get('id');
 
         if ($this->request->isPost && $model->load($this->request->post())){
 
-            $model->request_attachment = UploadedFile::getInstances($model, 'request_attachment');
             $model->created_at = \date('Y-m-d H:i:s');
 
-            if($model->save() && $model->upload()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if($model->save()) {
+                Yii::$app->session->setFlash('success', 'O seu comentário foi enviado com sucesso!');
+                return $this->redirect(['view', 'id' => $model->request_id]);
+            }
+            else {
+                Yii::$app->session->setFlash('error', 'Apenas pode avaliar este pedido uma vez ');
+                $model->loadDefaultValues();
             }
 
         } else {
             $model->loadDefaultValues();
         }
 
-        return $this->render('create', [
+        return $this->render('rate', [
             'model' => $model,
         ]);
     }
+
     /**
      * Displays a single Request model.
      * @param int $id ID

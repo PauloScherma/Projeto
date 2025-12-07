@@ -2,28 +2,20 @@
 
 namespace backend\controllers;
 
-use common\models\Request;
-use backend\models\RequestSearch;
-use common\models\RequestAttachment;
 use common\models\RequestStatusHistory;
-use yii\db\Expression;
-use common\models\User;
-use Yii;
+use backend\models\RequestStatusHistorySearch;
 use yii\filters\AccessControl;
-use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 /**
- * RequestController implements the CRUD actions for Request model.
+ * RequestStatusHistoryController implements the CRUD actions for RequestStatusHistory model.
  */
-class RequestController extends Controller
+class RequestStatusHistoryController extends Controller
 {
     /**
-     * Definie o comportamentos
-     *
+     * @inheritDoc
      */
     public function behaviors()
     {
@@ -51,12 +43,13 @@ class RequestController extends Controller
     }
 
     /**
-     * Lists all Request models.
+     * Lists all RequestStatusHistory models.
+     *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new RequestSearch();
+        $searchModel = new RequestStatusHistorySearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -66,7 +59,7 @@ class RequestController extends Controller
     }
 
     /**
-     * Displays a single Request model.
+     * Displays a single RequestStatusHistory model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -79,40 +72,29 @@ class RequestController extends Controller
     }
 
     /**
-     * Creates a new Request model.
+     * Creates a new RequestStatusHistory model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Request();
-        $model->customer_id = Yii::$app->user->id;
-        $technicianList = User::getAllTechnicians();
-        $clientName = $model->customer->username;
+        $model = new RequestStatusHistory();
 
-
-        if ($this->request->isPost && $model->load($this->request->post())){
-
-            $model->request_attachment = UploadedFile::getInstances($model, 'request_attachment');
-            $model->created_at = \date('Y-m-d H:i:s');
-
-            if($model->save() && $model->upload()) {
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-
-        }else {
+        } else {
             $model->loadDefaultValues();
         }
 
         return $this->render('create', [
             'model' => $model,
-            'technicianList' => $technicianList,
-            'clientName' => $clientName
         ]);
     }
 
     /**
-     * Updates an existing Request model.
+     * Updates an existing RequestStatusHistory model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -121,43 +103,18 @@ class RequestController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $technicianList = User::getAllTechnicians();
-        $clientName = $model->customer->username;
-        $currentUserId = Yii::$app->user->id;
-        $oldStatus = $model->status;
 
-        if ($this->request->isPost && $model->load($this->request->post())){
-
-            //request-attachement
-            $model->request_attachment = UploadedFile::getInstances($model, 'request_attachment');
-            $model->updated_at = \date('Y-m-d H:i:s');
-
-            //request-status-history
-            $newStatus = $model->status;
-            if ($newStatus != $oldStatus) {
-                $statusHistory = new RequestStatusHistory();
-                $statusHistory->request_id = $model->id;
-                $statusHistory->from_status = $oldStatus;
-                $statusHistory->to_status = $newStatus;
-                $statusHistory->changed_by = $currentUserId;
-                $statusHistory->created_at = \date('Y-m-d H:i:s');
-                $statusHistory->save();
-            }
-
-            if($model->save() && $model->upload()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
-            'technicianList' => $technicianList,
-            'clientName' => $clientName
         ]);
     }
 
     /**
-     * Deletes an existing Request model.
+     * Deletes an existing RequestStatusHistory model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -171,17 +128,18 @@ class RequestController extends Controller
     }
 
     /**
-     * Finds the Request model based on its primary key value.
+     * Finds the RequestStatusHistory model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Request the loaded model
+     * @return RequestStatusHistory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Request::findOne(['id' => $id])) !== null) {
+        if (($model = RequestStatusHistory::findOne(['id' => $id])) !== null) {
             return $model;
         }
+
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

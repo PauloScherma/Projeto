@@ -11,6 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Requests', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 $attachments = $model->requestAttachments;
+$comment = $model->requestRatings;
 ?>
 <div class="request-view mx-5">
 
@@ -72,6 +73,27 @@ $attachments = $model->requestAttachments;
     </p>
     <?php
     }
+    }
+    ?>
+
+    <h1>Comment</h1>
+    <?php
+    if (empty($comment)) {
+        ?>
+
+        <p>No comment loaded</p>
+
+        <?php
+    } else {
+    foreach ($comment as $uniqueComment) {
+        ?>
+            <h5 class="my-1 p-0">Tittle</h5>
+            <div><?= $uniqueComment->title?></div>
+            <h5 class="my-1 p-0">Description</h5>
+            <div><?= $uniqueComment->description?></div>
+
+        <?php
+        }
     }
     ?>
 

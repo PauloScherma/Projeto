@@ -50,11 +50,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'star' => function ($url, $model, $key) {
                         return Html::a(
-                            '<i class="fas fa-star"></i>', // Ícone estrela
+                            '<i class="fas fa-star"></i>',
                             ['request/rate', 'id' => $model->id],
                             [
-                                'title' => 'Destacar',
-                                'style' => 'margin-left:5px; ',
+                                'title' => 'Comment',
                             ]
                         );
                     },

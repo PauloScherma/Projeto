@@ -32,11 +32,34 @@ use yii\widgets\ActiveForm;
     #endregion
     ?>
 
+    <?php
+    if (Yii::$app->controller->action->id === 'rate'): ?>
+
+        <?= $form->field($model, 'score', [
+                'options' => [
+                        'class' => 'my-2',
+                ],
+        ])->dropDownList(
+                [
+                        1 => '1 - Very Poor',
+                        2 => '2 - Poor',
+                        3 => '3 - Neutral',
+                        4 => '4 - Good',
+                        5 => '5 - Excellent',
+                ],
+                ['prompt' => 'Select a rating...']
+        )->label('Sua Avaliação (Score)'); ?>
+
+    <?php endif; ?>
+
+    <?php
+    if (Yii::$app->controller->action->id !== 'rate'): ?>
     <?= $form->field($model, 'request_attachment[]', [
         'options' => [
-            'class' => 'my-2',
+            'class' => 'mt-3 mb-2',
         ],
     ])->fileInput(['multiple' => true])->label('Carregar Ficheiros');?>
+    <?php endif; ?>
 
     <div class="form-group mt-2">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

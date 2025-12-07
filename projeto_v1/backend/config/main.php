@@ -71,10 +71,10 @@ return [
 //                        'POST {id}/rating'   => 'rating',
                         'POST {id}/reports'  => 'create-report',
                         'GET  {id}/reports'  => 'list-reports',
-                       /* 'POST {id}/messages' => 'send-message',
+                        /* 'POST {id}/messages' => 'send-message',
                         'GET  {id}/messages' => 'messages',*/
 
-                        /*// ------ TECHNICIANS -------
+                        // ------ TECHNICIANS -------
                         'PUT {id}/availability' => 'set-availability',
                         'GET {id}/availability' => 'get-availability',
 
