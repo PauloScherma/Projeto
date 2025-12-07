@@ -14,7 +14,7 @@ $this->title = 'Request Status Histories';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="request-status-history-index">
-    
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([

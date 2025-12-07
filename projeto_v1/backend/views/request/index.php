@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a(
                                     '<i class="fas fa-history"></i>',
                                     //dúvida 2.
-                                    ['..\request-status-history\index', /*'request-id' => $model->id*/],
+                                    ['request-status-history\index', /*'request-id' => $model->id*/],
                                     [
                                             'title' => 'Status Log',
                                     ]
@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a(
                                     '<i class="fas fa-hourglass-half"></i>',
                                     //dúvida 2.
-                                    ['..\request-assignment\index', /*'request-id' => $model->id*/],
+                                    ['request-assignment\index', /*'request-id' => $model->id*/],
                                     [
                                             'title' => 'Attachement Log',
                                     ]
