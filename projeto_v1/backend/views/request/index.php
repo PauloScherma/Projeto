@@ -51,7 +51,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         'log' => function ($url, $model, $key) {
                             return Html::a(
                                     '<i class="fas fa-history"></i>',
-                                    ['..\request-status-history\view'/*, 'id' => $model->id*/],
+                                    //dúvida 2.
+                                    ['..\request-status-history\index', /*'request-id' => $model->id*/],
                                     [
                                             'title' => 'Status Log',
                                     ]
