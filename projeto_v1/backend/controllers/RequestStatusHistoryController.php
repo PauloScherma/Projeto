@@ -50,8 +50,8 @@ class RequestStatusHistoryController extends Controller
     public function actionIndex()
     {
         $searchModel = new RequestStatusHistorySearch();
+        $searchModel->request_id = $this->request->queryParams['request_id'];
         $dataProvider = $searchModel->search($this->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
