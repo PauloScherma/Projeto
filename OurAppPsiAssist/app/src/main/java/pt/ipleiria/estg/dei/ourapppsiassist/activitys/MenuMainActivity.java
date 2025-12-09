@@ -19,8 +19,11 @@ import com.google.android.material.navigation.NavigationView;
 
 import pt.ipleiria.estg.dei.ourapppsiassist.R;
 import pt.ipleiria.estg.dei.ourapppsiassist.fragments.ProfileFragment;
+import pt.ipleiria.estg.dei.ourapppsiassist.fragments.RequestFragment;
 
-public class MenuMainActivity extends AppCompatActivity {
+public class MenuMainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
+
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private FragmentManager fragmentManager;
@@ -48,7 +51,7 @@ public class MenuMainActivity extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
+        navigationView.setNavigationItemSelectedListener(this);
 
         loadHeader();
         loadInicialFragment();
@@ -73,18 +76,20 @@ public class MenuMainActivity extends AppCompatActivity {
         return onNavigationItemSelected(item);
     }
 
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
         Fragment fragment = null;
 
         switch (item.getItemId()) {
-
-            /*case R.id.navProfile:
+            case R.id.navProfile:
                 fragment = new ProfileFragment();
                 setTitle(item.getTitle());
                 break;
-*/
 
+            case R.id.navRequest:
+                fragment = new RequestFragment();
+                setTitle(item.getTitle());
+                break;
         }
 
         if (fragment != null) {

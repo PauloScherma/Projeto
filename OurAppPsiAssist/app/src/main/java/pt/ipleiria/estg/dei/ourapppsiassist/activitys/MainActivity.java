@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onClickOpenMenu(View view) {
-        Intent intent = new Intent(this, MenuMainActivity.class);
+        Intent intent = new Intent(MainActivity.this, MenuMainActivity.class);
         startActivity(intent);
     }
 

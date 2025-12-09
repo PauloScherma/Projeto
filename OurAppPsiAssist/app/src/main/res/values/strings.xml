@@ -28,4 +28,6 @@
     <string name="invalid_password">Invalid Password</string>
     <string name="navOpen">navOpen</string>
     <string name="navClose">navClose</string>
+    <string name="profile">Profile</string>
+    <string name="requests">Requests</string>
 </resources>
