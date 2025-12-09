@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,6 +21,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etPassword;
 
+    private Button btLogin;
+
 
 
     @Override
@@ -35,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
         setTitle("Title");
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
+        btLogin = findViewById(R.id.btLogin);
+
 
     }
 
@@ -52,15 +57,15 @@ public class LoginActivity extends AppCompatActivity {
 
         if (!isEmailValid(email)) {
             //msgens de erro
-            etEmail.setError("Email inválido");
-            Toast.makeText(this, "Email inválido!", Toast.LENGTH_SHORT).show();
+            etEmail.setError("Email invalid");
+            Toast.makeText(this, "Email invalid!", Toast.LENGTH_SHORT).show();
         }
 
         // Validação da password
         if (!isPasswordValid(password)) {
             //msgens de erro
-            etPassword.setError("Password inválida");
-            Toast.makeText(this, "Password inválida! (mínimo 6 caracteres)", Toast.LENGTH_SHORT).show();
+            etPassword.setError("Password invalid");
+            Toast.makeText(this, "Password invalid! (minimum 4 characters)", Toast.LENGTH_SHORT).show();
         }
 
         if(isPasswordValid(password) && isEmailValid(email)) {
@@ -70,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
     }
+
 
 
 }
