@@ -9,11 +9,11 @@
 9        android:targetSdkVersion="36" />
 10
 11    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-11-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:5:5-79
-11-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:5:22-76
+11-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:5:5-79
+11-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:5:22-76
 12    <uses-permission android:name="android.permission.INTERNET" />
-12-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:6:5-67
-12-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:6:22-64
+12-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:6:5-67
+12-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:6:22-64
 13
 14    <permission
 14-->[androidx.core:core:1.13.0] C:\Users\paulo\.gradle\caches\8.13\transforms\e14d9122d45fb71ea63e5eedb2149f5e\transformed\core-1.13.0\AndroidManifest.xml:22:5-24:47
@@ -27,87 +27,87 @@
 18-->[androidx.core:core:1.13.0] C:\Users\paulo\.gradle\caches\8.13\transforms\e14d9122d45fb71ea63e5eedb2149f5e\transformed\core-1.13.0\AndroidManifest.xml:26:22-94
 19
 20    <application
-20-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:8:5-48:19
+20-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:8:5-48:19
 21        android:allowBackup="true"
-21-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:9:9-35
+21-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:9:9-35
 22        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 22-->[androidx.core:core:1.13.0] C:\Users\paulo\.gradle\caches\8.13\transforms\e14d9122d45fb71ea63e5eedb2149f5e\transformed\core-1.13.0\AndroidManifest.xml:28:18-86
 23        android:dataExtractionRules="@xml/data_extraction_rules"
-23-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:10:9-65
+23-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:10:9-65
 24        android:debuggable="true"
 25        android:extractNativeLibs="false"
 26        android:fullBackupContent="@xml/backup_rules"
-26-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:11:9-54
+26-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:11:9-54
 27        android:icon="@mipmap/ic_launcher"
-27-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:12:9-43
+27-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:12:9-43
 28        android:label="@string/app_name"
-28-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:13:9-41
+28-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:13:9-41
 29        android:roundIcon="@mipmap/ic_launcher_round"
-29-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:14:9-54
+29-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:14:9-54
 30        android:supportsRtl="true"
-30-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:15:9-35
+30-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:15:9-35
 31        android:testOnly="true"
 32        android:theme="@style/Theme.Books"
-32-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:17:9-43
+32-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:17:9-43
 33        android:usesCleartextTraffic="true" >
-33-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:16:9-44
+33-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:16:9-44
 34        <activity
-34-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:18:9-21:40
+34-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:18:9-21:40
 35            android:name="com.example.books.DetalhesLivroActivity"
-35-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:19:13-50
+35-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:19:13-50
 36            android:exported="false"
-36-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:21:13-37
+36-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:21:13-37
 37            android:parentActivityName="com.example.books.MenuMainActivity" />
-37-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:20:13-59
+37-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:20:13-59
 38        <activity
-38-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:22:9-26:62
+38-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:22:9-26:62
 39            android:name="com.example.books.MenuMainActivity"
-39-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:23:13-45
+39-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:23:13-45
 40            android:exported="false"
-40-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:24:13-37
+40-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:24:13-37
 41            android:launchMode="singleTop"
-41-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:25:13-43
+41-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:25:13-43
 42            android:theme="@style/Theme.Books.NoActionBar" />
-42-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:26:13-59
+42-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:26:13-59
 43        <activity
-43-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:27:9-30:58
+43-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:27:9-30:58
 44            android:name="com.example.books.DetalhesDinamicoActivity"
-44-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:28:13-53
+44-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:28:13-53
 45            android:exported="false"
-45-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:29:13-37
+45-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:29:13-37
 46            android:parentActivityName="com.example.books.MainActivity" />
-46-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:30:13-55
+46-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:30:13-55
 47        <activity
-47-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:31:9-34:58
+47-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:31:9-34:58
 48            android:name="com.example.books.DetalhesEstaticoActivity"
-48-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:32:13-53
+48-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:32:13-53
 49            android:exported="false"
-49-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:33:13-37
+49-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:33:13-37
 50            android:parentActivityName="com.example.books.MainActivity" />
-50-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:34:13-55
+50-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:34:13-55
 51        <activity
-51-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:35:9-38:46
+51-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:35:9-38:46
 52            android:name="com.example.books.MainActivity"
-52-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:36:13-41
+52-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:36:13-41
 53            android:exported="false"
-53-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:37:13-37
+53-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:37:13-37
 54            android:launchMode="singleTop" />
-54-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:38:13-43
+54-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:38:13-43
 55        <activity
-55-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:39:9-47:20
+55-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:39:9-47:20
 56            android:name="com.example.books.LoginActivity"
-56-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:40:13-42
+56-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:40:13-42
 57            android:exported="true" >
-57-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:41:13-36
+57-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:41:13-36
 58            <intent-filter>
-58-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:42:13-46:29
+58-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:42:13-46:29
 59                <action android:name="android.intent.action.MAIN" />
-59-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:43:17-69
-59-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:43:25-66
+59-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:43:17-69
+59-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:43:25-66
 60
 61                <category android:name="android.intent.category.LAUNCHER" />
-61-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:45:17-77
-61-->C:\Users\paulo\Desktop\ESTG\2Ano\AMSI\Books\app\src\main\AndroidManifest.xml:45:27-74
+61-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:45:17-77
+61-->C:\wamp64\www\projeto\AMSI\Books\app\src\main\AndroidManifest.xml:45:27-74
 62            </intent-filter>
 63        </activity>
 64

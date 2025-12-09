@@ -8,7 +8,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
-    'name' => 'Meu Novo Nome', // ← subreposição do nome da aplicação
+    'name' => 'Meu Novo Nome',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
@@ -18,11 +18,9 @@ return [
         ],
     'components' => [
         'authManager' => [
-            'class' => 'yii\rbac\DbManager', // <--- DEVE SER ISTO
+            'class' => 'yii\rbac\DbManager',
             'db' => 'db',
         ],
-
-        //'view' => [],
         'request' => [
             'csrfParam' => '_csrf-backend',
             'parsers' => [

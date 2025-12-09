@@ -78,6 +78,23 @@
                     }
                 },
                 {
+                    "source": "C:\\wamp64\\www\\projeto\\AMSI\\Books\\app\\src\\main\\res\\values\\colors.xml",
+                    "from": {
+                        "startLines": "2,4,5,3",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "57,143,189,100",
+                        "endColumns": "41,44,37,41",
+                        "endOffsets": "94,183,222,137"
+                    },
+                    "to": {
+                        "startLines": "714,1169,1170,1183",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "37679,69431,69476,70332",
+                        "endColumns": "41,44,37,41",
+                        "endOffsets": "37716,69471,69509,70369"
+                    }
+                },
+                {
                     "source": "C:\\Users\\paulo\\.gradle\\caches\\8.13\\transforms\\1e7294029f8aa6fbf44d8c55c86bc318\\transformed\\lifecycle-viewmodel-2.6.2\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2",
@@ -95,14 +112,14 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\paulo\\Desktop\\ESTG\\2Ano\\AMSI\\Books\\app\\src\\main\\res\\values\\themes.xml",
+                    "source": "C:\\wamp64\\www\\projeto\\AMSI\\Books\\app\\src\\main\\res\\values\\themes.xml",
                     "from": {
                         "startLines": "2,7,9",
                         "startColumns": "4,4,4",
-                        "startOffsets": "100,316,376",
+                        "startOffsets": "102,323,385",
                         "endLines": "5,7,12",
                         "endColumns": "12,58,12",
-                        "endOffsets": "310,370,524"
+                        "endOffsets": "315,377,536"
                     },
                     "to": {
                         "startLines": "2942,7398,7399",
@@ -224,13 +241,13 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\paulo\\Desktop\\ESTG\\2Ano\\AMSI\\Books\\app\\src\\main\\res\\values\\strings.xml",
+                    "source": "C:\\wamp64\\www\\projeto\\AMSI\\Books\\app\\src\\main\\res\\values\\strings.xml",
                     "from": {
                         "startLines": "1,9,7,6,10,5,3,4,2",
                         "startColumns": "4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "16,407,307,265,477,213,117,169,59",
+                        "startOffsets": "17,416,314,271,487,218,120,173,61",
                         "endColumns": "42,69,41,41,45,51,51,43,57",
-                        "endOffsets": "54,472,344,302,518,260,164,208,112"
+                        "endOffsets": "55,481,351,308,528,265,167,212,114"
                     },
                     "to": {
                         "startLines": "2436,2461,2584,2585,2591,2601,2602,2603,2604",
@@ -238,23 +255,6 @@
                         "startOffsets": "163203,165812,183024,183066,183910,184936,184988,185040,185084",
                         "endColumns": "42,69,41,41,45,51,51,43,57",
                         "endOffsets": "163241,165877,183061,183103,183951,184983,185035,185079,185137"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\paulo\\Desktop\\ESTG\\2Ano\\AMSI\\Books\\app\\src\\main\\res\\values\\colors.xml",
-                    "from": {
-                        "startLines": "2,4,5,3",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "55,139,184,97",
-                        "endColumns": "41,44,37,41",
-                        "endOffsets": "92,179,217,134"
-                    },
-                    "to": {
-                        "startLines": "714,1169,1170,1183",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "37679,69431,69476,70332",
-                        "endColumns": "41,44,37,41",
-                        "endOffsets": "37716,69471,69509,70369"
                     }
                 },
                 {
