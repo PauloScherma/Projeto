@@ -17,7 +17,8 @@
         android:text="User"
         android:textSize="20sp"
         android:textColor="@android:color/white"
-        android:backgroundTint="@color/dark_blue"/>
+        android:backgroundTint="@color/dark_blue"
+        android:onClick="onClickOpenMenu"/>
 
     <!-- SPACER (pushes right button to the right) -->
     <View
@@ -32,6 +33,7 @@
         android:layout_height="40dp"
         android:backgroundTint="@color/dark_blue"
         android:src="@drawable/ic_action_name"
-        app:tint="@android:color/white" />
+        app:tint="@android:color/white"
+        android:onClick="onClickAppSettings"/>
 
 </LinearLayout>
