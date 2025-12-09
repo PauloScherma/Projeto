@@ -1,16 +1,31 @@
 package pt.ipleiria.estg.dei.ourapppsiassist.activitys;
 
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class MenuMainActivity extends AppCompatActivity {
+import pt.ipleiria.estg.dei.ourapppsiassist.R;
+import pt.ipleiria.estg.dei.ourapppsiassist.fragments.ProfileFragment;
 
-    /*private DrawerLayout drawer;
+public class MenuMainActivity extends AppCompatActivity {
+    private DrawerLayout drawer;
     private NavigationView navigationView;
     private FragmentManager fragmentManager;
+    private View headerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,20 +41,20 @@ public class MenuMainActivity extends AppCompatActivity {
         // Drawer toggle (hamburger icon)
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar,
-                R.string.ndOpen, R.string.ndClose);
+                R.string.navOpen, R.string.navClose);
 
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         fragmentManager = getSupportFragmentManager();
 
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
 
-        carregarCabecalho();
-        carregarFragmentoInicial();
+        loadHeader();
+        loadInicialFragment();
     }
 
-    private void carregarCabecalho() {
+    private void loadHeader() {
         View headerView = navigationView.getHeaderView(0);
         TextView email = headerView.findViewById(R.id.tvEmail);
 
@@ -50,37 +65,26 @@ public class MenuMainActivity extends AppCompatActivity {
         }
     }
 
-    private void carregarFragmentoInicial() {
-        navigationView.setCheckedItem(R.id.nav_view);
-        fragmentManager.beginTransaction()
-                .replace(R.id.)
-                .commit();
-        setTitle("Livro Estático");
-    }*/
+    private boolean loadInicialFragment() {
+        Menu menu = navigationView.getMenu();
+        MenuItem item = menu.getItem(0);
+        item.setChecked(true);
 
-    /*@Override
+        return onNavigationItemSelected(item);
+    }
+
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         Fragment fragment = null;
 
         switch (item.getItemId()) {
 
-            case R.id.navEstatico:
-                fragment = new EstaticoFragment();
+            /*case R.id.navProfile:
+                fragment = new ProfileFragment();
                 setTitle(item.getTitle());
                 break;
+*/
 
-            case R.id.navDinamico:
-                fragment = new DinamicoFragment();
-                setTitle(item.getTitle());
-                break;
-
-            case R.id.navEmail:
-                // Opens email app
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                emailIntent.setData(Uri.parse("mailto:example@example.com"));
-                startActivity(emailIntent);
-                break;
         }
 
         if (fragment != null) {
@@ -90,6 +94,6 @@ public class MenuMainActivity extends AppCompatActivity {
         }
 
         drawer.closeDrawer(GravityCompat.START);
-        return true;*/
-    //}
+        return true;
+    }
 }

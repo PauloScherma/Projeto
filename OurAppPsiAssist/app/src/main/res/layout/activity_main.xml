@@ -34,7 +34,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Home"
-            android:backgroundTint="@color/dark_blue"/>
+            android:backgroundTint="@color/dark_blue"
+            android:onClick="onClickGoHome"/>
 
         <Button
             android:id="@+id/btnProfile"
@@ -42,7 +43,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="requests"
-            android:backgroundTint="@color/dark_blue"/>
+            android:backgroundTint="@color/dark_blue"
+            android:onClick="onClickGoToRequests"/>
 
         <Button
             android:id="@+id/btnSettings"
@@ -50,7 +52,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="documents"
-            android:backgroundTint="@color/dark_blue"/>
+            android:backgroundTint="@color/dark_blue"
+            android:onClick="onClickDocs"/>
 
     </LinearLayout>
 
