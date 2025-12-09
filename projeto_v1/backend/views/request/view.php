@@ -77,7 +77,15 @@ $comment = $model->requestRatings;
                 <a href="<?= (Yii::$app->urlManagerFrontend->baseUrl . '/' . $attachment->file_path) ?>" target="_blank">
                     <?= $attachment->file_name ?>
                 </a>
+                <a href="<?= Url::to(['request-attachment/delete', 'id' => $attachment->id]) ?>"
+                   title="Delete"
+                   data-confirm="Are you sure you want to delete this attachment?"
+                   data-method="post"
+                   style="margin-left:10px;">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
             </p>
+
             <?php
         }
     }

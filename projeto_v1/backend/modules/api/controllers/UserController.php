@@ -173,7 +173,6 @@ class UserController extends ActiveController
     }
     #endregion
 
-
     #region------- Assistances -------
 
     //'Put {id}/cancel'  => 'cancel'

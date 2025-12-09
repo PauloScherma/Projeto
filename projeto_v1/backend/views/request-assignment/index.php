@@ -11,6 +11,7 @@ use yii\grid\GridView;
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Request Assignments';
+$this->params['breadcrumbs'][] = ['label' => 'Requests', 'url' => ['request/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="request-assignment-index">
