@@ -41,9 +41,10 @@ public class SingletonGestorLivros {
     // 2 - trhed-safe => código pode ser usadp por multiplas threads se causar erros
 
     public static synchronized SingletonGestorLivros getInstance(Context context){
-        if(instance == null)
+        if(instance == null) {
             instance = new SingletonGestorLivros(context);
             volleyQueue = Volley.newRequestQueue(context);
+        }
         return instance;
     }
 
@@ -75,35 +76,35 @@ public class SingletonGestorLivros {
 
     //region Crud bd livro
     public void adicionarLivroBD(Livro livro){
-        Livro auxLivro=livroBD.adicionarLivro(livro);
-        if(auxLivro!=null)
-            livros.add(livro);
+        livroBD.adicionarLivro(livro);
+   /*     if(auxLivro!=null)
+            livros.add(livro);*/
     }
     public void adicionarLivrosBD(ArrayList<Livro> livros){
-        /*livroBD.removerAllLivroDB();
+        livroBD.removerAllLivroDB();
         for(Livro l:livros){
-            livros.add(l);
-        }*/
+            adicionarLivroBD(l);
+        }
     }
 
     public void editarLivroBD(Livro livro){
         Livro l=getLivro(livro.getId());
         if(l!=null){
-            boolean op=livroBD.editarLivro(livro);
-            if(op){
+            livroBD.editarLivro(livro);
+          /*  if(op){
                 l.setTitulo(livro.getTitulo());
                 l.setAutor(livro.getAutor());
                 l.setSerie(livro.getSerie());
                 l.setAno(livro.getAno());
-            }
+            }*/
         }
     }
     public void removerLivroBD(int idLivro){
        Livro l= getLivro(idLivro);
        if(l!=null) {
-           boolean op=livroBD.removerLivro(idLivro);
-           if(op)
-               livros.remove(l);
+          livroBD.removerLivro(idLivro);
+       /*    if(op)
+               livros.remove(l);*/
        }
     }
     //endregion
