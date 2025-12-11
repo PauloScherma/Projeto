@@ -16,7 +16,7 @@ import pt.ipleiria.estg.dei.ourapppsiassist.R;
 
 public class ProfileFragment extends Fragment {
 
-    /*private ProfileViewModel viewModel;
+    private ProfileViewModel viewModel;
     private TextView profileTextView;
 
     @SuppressLint("MissingInflatedId")
@@ -40,5 +40,5 @@ public class ProfileFragment extends Fragment {
         viewModel.loadProfile();
 
         return view;
-    }*/
+    }
 }

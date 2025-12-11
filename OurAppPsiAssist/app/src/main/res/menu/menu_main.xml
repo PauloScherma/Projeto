@@ -3,25 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single" >
-        <item android:id="@+id/Profile"
-            android:title="Profile" />
+    <group android:checkableBehavior="single">
+    <item android:id="@+id/navProfile"
+        android:title="@string/profile"
+        android:icon="@drawable/ic_menu_lista"/>
 
-        <item android:title="kkekk" />
-    </group>
-
-    <item android:title="Requests">
+    <item android:id="@+id/navRequest"
+        android:title="@string/requests"
+        android:icon="@drawable/ic_menu_grelha"/>
+        </group>
+        <item android:title="Comunicar" >
         <menu>
-
-            <item android:title="my requests" />
-
-            <item android:title="create request" />
-
-            <item android:title="history"/>
-
+            <!--<item android:id="@+id/navEmail"
+                android:title="Email"
+                android:icon="@drawable/ic_menu_email"/>-->
         </menu>
-    </item>
-
-    <item android:title="Item" />
-
+        </item>
 </menu>

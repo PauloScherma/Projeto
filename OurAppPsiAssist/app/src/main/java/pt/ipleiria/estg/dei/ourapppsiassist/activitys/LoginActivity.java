@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etPassword;
 
-    private Button btLogin;
+    private Button btnLogin;
 
 
 
@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         setTitle("Title");
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
-        btLogin = findViewById(R.id.btLogin);
+        btnLogin = findViewById(R.id.btnLogin);
 
 
     }
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Password invalid! (minimum 4 characters)", Toast.LENGTH_SHORT).show();
         }
 
-        if(isPasswordValid(password) && isEmailValid(email)) {
+        if (isPasswordValid(password) && isEmailValid(email)) {
             Intent intent = new Intent(LoginActivity.this, MenuMainActivity.class);
             intent.putExtra("EMAIL", email);
             startActivity(intent);
@@ -77,5 +77,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    public void onClickGoToForgotPassword(View view) {
+        Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
+    public void onClickGoToCreateAccount(View view) {
+        Intent intent = new Intent(LoginActivity.this, CreateAccountActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
+

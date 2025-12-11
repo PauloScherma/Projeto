@@ -13,7 +13,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.OurAppPsiAssist">
         <activity
-            android:name=".MenuMainActivity"
+            android:name=".activitys.MenuMainActivity"
             android:exported="false" />
         <activity
             android:name=".activitys.ForgotPasswordActivity"
