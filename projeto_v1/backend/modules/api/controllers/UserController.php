@@ -2,7 +2,6 @@
 
 namespace backend\modules\api\controllers;
 
-use common\models\Request;
 use common\models\User;
 use Yii;
 use yii\filters\auth\QueryParamAuth;
@@ -28,20 +27,13 @@ class UserController extends ActiveController
         return $this->render('index');
     }
 
-
     public function behavior()
     {
-
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
-            //'class' => QueryParamAuth::className(),
-            //'except' => ['index', 'view'], //Excluir aos GETs
-            //'auth' => [$this,'authintercept'],
             'class' => \CustomAuth::className()
-
         ];
         return $behaviors;
-
     }
 
     public function authintercept($username, $password){
@@ -54,7 +46,6 @@ class UserController extends ActiveController
          throw new \yii\web\ForbiddenHttpException('Error auth'); //403
     }
 
-
     //test
     public function actionCount(){
 
@@ -63,7 +54,7 @@ class UserController extends ActiveController
         return ['count' => count($recs)];
     }
 
-    #region ------- Auth -------
+    #region ------- User -------
 
     //'POST register' => 'register'
     public function actionRegister(){
@@ -173,7 +164,29 @@ class UserController extends ActiveController
     }
     #endregion
 
-    #region------- Assistances -------
+    #region ------- Request -------
+
+    public function actionGetUserAllRequest($id){
+        $usermodel = new $this->modelClass;
+        $recs = $usermodel::find()->all();
+
+    }
+    public function actionGetRequest($id){
+
+    }
+    public function actionPostRequest()
+    {
+
+    }
+    public function actionPutRequests($id){
+
+    }
+    public function actionDeleteRequests($id){
+
+    }
+    #endregion
+
+    /*#region------- Assistances -------
 
     //'Put {id}/cancel'  => 'cancel'
     public function actionSetCancel($id)
@@ -342,9 +355,9 @@ class UserController extends ActiveController
         return $reports;
     }
 
-    #endregion
+    #endregion*/
 
-//------- Sync Offline -------
+    /*------- Sync Offline -------
 
     //'GET changes' => 'changes'
     public function actionGetChanges(){
@@ -363,5 +376,5 @@ class UserController extends ActiveController
 
         // Return all changes categorized by model
         return $changes;
-    }
+    }*/
 }

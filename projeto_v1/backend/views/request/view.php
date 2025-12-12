@@ -19,8 +19,8 @@ $comment = $model->requestRatings;
     <h1><?php //Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Assignment History', ['..\request-assignment\index', 'request-id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Status History', ['..\request-status-history\index', 'request-id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Assignment History', ['..\request-assignment\index', 'request_id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Status History', ['..\request-status-history\index', 'request_id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
 
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
@@ -77,7 +77,7 @@ $comment = $model->requestRatings;
                 <a href="<?= (Yii::$app->urlManagerFrontend->baseUrl . '/' . $attachment->file_path) ?>" target="_blank">
                     <?= $attachment->file_name ?>
                 </a>
-                <a href="<?= Url::to(['request-attachment/delete', 'id' => $attachment->id]) ?>"
+                <a href="<?= Url::to(['request-attachment/delete', 'id' => $attachment->id, 'request_id' => $attachment->request_id]) ?>"
                    title="Delete"
                    data-confirm="Are you sure you want to delete this attachment?"
                    data-method="post"
@@ -103,10 +103,11 @@ $comment = $model->requestRatings;
     foreach ($comment as $uniqueComment) {
     ?>
     <h5 class="my-1 p-0">Tittle</h5>
-    <div><?= $uniqueComment->title?></div>
+    <div><?= $uniqueComment->title ?></div>
     <h5 class="my-1 p-0">Description</h5>
-    <div><?= $uniqueComment->description?></div>
-
+    <div><?= $uniqueComment->description ?></div>
+    <h5 class="my-1 p-0">Rating</h5>
+    <div><?= $uniqueComment->score ?></div>
     <?php
     }
     }

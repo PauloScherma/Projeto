@@ -50,6 +50,7 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
                 drawer, toolbar, R.string.ndOpen, R.string.ndClose);
         toggle.syncState();
         drawer.addDrawerListener(toggle);
+
         carregarCabecalho();
         //fica à escuta
         navigationView.setNavigationItemSelectedListener(this);

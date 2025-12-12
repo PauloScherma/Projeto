@@ -136,7 +136,7 @@ class RequestController extends Controller
         $clientName = $model->customer->username;
         $currentUserId = Yii::$app->user->id;
         $oldStatus = $model->status;
-        $oldTechnician = $model->currentTechnician->id;
+        $oldTechnician = $model->currentTechnician->id ?? null;
 
         if ($this->request->isPost && $model->load($this->request->post())){
 
