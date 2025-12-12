@@ -80,6 +80,7 @@ public class MenuMainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Fragment fragment = null;
+
         if(menuItem.getItemId()==R.id.navHome){
             fragment = new HomeFragment();
             setTitle(menuItem.getTitle());

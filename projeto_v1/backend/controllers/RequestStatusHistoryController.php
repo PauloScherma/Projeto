@@ -28,7 +28,7 @@ class RequestStatusHistoryController extends Controller
                         [
                             'allow' => true,
                             'actions' => ['index', 'view'],
-                            'roles' => ['admin', 'gestor', 'tecnico'],
+                            'roles' => ['admin', 'gestor'],
                         ],
                     ],
                 ],

@@ -184,6 +184,7 @@ class UserController extends Controller
 
         $auth = Yii::$app->authManager;
 
+        //START - Bloquear gestor de eleminar admins
         $currentUserRoles = $auth->getRolesByUser(Yii::$app->user->getId());
         $isGestor = isset($currentUserRoles['gestor']);
 
@@ -195,6 +196,7 @@ class UserController extends Controller
             Yii::$app->session->setFlash('error', 'Você não tem permissão para deletar este usuário.');
             return $this->redirect(['index']);
         }
+        //END - Bloquear gestor de eleminar admins
 
         $this->findModel($id)->delete();
 

@@ -44,7 +44,6 @@ $username = Yii::$app->user->identity->username;
 
             $currentUserRoles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
             $isGestor = isset($currentUserRoles['gestor']);
-            $isTecncio = isset($currentUserRoles['tecnico']);
 
             if ($isGestor) {
                 echo \hail812\adminlte\widgets\Menu::widget([
@@ -74,23 +73,6 @@ $username = Yii::$app->user->identity->username;
                     ],
                 ]);
             }
-            elseif($isTecncio){
-                echo \hail812\adminlte\widgets\Menu::widget([
-                    'items' => [
-                        ['label' => 'Management', 'header' => true],
-                        [
-                            'label' => 'Requests',
-                            'icon' => 'list-alt',
-                            'items' => [
-                                ['label' => 'All Requests', 'icon' => 'folder-open', 'url' => ['/request/index']],
-                                ['label' => 'In Progress', 'icon' => 'sync', 'url' => ['/request/index', 'RequestSearch[status]' => 'in_progress']],
-                                ['label' => 'Completed', 'icon' => 'check-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'completed']],
-                                ['label' => 'Canceled', 'icon' => 'times-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'canceled']],
-                            ],
-                        ],
-                    ],
-                ]);
-            }
             else{
                     echo \hail812\adminlte\widgets\Menu::widget([
                         'items' => [
@@ -99,6 +81,7 @@ $username = Yii::$app->user->identity->username;
                                 'label' => 'Requests',
                                 'icon' => 'list-alt',
                                 'items' => [
+                                    //'new', 'in_progress', 'completed', 'canceled'
                                     ['label' => 'All Requests', 'icon' => 'folder-open', 'url' => ['/request/index']],
                                     ['label' => 'New', 'icon' => 'plus-circle', 'url' => ['/request/index', 'RequestSearch[status]' => 'new']],
                                     ['label' => 'In Progress', 'icon' => 'sync', 'url' => ['/request/index', 'RequestSearch[status]' => 'in_progress']],
@@ -121,7 +104,6 @@ $username = Yii::$app->user->identity->username;
                     ]);
             }
             ?>
-
         </nav>
         <!-- /.sidebar-menu -->
     </div>

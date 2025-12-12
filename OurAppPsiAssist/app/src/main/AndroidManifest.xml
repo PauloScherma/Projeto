@@ -28,12 +28,15 @@
         <activity
             android:name=".activitys.ForgotPasswordActivity"
             android:exported="false" />
+
         <activity
             android:name=".activitys.PasswordResetActivity"
             android:exported="false" />
+
         <activity
             android:name=".activitys.CreateAccountActivity"
             android:exported="false"/>
+            
 
         <activity
             android:name=".activitys.LoginActivity"

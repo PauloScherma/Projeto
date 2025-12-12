@@ -1,7 +1,6 @@
 <?php
 
 use common\models\Request;
-use common\models\User;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -17,18 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="request-index">
 
     <h1><?php // Html::encode($this->title) ?></h1>
-
-    <p>
-        <?php
-
-        $currentUserRoles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
-        $isTecnico= isset($currentUserRoles['tecnico']);
-
-        if(!$isTecnico){
-            echo Html::a('Create Request', ['create'], ['class' => 'btn btn-success']);
-        }
-        ?>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -77,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     //dúvida 2.
                                     ['..\request-assignment\index', /*'request-id' => $model->id*/],
                                     [
-                                            'title' => 'Assignment Log',
+                                            'title' => 'Attachement Log',
                                     ]
                             );
                         },

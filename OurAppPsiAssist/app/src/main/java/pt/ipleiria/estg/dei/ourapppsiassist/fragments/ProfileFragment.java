@@ -14,6 +14,7 @@ import android.widget.TextView;
 import pt.ipleiria.estg.dei.ourapppsiassist.R;
 
 public class ProfileFragment extends Fragment {
+
     private TextView profileTextView;
 
     private TextView tvUserName, tvEmail, txtName, tvPhoneNumber;
@@ -28,7 +29,6 @@ public ProfileFragment(){
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         //profileTextView = view.findViewById(R.id.btnProfile);
          return view;
-
 
     }
 }

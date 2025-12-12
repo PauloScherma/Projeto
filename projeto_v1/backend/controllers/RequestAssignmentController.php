@@ -4,7 +4,6 @@ namespace backend\controllers;
 
 use backend\models\RequestAssignmentSearch;
 use common\models\RequestAssignment;
-use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -22,16 +21,6 @@ class RequestAssignmentController extends Controller
         return array_merge(
             parent::behaviors(),
             [
-                'access' => [
-                    'class' => AccessControl::class,
-                    'rules' => [
-                        [
-                            'allow' => true,
-                            'actions' => ['index', 'view', 'create', 'update', 'delete'],
-                            'roles' => ['admin', 'gestor', 'tecnico'],
-                        ],
-                    ],
-                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [

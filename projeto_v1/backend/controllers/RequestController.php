@@ -36,18 +36,8 @@ class RequestController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'actions' => ['index', 'view', 'update'],
-                            'roles' => ['tecnico'],
-                        ],
-                        [
-                            'allow' => true,
-                            'actions' => ['index', 'view', 'update', 'delete'],
-                            'roles' => ['gestor'],
-                        ],
-                        [
-                            'allow' => true,
                             'actions' => ['index', 'view', 'create', 'update', 'delete'],
-                            'roles' => ['admin'],
+                            'roles' => ['admin', 'gestor'],
                         ],
                     ],
                 ],
