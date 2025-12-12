@@ -10,14 +10,17 @@ use common\models\user;
 /**
  * UserSearch represents the model behind the search form of `common\models\user`.
  */
-class UserSearch extends user
+class UserSearch extends User
 {
+    public $role;
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
+            [['role'], 'safe'],
             [['id', 'status', 'created_at', 'updated_at'], 'integer'],
             [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'verification_token'], 'safe'],
         ];
@@ -71,9 +74,10 @@ class UserSearch extends user
             ->andFilterWhere(['like', 'password_hash', $this->password_hash])
             ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
             ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'verification_token', $this->verification_token]);
+            ->andFilterWhere(['like', 'verification_token', $this->verification_token])
+            ->andFilterWhere(['not in', 'status', [0]]);
 
-        //START - Lógica show user menos admin se gestor
+        #region Lógica do show user menos admin se gestor
         $currentUserRoles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
         $isGestor = isset($currentUserRoles['gestor']);
         if ($isGestor) {
@@ -81,7 +85,15 @@ class UserSearch extends user
             $query->andWhere(['<>', 'auth_assignment.item_name', 'admin']);
             $query->groupBy('id');
         }
-        //END - Lógica show user menos admin se gestor
+        #endregion
+
+        #region Lógica do filtro da sidebar
+        if(!$isGestor){         //para não doblicar o leftJoin quando se é gestor
+            $query->leftJoin('auth_assignment', 'auth_assignment.user_id = user.id');
+        }
+        $query->andFilterWhere(['like', 'auth_assignment.item_name', $this->role]);
+        $query->groupBy('user.id');
+        #endregion
 
         return $dataProvider;
     }

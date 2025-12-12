@@ -8,7 +8,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
-    'name' => 'Meu Novo Nome', // ← subreposição do nome da aplicação
+    'name' => 'Meu Novo Nome',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
@@ -18,13 +18,14 @@ return [
         ],
     'components' => [
         'authManager' => [
-            'class' => 'yii\rbac\DbManager', // <--- DEVE SER ISTO
+            'class' => 'yii\rbac\DbManager',
             'db' => 'db',
         ],
-
-        //'view' => [],
         'request' => [
             'csrfParam' => '_csrf-backend',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -51,33 +52,29 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule',
+                //UserController
+                [
+                    'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/user', 'pluralize' => false,
                     'extraPatterns'=>[
                         'GET count' => 'count',
-
-                        //------- AUTH --------------
                         'POST register' => 'register',
                         'POST login'    => 'login',
                         'POST logout'   => 'logout',
-
-                        //------- ASSISTANCES -------
-                        'PATCH {id}/cancel'  => 'cancel',
-                        'PATCH {id}/status'  => 'status',
-                        'GET {id}/status'  => 'status',
-                        'POST {id}/rating'   => 'rating',
-                        'POST {id}/reports'  => 'create-report',
-                        'GET  {id}/reports'  => 'list-reports',
-                        'POST {id}/messages' => 'send-message',
-                        'GET  {id}/messages' => 'messages',
-
-                        // ------ TECHNICIANS -------
-                        'PUT {id}/availability' => 'set-availability',
-                        'GET {id}/availability' => 'get-availability',
-
-                        //------ SYNC OFFLINE --------
-                        'GET changes' => 'changes',
-                        'POST batch'  => 'batch',
+                    ],
+                ],
+                //RequestController
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/request', 'pluralize' => false,
+                    'extraPatterns'=>[
+                        'GET count' => 'count',
+                        'GET requests/{id}' => 'requests',
+                        'GET request/{id}' => 'request',
+                        'POST create' => 'create',
+                    ],
+                    'tokens' => [
+                        '{id}' => '<id:\\d+>',
                     ],
                 ],
             ],

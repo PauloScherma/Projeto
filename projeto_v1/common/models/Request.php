@@ -1,13 +1,15 @@
 <?php
 
 namespace common\models;
+use Cassandra\Date;
 use common\models\User;
-use app\models\CalendarEvent;
-use app\models\RequestAssignment;
-use app\models\RequestAttachment;
-use app\models\RequestMessage;
-use app\models\RequestRating;
-use app\models\RequestStatusHistory;
+use common\models\CalendarEvent;
+use common\models\RequestAssignment;
+use common\models\RequestAttachment;
+use common\models\RequestMessage;
+use common\models\RequestRating;
+use common\models\RequestStatusHistory;
+use Yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
@@ -17,17 +19,15 @@ use yii\behaviors\TimestampBehavior;
  * @property int $customer_id
  * @property string $title
  * @property string|null $description
+ * @property int|null $current_technician_id
  * @property string $priority
  * @property string $status
- * @property int|null $current_technician_id
- * @property int|null $scheduled_start
- * @property int|null $canceled_at
- * @property int|null $canceled_by
- * @property int $created_at
- * @property int $updated_at
+ * @property string|null $canceled_at
+ * @property string|null $canceled_by
+ * @property string $created_at
+ * @property string $updated_at
  *
  * @property CalendarEvent[] $calendarEvents
- * @property User $canceledBy
  * @property User $currentTechnician
  * @property User $customer
  * @property RequestAssignment[] $requestAssignments
@@ -42,6 +42,7 @@ class Request extends \yii\db\ActiveRecord
     /**
      * ENUM field values
      */
+    #region Constants
     const PRIORITY_LOW = 'low';
     const PRIORITY_MEDIUM = 'medium';
     const PRIORITY_HIGH = 'high';
@@ -51,12 +52,17 @@ class Request extends \yii\db\ActiveRecord
     const STATUS_WAITING_PARTS = 'waiting_parts';
     const STATUS_COMPLETED = 'completed';
     const STATUS_CANCELED = 'canceled';
+    #endregion
+
+    #region Variaveis apoio
+    public $request_attachment;
+    #endregion
 
     public function behaviors()
     {
         return [
-            TimestampBehavior::class,
-        ];
+            TimestampBehavior::class
+            ];
     }
 
     /**
@@ -73,16 +79,16 @@ class Request extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['description', 'current_technician_id', 'scheduled_start', 'canceled_at', 'canceled_by'], 'default', 'value' => null],
+            [['description', 'current_technician_id', 'canceled_at', 'canceled_by'], 'default', 'value' => null],
             [['priority'], 'default', 'value' => 'medium'],
             [['status'], 'default', 'value' => 'new'],
-            [['customer_id', 'title'], 'required'],
-            [['customer_id', 'current_technician_id', 'scheduled_start', 'canceled_at', 'canceled_by', 'created_at', 'updated_at'], 'integer'],
+            [['customer_id', 'title', 'created_at'], 'required'],
+            [['customer_id', 'current_technician_id'], 'integer'],
             [['description', 'priority', 'status'], 'string'],
+            [['canceled_at', 'canceled_by', 'created_at', 'updated_at'], 'safe'],
             [['title'], 'string', 'max' => 140],
             ['priority', 'in', 'range' => array_keys(self::optsPriority())],
             ['status', 'in', 'range' => array_keys(self::optsStatus())],
-            [['canceled_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['canceled_by' => 'id']],
             [['current_technician_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['current_technician_id' => 'id']],
             [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['customer_id' => 'id']],
         ];
@@ -101,12 +107,59 @@ class Request extends \yii\db\ActiveRecord
             'priority' => 'Priority',
             'status' => 'Status',
             'current_technician_id' => 'Current Technician ID',
-            'scheduled_start' => 'Scheduled Start',
             'canceled_at' => 'Canceled At',
             'canceled_by' => 'Canceled By',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+
+    /**
+     * Substitui o delete padrão (hard delete) por um soft delete (cancelamento).
+     * @return bool|int O resultado do save() ou false.
+     */
+    public function delete()
+    {
+        // Verifica se o pedido já foi cancelado
+        if ($this->canceled_at !== null) {
+            Yii::$app->session->setFlash('error', 'Este pedido já se encontra cancelado.');
+            return false;
+        }
+
+        // Atribui os valores do "soft delete"
+        $this->canceled_at = time();
+        $this->canceled_by = Yii::$app->user->id;
+        $this->status = self::STATUS_CANCELED;
+
+        // Salva o modelo (realiza o soft delete)
+        return $this->save(false);
+    }
+
+    /**
+     * Instancia os ficheiros carregados e guarda-os na BD
+     *
+     * @return boolean
+     */
+    public function upload()
+    {
+        if ($this->validate()) {
+            foreach ($this->request_attachment as $file) {
+                $file->saveAs(Yii::getAlias('@frontend/web') . '/uploads/attachments/' . $file->baseName . '.' . $file->extension);
+
+                $attachment = new RequestAttachment();
+                $attachment->request_id = $this->id;
+                $attachment->created_at = \date('Y-m-d H:i:s');
+                $attachment->uploaded_by = Yii::$app->user->id;
+                $attachment->file_name = $file->baseName . '.' . $file->extension;
+                $attachment->file_path = 'uploads/attachments/' . $file->baseName . '.' . $file->extension;
+                $attachment->type = 'generic';
+
+                $attachment->save();
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -198,7 +251,6 @@ class Request extends \yii\db\ActiveRecord
     {
         return $this->hasMany(RequestStatusHistory::class, ['request_id' => 'id']);
     }
-
 
     /**
      * column priority ENUM value labels
@@ -362,7 +414,6 @@ class Request extends \yii\db\ActiveRecord
         $this->status = self::STATUS_CANCELED;
     }
 
-    //For sync
     //For sync
     public static function getChangesSince($time)
     {

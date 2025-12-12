@@ -10,9 +10,12 @@ use yii\widgets\ActiveForm;
 
 <div class="request-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
-    <?php // $form->field($model, 'customer_id')->textInput() ?>
+    <?= $form->field($model, 'client_display')->textInput([
+            'value' => $clientName,
+            'readonly' => true,
+    ])->label('Customer') ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
@@ -20,19 +23,28 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'priority')->dropDownList([ 'low' => 'Low', 'medium' => 'Medium', 'high' => 'High', ], ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'status')->dropDownList([ 'new' => 'New', 'assigned' => 'Assigned', 'in_progress' => 'In progress', 'waiting_parts' => 'Waiting parts', 'completed' => 'Completed', 'canceled' => 'Canceled', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'status')->dropDownList([ 'new' => 'New',  'in_progress' => 'In progress', 'completed' => 'Completed', 'canceled' => 'Canceled', ]) ?>
 
-    <?= $form->field($model, 'current_technician_id')->dropDownList($technicianList) ?>
+    <?= $form->field($model, 'current_technician_id')->dropDownList($technicianList)->label('Technician') ?>
 
-    <?php // $form->field($model, 'scheduled_start')->textInput() ?>
+    <?php
+    // $form->field($model, 'scheduled_start')->textInput()
 
-    <?php // $form->field($model, 'canceled_at')->textInput() ?>
+    // $form->field($model, 'customer_id')->textInput()
 
-    <?php // $form->field($model, 'canceled_by')->textInput() ?>
+    // $form->field($model, 'canceled_at')->textInput()
 
-    <?php // $form->field($model, 'created_at')->textInput() ?>
+     // $form->field($model, 'canceled_by')->textInput()
 
-    <?php // $form->field($model, 'updated_at')->textInput() ?>
+     // $form->field($model, 'created_at')->textInput()
+
+     // $form->field($model, 'updated_at')->textInput() ?>
+
+    <?= $form->field($model, 'request_attachment[]', [
+            'options' => [
+                    'class' => 'my-2',
+            ],
+    ])->fileInput(['multiple' => true])->label('Carregar Ficheiros');?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

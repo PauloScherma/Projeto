@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Request;
+use common\models\User;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -18,10 +19,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?php // Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Request', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+        <?php
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+        $currentUserRoles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
+        $isTecnico= isset($currentUserRoles['tecnico']);
+
+        if(!$isTecnico){
+            echo Html::a('Create Request', ['create'], ['class' => 'btn btn-success']);
+        }
+        ?>
+    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -30,12 +37,20 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'customer_id',
+            [
+                'attribute' => 'customer_id',
+                'value' => 'customer.username',
+                'label' => 'Customer',
+            ],
             'title',
             //'description',
             'priority',
             'status',
-            //'current_technician_id',
+            [
+                'attribute' => 'current_technician_id',
+                'value' => 'currentTechnician.username',
+                'label' => 'Technician',
+            ],
             //'scheduled_start',
             //'canceled_at',
             //'canceled_by',
@@ -43,11 +58,37 @@ $this->params['breadcrumbs'][] = $this->title;
             //'updated_at',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Request $model, $key, $index, $column) {
+                'template' => '{view} {update} {delete} {status_log} {assignment_log}',
+
+                'buttons' => [
+                        'status_log' => function ($url, $model, $key) {
+                            return Html::a(
+                                    '<i class="fas fa-history"></i>',
+                                    //dúvida 2.
+                                    ['..\request-status-history\index', 'request_id' => $model->id],
+                                    [
+                                            'title' => 'Status Log',
+                                    ]
+                            );
+                        },
+                        'assignment_log' => function ($url, $model, $key) {
+                            return Html::a(
+                                    '<i class="fas fa-hourglass-half"></i>',
+                                    //dúvida 2.
+                                    ['..\request-assignment\index', 'request_id' => $model->id],
+                                    [
+                                            'title' => 'Assignment Log',
+                                    ]
+                            );
+                        },
+                ],
+
+                'urlCreator' => function ($action, $model, $key, $index) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                },
             ],
         ],
-    ]); ?>
+    ]);
+    ?>
 
 </div>

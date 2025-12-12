@@ -16,7 +16,6 @@ class ModuleAPI extends \yii\base\Module
      * {@inheritdoc}
      */
     public function init(){
-
         parent::init();
         \Yii::$app->user->enableSession = false;
     }

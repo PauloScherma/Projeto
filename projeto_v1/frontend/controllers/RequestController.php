@@ -3,10 +3,14 @@
 namespace frontend\controllers;
 
 use common\models\Request;
+use common\models\RequestAttachment;
+use common\models\RequestRating;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 
 /**
@@ -22,6 +26,16 @@ class RequestController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['index', 'view', 'create', 'update', 'delete', 'history', 'rate'],
+                            'roles' => ['cliente'],
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -41,10 +55,26 @@ class RequestController extends Controller
     public function actionIndex()
     {
         $currentUserId = Yii::$app->user->id;
+        $whereClause = "";
+
+        $auth = Yii::$app->authManager;
+        $currentUserRoles = $auth->getRolesByUser($currentUserId);
+
+        $isCliente = isset($currentUserRoles['cliente']);
+
+        //otimizar depois
+        if($isCliente){
+            $whereClause = "customer_id";
+        }
+        else{
+            $whereClause = "current_technician_id";
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => Request::find()
-            ->where(['customer_id' => $currentUserId]),
+                ->where([$whereClause => $currentUserId])
+                ->andWhere(['not', ['status' => 'completed']])
+                ->andWhere(['not', ['status' => 'canceled']]),
             'pagination' => [
                 'pageSize' => 50
             ],
@@ -55,8 +85,74 @@ class RequestController extends Controller
             ],
         ]);
 
+
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays all the User Requests completed or canceled.
+     * @param int $id ID
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionHistory()
+    {
+        $currentUserId = Yii::$app->user->id;
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => Request::find()
+                ->where(['customer_id' => $currentUserId])
+                ->andWhere(['not', ['status' => 'new']])
+                ->andWhere(['not', ['status' => 'in_progress']]),
+        'pagination' => [
+                'pageSize' => 50
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ]
+            ],
+        ]);
+
+
+        return $this->render('history', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays the Requests completed or canceled.
+     * @param int $id ID
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionRate()
+    {
+        $model = new RequestRating();
+        $model->created_by = Yii::$app->user->id;
+        $model->request_id = Yii::$app->request->get('id');
+
+        if ($this->request->isPost && $model->load($this->request->post())){
+
+            $model->created_at = \date('Y-m-d H:i:s');
+
+            if($model->save()) {
+                Yii::$app->session->setFlash('success', 'O seu comentário foi enviado com sucesso!');
+                return $this->redirect(['view', 'id' => $model->request_id]);
+            }
+            else {
+                Yii::$app->session->setFlash('error', 'Apenas pode avaliar este pedido uma vez ');
+                $model->loadDefaultValues();
+            }
+
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->render('rate', [
+            'model' => $model,
         ]);
     }
 
@@ -83,10 +179,15 @@ class RequestController extends Controller
         $model = new Request();
         $model->customer_id = Yii::$app->user->id;
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post())){
+
+            $model->request_attachment = UploadedFile::getInstances($model, 'request_attachment');
+            $model->created_at = \date('Y-m-d H:i:s');
+
+            if($model->save() && $model->upload()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
+
         } else {
             $model->loadDefaultValues();
         }
@@ -107,8 +208,14 @@ class RequestController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost && $model->load($this->request->post())){
+
+            $model->request_attachment = UploadedFile::getInstances($model, 'request_attachment');
+            $model->updated_at = \date('Y-m-d H:i:s');
+
+            if($model->save() && $model->upload()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [

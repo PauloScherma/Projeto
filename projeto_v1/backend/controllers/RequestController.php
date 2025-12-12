@@ -4,6 +4,10 @@ namespace backend\controllers;
 
 use common\models\Request;
 use backend\models\RequestSearch;
+use common\models\RequestAssignment;
+use common\models\RequestAttachment;
+use common\models\RequestStatusHistory;
+use yii\db\Expression;
 use common\models\User;
 use Yii;
 use yii\filters\AccessControl;
@@ -11,6 +15,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * RequestController implements the CRUD actions for Request model.
@@ -18,7 +23,8 @@ use yii\filters\VerbFilter;
 class RequestController extends Controller
 {
     /**
-     * @inheritDoc
+     * Definie o comportamentos
+     *
      */
     public function behaviors()
     {
@@ -30,8 +36,18 @@ class RequestController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
+                            'actions' => ['index', 'view', 'update'],
+                            'roles' => ['tecnico'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['index', 'view', 'update', 'delete'],
+                            'roles' => ['gestor'],
+                        ],
+                        [
+                            'allow' => true,
                             'actions' => ['index', 'view', 'create', 'update', 'delete'],
-                            'roles' => ['admin', 'gestor'],
+                            'roles' => ['admin'],
                         ],
                     ],
                 ],
@@ -82,17 +98,27 @@ class RequestController extends Controller
     {
         $model = new Request();
         $model->customer_id = Yii::$app->user->id;
+        $technicianList = User::getAllTechnicians();
+        $clientName = $model->customer->username;
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+
+        if ($this->request->isPost && $model->load($this->request->post())){
+
+            $model->request_attachment = UploadedFile::getInstances($model, 'request_attachment');
+            $model->created_at = \date('Y-m-d H:i:s');
+
+            if($model->save() && $model->upload()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
+
         }else {
             $model->loadDefaultValues();
         }
 
         return $this->render('create', [
             'model' => $model,
+            'technicianList' => $technicianList,
+            'clientName' => $clientName
         ]);
     }
 
@@ -106,16 +132,51 @@ class RequestController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $technicianList = User::getAllTechnicians(); // Chama o método acima ou coloca o código aqui
+        $technicianList = User::getAllTechnicians();
+        $clientName = $model->customer->username;
+        $currentUserId = Yii::$app->user->id;
+        $oldStatus = $model->status;
+        $oldTechnician = $model->currentTechnician->id ?? null;
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            $model->customer_id = Yii::$app->user->id;
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost && $model->load($this->request->post())){
+
+            //request-attachement
+            $model->request_attachment = UploadedFile::getInstances($model, 'request_attachment');
+            $model->updated_at = \date('Y-m-d H:i:s');
+
+            //request-status-history
+            $newStatus = $model->status;
+            if ($newStatus != $oldStatus) {
+                $newStatusHistory = new RequestStatusHistory();
+                $newStatusHistory->request_id = $model->id;
+                $newStatusHistory->from_status = $oldStatus;
+                $newStatusHistory->to_status = $newStatus;
+                $newStatusHistory->changed_by = $currentUserId;
+                $newStatusHistory->created_at = \date('Y-m-d H:i:s');
+                $newStatusHistory->save();
+            }
+
+            //request-assignment
+            $newTechnician = $model->currentTechnician->id;
+            if($newTechnician != $oldTechnician){
+                $newAssignment = new RequestAssignment();
+                $newAssignment->request_id = $model->id;
+                $newAssignment->from_technician = $oldTechnician;
+                $newAssignment->to_technician = $newTechnician;
+                $newAssignment->changed_by = $currentUserId;
+                $newAssignment->created_at = \date('Y-m-d H:i:s');
+                $newAssignment->save();
+            }
+
+            if($model->save() && $model->upload()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
             'technicianList' => $technicianList,
+            'clientName' => $clientName
         ]);
     }
 

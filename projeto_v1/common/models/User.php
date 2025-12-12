@@ -27,12 +27,35 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    #region Constants
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
+    #endregion
 
+    #region Variaveis apoio
     public $roleName;
     public $password;
+    #endregion
+
+    /**
+     * Substitui o delete padrão (hard delete) por um soft delete (cancelamento).
+     * @return bool|int O resultado do save() ou false.
+     */
+    public function delete()
+    {
+        // Verifica se o pedido já foi cancelado
+        if ($this->status !== 10) {
+            Yii::$app->session->setFlash('error', 'Este user já se encontra cancelado.');
+            return false;
+        }
+
+        // Atribui os valores do "soft delete"
+        $this->status = self::STATUS_DELETED;
+
+        // Salva o modelo (realiza o soft delete)
+        return $this->save(false);
+    }
 
     /**
      * {@inheritdoc}
@@ -106,8 +129,9 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->roleName = $value;
     }
+
     /**
-     * Pega todos os use onde a rule é tecnico
+     * Pega todos os tecnico
      * @return array todos os user com rule tecnico
      */
     public static function getAllTechnicians()
@@ -122,6 +146,7 @@ class User extends ActiveRecord implements IdentityInterface
 
         return \yii\helpers\ArrayHelper::map($technicians, 'id', 'username');
     }
+
     /**
      * Hashifica a password e cria a authkey antes de salvar
      * {@inheritdoc}
@@ -220,11 +245,20 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Pega o id
      */
     public function getId()
     {
         return $this->getPrimaryKey();
+    }
+
+    /**
+     * Pega o profile
+     */
+    public function getProfile()
+    {
+        return $this->hasOne(Profile::className(), ['user_id' => 'id']);
+
     }
 
     /**
@@ -287,7 +321,6 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->verification_token = Yii::$app->security->generateRandomString() . '_' . time();
     }
-
     /**
      * Removes password reset token
      */

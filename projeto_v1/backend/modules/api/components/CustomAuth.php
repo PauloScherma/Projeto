@@ -1,4 +1,6 @@
 <?php
+
+use common\models\User;
 use Yii;
 use yii\filters\auth\AuthMethod;
 
@@ -8,11 +10,13 @@ class CustomAuth extends AuthMethod
     {
         $authToken = $request->getQueryString();
         $token=explode('=', $authToken)[1];
-        $user = \common\models\User::findIdentityByAccessToken($token);
+        $user = User::findIdentityByAccessToken($token);
+
         if(!$user){
-            throw new \yii\web\ForbiddenHttpException('No authentication'); //403
+            throw new \yii\web\ForbiddenHttpException('No authentication');
         }
+
         Yii::$app->params['id']=$user->id;
-        return $user;
+        //return $user;
     }
 }

@@ -2,13 +2,12 @@
 
 namespace backend\modules\api\controllers;
 
-use app\models\User;
+use common\models\User;
 use Yii;
 use yii\filters\auth\QueryParamAuth;
 use yii\rest\ActiveController;
-use yii\web\Controller;
+use yii\rest\Controller;
 use function ActiveRecord\all;
-use common\models\LoginForm;
 
 /**
  * Default controller for the `api` module
@@ -28,23 +27,13 @@ class UserController extends ActiveController
         return $this->render('index');
     }
 
-
     public function behavior()
     {
-        // For testing trun auth behavior off
-        // Para grantir que nao exixtem problemas com os request da api
-        // Se a auth tiver ligada e der problema nao se sabe se o problema é da api ou dos requests
-
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
-            //'class' => QueryParamAuth::className(),
-            //'except' => ['index', 'view'], //Excluir aos GETs
-            //'auth' => [$this,'authintercept'],
             'class' => \CustomAuth::className()
-
         ];
         return $behaviors;
-
     }
 
     public function authintercept($username, $password){
@@ -57,8 +46,7 @@ class UserController extends ActiveController
          throw new \yii\web\ForbiddenHttpException('Error auth'); //403
     }
 
-                    //Custon functions for Api endpoints
-
+    //test
     public function actionCount(){
 
         $usermodel = new $this->modelClass;
@@ -66,132 +54,178 @@ class UserController extends ActiveController
         return ['count' => count($recs)];
     }
 
-//------- AUTH -------
+    #region ------- User -------
 
     //'POST register' => 'register'
     public function actionRegister(){
-        // Use the User model (or a specific SignupForm model if preferred)
-        $model = new \common\models\User();
 
-        // Load data from the request body (important for JSON APIs)
-        // The empty string '' tells load() to get data without a form name prefix.
+        $model = new User();
+
         if ($model->load(Yii::$app->getRequest()->getBodyParams(), '')) {
 
-            // 1. Set Password Hash
-            $model->setPassword($model->password);
-
-            // 2. Generate Authentication Key (the access_token for the mobile app)
-            $model->generateAuthKey();
-
-            // 3. Set Status (e.g., active)
-            $model->status = \common\models\User::STATUS_ACTIVE;
-
-            // 4. Validate and Save
-            if ($model->save()) {
-
-                // Success: Return the new user's access token and ID
-                Yii::$app->response->statusCode = 201; // HTTP 201 Created
-                return [
-                    'success' => true,
-                    'user_id' => $model->id,
-                    'access_token' => $model->getAuthKey(), // Mobile app will use this for future requests
-                ];
-
+            if (!empty($model->password)) {
+                $model->setPassword($model->password);
+                $model->generateAuthKey();
             } else {
-                // Failure: Validation errors occurred on save
-                // Set the HTTP status code to 422 (Unprocessable Entity)
                 Yii::$app->response->statusCode = 422;
-                return $model->getErrors();
+                return ['password' => ['A password não pode estar em branco.']];
             }
+
+            $roleName = 'cliente';
+            $model->roleName = $roleName;
+            $model->status = User::STATUS_ACTIVE;
         }
 
-        // Failure: Data load failed (e.g., missing POST data)
-        Yii::$app->response->statusCode = 400; // HTTP 400 Bad Request
-        return ['error' => 'Invalid data provided.'];
+        if ($model->save()) {
+
+            $auth = Yii::$app->authManager;
+            $role = $auth->getRole($roleName);
+
+            if ($role) {
+                $auth->assign($role, $model->id);
+            }
+
+            Yii::$app->response->statusCode = 201;
+
+            return [
+                'success' => true,
+                'user_id' => $model->id,
+                'access_token' => $model->getAuthKey(),
+            ];
+
+        } else {
+            Yii::$app->response->statusCode = 422;
+            return $model->getErrors();
+        }
+
+        Yii::$app->response->statusCode = 400;
+        return ['error' => 'Dados inválidos fornecidos ou formato incorreto.'];
     }
 
     //'POST login'    => 'login'
     public function actionLogin(){
+        $username = Yii::$app->request->getBodyParam('username');
+        $password = Yii::$app->request->getBodyParam('password');
 
-        $model = new LoginForm();
+        $user = User::findOne(['username' => $username]);
 
-        // Load POST data from the request body (important for JSON APIs)
-        if ($model->load(Yii::$app->getRequest()->getBodyParams(), '') && $model->login()) {
-
-            // Success: Return an access token (AuthKey) or user data
-            // NOTE: Ensure your User model implements getAuthKey() from IdentityInterface
+        if (!$user || !$user->validatePassword($password)) {
+            Yii::$app->response->statusCode = 401;
             return [
-                'success' => true,
-                'access_token' => Yii::$app->user->identity->getAuthKey(),
-                'user_id' => Yii::$app->user->id,
+                'message' => 'Invalid username or password'
             ];
-
-        } else {
-            // Failure: Return the validation errors
-            Yii::$app->response->statusCode = 422; // Unprocessable Entity (Standard for validation errors)
-            return $model->getErrors();
         }
 
-    }
-
-    //'POST logout'   => 'logout'
-    public function actionLogout(){
-        // 1. Get the current authenticated user's Identity object
-        $user = Yii::$app->user->identity;
-
-        if ($user) {
-            // 2. Invalidate the existing token by generating a new one
-            // This makes the previous token (which the client is currently using) invalid.
+        if (empty($user->auth_key)) {
             $user->generateAuthKey();
 
-            // 3. Save the new token (invalidating the old one in the process)
-            if ($user->save(false)) { // Save(false) to skip validation since we only changed auth_key
-
-                // Success: Token invalidated on the server
+            if (!$user->save(false)) {
+                Yii::$app->response->statusCode = 500;
                 return [
-                    'success' => true,
-                    'message' => 'Token invalidated. User logged out successfully.'
+                    'message' => 'Erro interno do servidor ao gerar a chave de autenticação.'
                 ];
             }
         }
 
-        // Fallback or if the user was somehow not authenticated (shouldn't happen with proper behaviors)
-        Yii::$app->response->statusCode = 401; // HTTP 401 Unauthorized
+        Yii::$app->response->statusCode = 200;
+
         return [
-            'success' => false,
-            'message' => 'User could not be logged out or is not authenticated.'
+            'user_id' => $user->id,
+            'access_token' => $user->auth_key,
         ];
     }
 
-//------- Assistances -------
+    //'POST logout'   => 'logout' WORKING
+    public function actionLogout()
+    {
+        $user = Yii::$app->user->identity;
 
-    //'PATCH {id}/cancel'  => 'cancel'
-    public function actionSetCancel($id){
-        // Find the resource (e.g., Order, Booking)
-        $model = \app\models\Order::findOne($id);
+        if ($user) {
 
-        if (!$model) {
-            throw new \yii\web\NotFoundHttpException("The requested resource was not found.");
+            $user->generateAuthKey();
+
+            if ($user->save(false)) {
+                Yii::$app->response->statusCode = 200;
+                return [
+                    'message' => 'Sessão terminada com sucesso.'
+                ];
+            } else {
+                Yii::$app->response->statusCode = 500;
+                return [
+                    'message' => 'Erro interno do servidor ao invalidar o token.'
+                ];
+            }
         }
 
-        // Check if the resource can be canceled (e.g., not already completed)
-        if ($model->isCancellable()) {
+        Yii::$app->response->statusCode = 401;
+        return [
+            'message' => 'Não autenticado. Não há sessão para terminar.'
+        ];
+    }
+    #endregion
+
+    #region ------- Request -------
+
+    public function actionGetUserAllRequest($id){
+        $usermodel = new $this->modelClass;
+        $recs = $usermodel::find()->all();
+
+    }
+    public function actionGetRequest($id){
+
+    }
+    public function actionPostRequest()
+    {
+
+    }
+    public function actionPutRequests($id){
+
+    }
+    public function actionDeleteRequests($id){
+
+    }
+    #endregion
+
+    /*#region------- Assistances -------
+
+    //'Put {id}/cancel'  => 'cancel'
+    public function actionSetCancel($id)
+    {
+        $request = Request::findOne($id);
+
+        if (!$request) {
+            Yii::$app->response->statusCode = 404;
+            return [
+                'message' => 'Request not found.'
+            ];
+        }
+        else {
 
             // Update the status
-            $model->status = \app\models\Order::STATUS_CANCELLED;
+            $request->status = Request::STATUS_CANCELLED;
 
-            if ($model->save(false)) { // Save(false) skips validation for simple status change
+            // Save without validation (safe if only updating 1 field)
+            if ($request->save(false)) {
                 Yii::$app->response->statusCode = 200;
+
                 return [
                     'success' => true,
                     'message' => 'Resource successfully cancelled.'
                 ];
             }
+
+            Yii::$app->response->statusCode = 500;
+            return [
+                'error' => 'Failed to save cancellation state.'
+            ];
         }
 
-        Yii::$app->response->statusCode = 400; // Bad Request or Validation Error
-        return ['error' => 'Resource cannot be cancelled in its current state.'];
+        Yii::$app->response->statusCode = 400;
+        return [
+            'error' => 'Resource cannot be cancelled in its current state.'
+        ];
     }
+
     //'GET' {id}/status'  => 'status'
     public function actionGetStatus($id)
     {
@@ -321,158 +355,9 @@ class UserController extends ActiveController
         return $reports;
     }
 
-    //'POST {id}/messages' => 'send-message'
-   /* Not Going to Implement
-    public function actionSendMessages($id){
-        // Assuming you have a separate Message model
-        $message = new \app\models\Message();
+    #endregion*/
 
-        $message->resource_id = $id;
-        $message->sender_id = Yii::$app->user->id;
-
-        // Load message data (e.g., 'body')
-        if ($message->load(Yii::$app->getRequest()->getBodyParams(), '') && $message->save()) {
-
-            Yii::$app->response->statusCode = 201; // HTTP 201 Created
-            return [
-                'success' => true,
-                'message' => 'Message sent.',
-                'message_id' => $message->id
-            ];
-
-        } else {
-            Yii::$app->response->statusCode = 422;
-            return $message->getErrors();
-        }
-    }
-    */
-    //'GET  {id}/messages' => 'messages'
-   /*
-    public function actionMessages($id){
-        // Find all messages related to the resource ID, ordered by time
-        $messages = \app\models\Message::find()
-            ->where(['resource_id' => $id])
-            ->orderBy(['created_at' => SORT_ASC]) // Show chronologically
-            ->with('sender') // Eager load the sender
-            ->all();
-
-        Yii::$app->response->statusCode = 200;
-        // Return the list of messages
-        return $messages;
-    }
-   */
-
-//------- Technicians -------
-
-    //'PUT {id}/availability' => 'set-availability'
-    public function actionSetAvailability($userid)
-    {
-        $profileTech = \common\models\Profile::findOne($userid);
-
-        if (!$profileTech) {
-            throw new \yii\web\NotFoundHttpException("Technician not found.");
-        }
-
-        // This reads "true" or "false" from Android
-        $value = Yii::$app->request->post('availability');
-
-        // Convert the incoming string to actual boolean
-        $profileTech->availability = filter_var($value, FILTER_VALIDATE_BOOLEAN);
-
-        if ($profileTech->save()) {
-            return [
-                'success' => true,
-                'availability' => (bool) $profileTech->availability
-            ];
-        }
-
-        return [
-            'success' => false,
-            'errors' => $profileTech->errors
-        ];
-    }
-
-
-    //'GET {id}/availability' => 'get-availability'
-    public function actionGetAvailability($id)
-    {
-        $profile = \common\models\Profile::findOne($id);
-
-        if (!$profile) {
-            throw new \yii\web\NotFoundHttpException("Technician not found.");
-        }
-
-        return [
-            'availability' => (bool) $profile->availability
-        ];
-    }
-
-
-//------- Push Notifications ------- // not going to implement not necessary
-
-    //'POST register' => 'register-device'
-   /*
-    public function actionRegisterDevice($id){
-        // Assume you have a Device model to store tokens
-        $device = new \app\models\();
-
-        // Load data: device_token, platform (ios/android), and user_id (if authenticated)
-        if ($device->load(Yii::$app->getRequest()->getBodyParams(), '')) {
-
-            // Always link the device to the currently authenticated user
-            $device->user_id = Yii::$app->user->id;
-
-            // Check if the device token already exists and update it, otherwise save new
-            if ($device->save()) {
-
-                Yii::$app->response->statusCode = 201; // HTTP 201 Created
-                return [
-                    'success' => true,
-                    'message' => 'Device successfully registered for push notifications.'
-                ];
-
-            } else {
-                Yii::$app->response->statusCode = 422;
-                return $device->getErrors();
-            }
-        }
-
-        Yii::$app->response->statusCode = 400;
-        return ['error' => 'Missing device token or platform information.'];
-    }
-*/
-//------- Notifications -------
-
-    //'PATCH {id}/read' => 'read' //Not going to implement
-  /*
-    public function actionRead($id){
-        // Find the Notification model. Ensure it belongs to the current user.
-        $notification = \app\models\Notification::findOne([
-            'id' => $id,
-            'user_id' => Yii::$app->user->id // Security check
-        ]);
-
-        if (!$notification) {
-            throw new \yii\web\NotFoundHttpException("Notification not found.");
-        }
-
-        // Update the 'read' status
-        $notification->is_read = 1;
-
-        if ($notification->save(false)) { // Save(false) to skip validation
-            Yii::$app->response->statusCode = 200;
-            return [
-                'success' => true,
-                'message' => 'Notification marked as read.',
-                'id' => $id
-            ];
-        }
-
-        Yii::$app->response->statusCode = 500;
-        return ['error' => 'Could not update notification status.'];
-    }
-*/
-//------- Sync Offline -------
+    /*------- Sync Offline -------
 
     //'GET changes' => 'changes'
     public function actionGetChanges(){
@@ -491,55 +376,5 @@ class UserController extends ActiveController
 
         // Return all changes categorized by model
         return $changes;
-    }
-
-    //'POST batch'  => 'batch'
-    /* // NOT NEEDED
-    public function actionBatch(){
-        // Either everything succeeds, or everything fails—no half-saved data.
-        $transaction = Yii::$app->db->beginTransaction();
-        $processedResults = [];
-        $hasError = false;
-
-        try {
-            // 1. Get the full batch array from the request body
-            $batchData = Yii::$app->getRequest()->getBodyParams();
-
-            if (!is_array($batchData)) {
-                throw new \Exception('Invalid batch format.');
-            }
-
-            // 2. Loop through the batched operations (e.g., creating new records)
-            foreach ($batchData as $operation) {
-
-                // Example processing for creating a new offline-collected record:
-                if ($operation['type'] === 'create_record') {
-                    $model = new \app\models\OfflineRecord();
-                    if ($model->load($operation['data'], '') && $model->save()) {
-                        $processedResults[] = ['status' => 'success', 'client_id' => $operation['client_id'], 'server_id' => $model->id];
-                    } else {
-                        $processedResults[] = ['status' => 'error', 'client_id' => $operation['client_id'], 'errors' => $model->getErrors()];
-                        $hasError = true;
-                    }
-                }
-                // ... add logic for updates, deletions, etc.
-            }
-
-            if ($hasError) {
-                $transaction->rollBack();
-                Yii::$app->response->statusCode = 422;
-            } else {
-                $transaction->commit();
-                Yii::$app->response->statusCode = 200;
-            }
-
-        } catch (\Exception $e) {
-            $transaction->rollBack();
-            Yii::$app->response->statusCode = 500;
-            return ['error' => 'A critical error occurred during batch processing.'];
-        }
-
-        return ['results' => $processedResults, 'success' => !$hasError];
-    }
-    */
+    }*/
 }

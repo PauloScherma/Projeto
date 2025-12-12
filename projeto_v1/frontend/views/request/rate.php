@@ -1,0 +1,20 @@
+<?php
+
+use yii\helpers\Html;
+
+/** @var yii\web\View $this */
+/** @var common\models\Request $model */
+
+$this->title = 'Rate Request';
+$this->params['breadcrumbs'][] = ['label' => 'Requests History', 'url' => ['history']];
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="request-create mx-5">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <?= $this->render('_form', [
+        'model' => $model,
+    ]) ?>
+
+</div>

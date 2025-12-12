@@ -3555,6 +3555,10 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable ic_action_adicionar
+drawable ic_action_guardar
+drawable ic_action_pesquisar
+drawable ic_action_remover
 drawable ic_arrow_back_black_24
 drawable ic_call_answer
 drawable ic_call_answer_low
@@ -3864,6 +3868,8 @@ id etTitulo
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
+id fabGuardar
+id fabLista
 id fade
 id fill
 id fill_horizontal
@@ -3883,6 +3889,7 @@ id frost
 id fullscreen_header
 id ghost_view
 id ghost_view_holder
+id glide_custom_view_target_tag
 id gone
 id graph
 id graph_wrap
@@ -3917,6 +3924,8 @@ id info
 id invisible
 id inward
 id italic
+id itemPesquisa
+id itemRemover
 id item_touch_helper_previous_elevation
 id jumpToEnd
 id jumpToStart
@@ -4428,6 +4437,8 @@ layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
 menu menu_main
+menu menu_pesquisa
+menu menu_remover
 mipmap ic_launcher
 mipmap ic_launcher_round
 plurals mtrl_badge_content_description
@@ -4600,6 +4611,7 @@ string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
+string pesquisa
 string search_menu_title
 string searchbar_scrolling_view_behavior
 string searchview_clear_text_content_description

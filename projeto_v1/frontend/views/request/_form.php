@@ -10,29 +10,56 @@ use yii\widgets\ActiveForm;
 
 <div class="request-form mx-5">
 
-    <?php $form = ActiveForm::begin(); ?>
-
-    <?php // $form->field($model, 'customer_id')->textInput() ?>
+    <?php $form = ActiveForm::begin([
+            'options' => ['enctype' => 'multipart/form-data']
+    ]); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?php // $form->field($model, 'priority')->dropDownList([ 'low' => 'Low', 'medium' => 'Medium', 'high' => 'High', ], ['prompt' => '']) ?>
+    <?php
+    #region Outros form->field
+    // $form->field($model, 'customer_id')->textInput()
+    // $form->field($model, 'priority')->dropDownList([ 'low' => 'Low', 'medium' => 'Medium', 'high' => 'High', ], ['prompt' => ''])
+    // $form->field($model, 'status')->dropDownList([ 'new' => 'New',  'in_progress' => 'In progress', 'completed' => 'Completed', 'canceled' => 'Canceled', ], ['prompt' => ''])
+    // $form->field($model, 'current_technician_id')->textInput()
+    // $form->field($model, 'scheduled_start')->textInput()
+    // $form->field($model, 'canceled_at')->textInput();
+    // $form->field($model, 'canceled_by')->textInput();
+    // $form->field($model, 'created_at')->textInput();
+    //$form->field($model, 'updated_at')->textInput();
+    #endregion
+    ?>
 
-    <?php // $form->field($model, 'status')->dropDownList([ 'new' => 'New', 'assigned' => 'Assigned', 'in_progress' => 'In progress', 'waiting_parts' => 'Waiting parts', 'completed' => 'Completed', 'canceled' => 'Canceled', ], ['prompt' => '']) ?>
+    <?php
+    if (Yii::$app->controller->action->id === 'rate'): ?>
 
-    <?php // $form->field($model, 'current_technician_id')->textInput() ?>
+        <?= $form->field($model, 'score', [
+                'options' => [
+                        'class' => 'my-2',
+                ],
+        ])->dropDownList(
+                [
+                        1 => '1 - Very Poor',
+                        2 => '2 - Poor',
+                        3 => '3 - Neutral',
+                        4 => '4 - Good',
+                        5 => '5 - Excellent',
+                ],
+                ['prompt' => 'Select a rating...']
+        )->label('Sua Avaliação (Score)'); ?>
 
-    <?php // $form->field($model, 'scheduled_start')->textInput() ?>
+    <?php endif; ?>
 
-    <?php // $form->field($model, 'canceled_at')->textInput() ?>
-
-    <?php // $form->field($model, 'canceled_by')->textInput() ?>
-
-    <?php // $form->field($model, 'created_at')->textInput() ?>
-
-    <?php // $form->field($model, 'updated_at')->textInput() ?>
+    <?php
+    if (Yii::$app->controller->action->id !== 'rate'): ?>
+    <?= $form->field($model, 'request_attachment[]', [
+        'options' => [
+            'class' => 'mt-3 mb-2',
+        ],
+    ])->fileInput(['multiple' => true])->label('Carregar Ficheiros');?>
+    <?php endif; ?>
 
     <div class="form-group mt-2">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

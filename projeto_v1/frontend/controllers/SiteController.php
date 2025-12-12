@@ -39,7 +39,7 @@ class SiteController extends Controller
                     [
                         'actions' => ['logout'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['cliente', 'tecnico'],
                     ],
                 ],
             ],
@@ -91,6 +91,18 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+
+            $user = Yii::$app->user->identity;
+            $authManager = Yii::$app->authManager;
+            $assignments = $authManager->getAssignments($user->id);
+
+            $assignment = reset($assignments);
+            $roleName = $assignment->roleName ?? null;
+
+            if ($roleName !== 'cliente' || $roleName === null) {
+                Yii::$app->user->logout();
+            }
+
             return $this->goBack();
         }
 
@@ -144,16 +156,6 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
-    }
-
-    /**
-     * Displays service page.
-     *
-     * @return mixed
-     */
-    public function actionService()
-    {
-        return $this->render('service');
     }
 
     /**
