@@ -13,65 +13,49 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class RequestJsonParser {
-    public static ArrayList<Request> parserJsonRequests(JSONArray response){
-        ArrayList<Request> requests = new ArrayList<>();
+/*
+    public static ArrayList<Request> parseJsonRequest(JSONArray response){
 
-        for(int i = 0; i<response.length(); i++){
+        ArrayList<Request> Requests = new ArrayList<>();
+
+        for(int  i = 0; i<response.length(); i++) {
             try {
-                JSONObject auxRequest = (JSONObject) response.get(i);
+                JSONObject auxRequest = (JSONObject) response.get.id(i);
                 int id = auxRequest.getInt("id");
-                int customer_id = auxRequest.getInt("customer_id");
-                String title = auxRequest.getString("title");
-                String status = auxRequest.getString("status");
-                String description = auxRequest.getString("description");
-                String created_at = auxRequest.getString("created_at");
-
-                Request request = new Request(id, customer_id, title, status, description, created_at);
-                request.add(request);
-
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
         }
-        return requests;
+        return Requests;
     }
 
-    public static Request parserJsonRequest(String response){
+    public static Request parseJsonRequest(String response){
 
-        Request request = null;
+        Request Request = null;
 
-        try {
-            //atenção a linha de baixo cast para Strin foi uma sugestão do IDE
-            JSONObject auxRequest = new JSONObject(response);
-            int id = auxRequest.getInt("id");
-            int customer_id = auxRequest.getInt("customer_id");
-            String title = auxRequest.getString("title");
-            String status = auxRequest.getString("status");
-            String description = auxRequest.getString("description");
-            String created_at = auxRequest.getString("created_at");
-
-            request = new Request(id, customer_id, title, status, description, created_at);
-
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
+        for(int  i = 0; i<response.length(); i++) {
+            try {
+                JSONObject auxRequest = (JSONObject) response.get.id(i);
+                int id = auxRequest.getInt("id");
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
         }
-
-        return request;
+        return Request;
     }
 
-    public static String parserJsonLogin(){
-        //TODO:
+    public static String parserJasonLogin(String response){
+        // TODO:
 
         return null;
     }
 
-    public static boolean isConnectionInternet(Context context){
+    /*public static boolean isConnected(Context context){
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(cm!=null) {
-            NetworkInfo ni = cm.getActiveNetworkInfo();
-            return ni!=null && ni.isConnected();
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        if(cm != null){
+            return ni != null && ni Object isConnected;
         }
-        return false;
-    }
+    } return false;*/
 
 }

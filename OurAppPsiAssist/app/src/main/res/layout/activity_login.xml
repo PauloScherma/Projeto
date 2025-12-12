@@ -78,9 +78,13 @@
             android:text="@string/login_to_continue"
             android:textColor="#888888"
             android:textSize="14sp" />-->
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
 
-
-        <TextView
+        <Button
             android:id="@+id/tvLoginSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -144,8 +148,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="24dp"
-            android:backgroundTint="@android:color/black"
-            android:onClick="onClickLogin"
+            android:background="@android:color/black"
             android:text="@string/log_in"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
@@ -185,8 +188,7 @@
             android:text="@string/forgot_password"
             android:textColor="#777777"
             android:textSize="12sp"
-            android:backgroundTint="@android:color/transparent"
-            android:onClick="onClickGoToForgotPassword"/>
+            android:backgroundTint="@android:color/transparent"/>
 
         <!-- Link criar conta -->
         <!-- Link Não tens conta? Cria uma aqui! -->
@@ -206,8 +208,7 @@
             android:text="@string/no_account_create_one_here"
             android:textColor="#777777"
             android:textSize="12sp"
-            android:backgroundTint="@android:color/transparent"
-            android:onClick="onClickGoToCreateAccount"/>
+            android:backgroundTint="@android:color/transparent"/>
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"

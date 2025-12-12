@@ -8,9 +8,6 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
-<!--    <activity-->
-<!--        android:name=".activitys.MenuMainActivity"-->
-<!--        android:label="Menu" />-->
 
     <!-- MAIN CONTENT (your activity layout / app bar / fragments) -->
     <LinearLayout
@@ -19,7 +16,7 @@
         android:layout_height="match_parent">
 
         <!-- Your AppBarLayout goes here -->
-        <include layout="@layout/app_bar_main" />
+        <include layout="@layout/header" />
 
         <!-- Fragment container goes here -->
         <FrameLayout

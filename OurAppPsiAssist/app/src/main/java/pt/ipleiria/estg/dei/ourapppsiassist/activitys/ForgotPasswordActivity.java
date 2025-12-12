@@ -52,8 +52,5 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
     }
-
-    public void onclickSendCode(View view) {
-    }
 }
 

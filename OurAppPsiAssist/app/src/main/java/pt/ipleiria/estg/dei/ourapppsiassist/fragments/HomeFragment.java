@@ -24,6 +24,7 @@ import pt.ipleiria.estg.dei.ourapppsiassist.R;
 
 public class HomeFragment extends Fragment {
 
+    private pt.ipleiria.estg.dei.ourapppsiassist.models.HomeViewModel mViewModel;
     private ProgressBar progressBar;
     private TextView dataText;
 

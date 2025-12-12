@@ -38,14 +38,14 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\paulo\\Desktop\\ESTG\\2Ano\\AMSI\\Books\\app\\src\\main\\res\\values-night\\themes.xml",
+                    "source": "C:\\wamp64\\www\\projeto\\AMSI\\Books\\app\\src\\main\\res\\values-night\\themes.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
-                        "startOffsets": "100",
+                        "startOffsets": "102",
                         "endLines": "5",
                         "endColumns": "12",
-                        "endOffsets": "309"
+                        "endOffsets": "314"
                     },
                     "to": {
                         "startLines": "2",

@@ -1,9 +1,7 @@
 package pt.ipleiria.estg.dei.ourapppsiassist.activitys;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -74,9 +72,4 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
 
-    public void onClickGoToLogin(View view) {
-        Intent intent = new Intent(CreateAccountActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
-    }
 }

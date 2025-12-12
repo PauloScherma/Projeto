@@ -34,11 +34,6 @@ class RequestController extends Controller
                             'actions' => ['index', 'view', 'create', 'update', 'delete', 'history', 'rate'],
                             'roles' => ['cliente'],
                         ],
-                        [
-                            'allow' => true,
-                            'actions' => ['index', 'view', 'update', 'history'],
-                            'roles' => ['tecnico'],
-                        ],
                     ],
                 ],
                 'verbs' => [
@@ -105,24 +100,10 @@ class RequestController extends Controller
     public function actionHistory()
     {
         $currentUserId = Yii::$app->user->id;
-        $whereClause = "";
-
-        $auth = Yii::$app->authManager;
-        $currentUserRoles = $auth->getRolesByUser($currentUserId);
-
-        $isCliente = isset($currentUserRoles['cliente']);
-
-        //otimizar depois
-        if($isCliente){
-            $whereClause = "customer_id";
-        }
-        else{
-            $whereClause = "current_technician_id";
-        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => Request::find()
-                ->where([$whereClause => $currentUserId])
+                ->where(['customer_id' => $currentUserId])
                 ->andWhere(['not', ['status' => 'new']])
                 ->andWhere(['not', ['status' => 'in_progress']]),
         'pagination' => [
