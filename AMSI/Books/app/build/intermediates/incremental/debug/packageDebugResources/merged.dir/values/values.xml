@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="purple_500">#AB0AF1</color>
+    <color name="red">#F44336</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="app_name">Books</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ndClose">Close</string>
+    <string name="ndOpen">Open\n</string>
+    <string name="pesquisa">Pesquisa</string>
+    <string name="txt_bemVindo">Bem-Vindo!</string>
+    <string name="txt_email">Inserir email</string>
+    <string name="txt_login">Login</string>
+    <string name="txt_password">Inserir password</string>
+    <style name="Base.Theme.Books" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        
+        <item name="colorPrimary">@color/purple_500</item>
+    </style>
+    <style name="Theme.Books" parent="Base.Theme.Books"/>
+    <style name="Theme.Books.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>
