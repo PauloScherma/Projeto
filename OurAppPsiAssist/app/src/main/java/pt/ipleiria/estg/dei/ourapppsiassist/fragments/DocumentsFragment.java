@@ -12,28 +12,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import pt.ipleiria.estg.dei.ourapppsiassist.models.DocumentsViewModel;
 import pt.ipleiria.estg.dei.ourapppsiassist.R;
 
 public class DocumentsFragment extends Fragment {
 
-    private DocumentsViewModel mViewModel;
 
-    public static DocumentsFragment newInstance() {
-        return new DocumentsFragment();
+    public DocumentsFragment(){
+        //required empty constructor
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_documents, container, false);
-    }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_documents, container, false);
+        //documentTextView = view.findViewById(R.id.btnDocuments);
+        return view;
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(DocumentsViewModel.class);
-        // TODO: Use the ViewModel
+
     }
 
 }

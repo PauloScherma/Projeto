@@ -30,4 +30,7 @@
     <string name="navClose">navClose</string>
     <string name="profile">Profile</string>
     <string name="requests">Requests</string>
+    <string name="documents">Documents</string>
+    <string name="logout">Logout</string>
+    <string name="home">Home</string>
 </resources>
