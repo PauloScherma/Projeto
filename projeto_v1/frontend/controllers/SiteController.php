@@ -91,18 +91,6 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-
-            $user = Yii::$app->user->identity;
-            $authManager = Yii::$app->authManager;
-            $assignments = $authManager->getAssignments($user->id);
-
-            $assignment = reset($assignments);
-            $roleName = $assignment->roleName ?? null;
-
-            if ($roleName !== 'cliente' || $roleName === null) {
-                Yii::$app->user->logout();
-            }
-
             return $this->goBack();
         }
 

@@ -7,9 +7,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -18,6 +20,8 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.navigation.NavigationView;
 
 import pt.ipleiria.estg.dei.ourapppsiassist.R;
+import pt.ipleiria.estg.dei.ourapppsiassist.fragments.DocumentsFragment;
+import pt.ipleiria.estg.dei.ourapppsiassist.fragments.HomeFragment;
 import pt.ipleiria.estg.dei.ourapppsiassist.fragments.ProfileFragment;
 import pt.ipleiria.estg.dei.ourapppsiassist.fragments.RequestFragment;
 
@@ -33,27 +37,25 @@ public class MenuMainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_menu_main);
 
-        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         drawer = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.nav_view);
 
-        // Drawer toggle (hamburger icon)
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar,
-                R.string.navOpen, R.string.navClose);
-
+        // Drawer toggle
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                drawer, toolbar, R.string.navOpen, R.string.navClose);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        fragmentManager = getSupportFragmentManager();
+        loadHeader();
 
         navigationView.setNavigationItemSelectedListener(this);
+        fragmentManager = getSupportFragmentManager();
 
-        loadHeader();
         loadInicialFragment();
     }
 
@@ -72,31 +74,31 @@ public class MenuMainActivity extends AppCompatActivity
         Menu menu = navigationView.getMenu();
         MenuItem item = menu.getItem(0);
         item.setChecked(true);
-
         return onNavigationItemSelected(item);
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Fragment fragment = null;
 
-        switch (item.getItemId()) {
-            case R.id.navProfile:
-                fragment = new ProfileFragment();
-                setTitle(item.getTitle());
-                break;
-
-            case R.id.navRequest:
-                fragment = new RequestFragment();
-                setTitle(item.getTitle());
-                break;
+        if(menuItem.getItemId()==R.id.navHome){
+            fragment = new HomeFragment();
+            setTitle(menuItem.getTitle());
+        }else if (menuItem.getItemId() == R.id.navProfile) {
+            fragment = new ProfileFragment();
+            setTitle(menuItem.getTitle());
+        } else if (menuItem.getItemId() == R.id.navRequest) {
+            fragment = new RequestFragment();
+            setTitle(menuItem.getTitle());
+        } else if (menuItem.getItemId()==R.id.navDocument){
+            fragment = new DocumentsFragment();
+            setTitle(menuItem.getTitle());
+        } else if (menuItem.getItemId() == R.id.navLogout) {
+            finish();
         }
 
-        if (fragment != null) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.contentFragment, fragment)
-                    .commit();
-        }
+        if (fragment != null)
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
 
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -33,7 +33,7 @@ class SiteController extends Controller
                     [
                         'actions' => ['logout', 'index'],
                         'allow' => true,
-                        'roles' => ['admin', 'gestor', 'tecnico'],
+                        'roles' => ['admin', 'gestor'],
                     ],
                 ],
             ],
@@ -91,7 +91,7 @@ class SiteController extends Controller
             $assignment = reset($assignments);
             $roleName = $assignment->roleName ?? null;
 
-            if ($roleName === 'cliente' || $roleName === null) {
+            if ($roleName === 'cliente' || $roleName === 'tecnico' || $roleName === null) {
 
                 Yii::$app->user->logout();
 
