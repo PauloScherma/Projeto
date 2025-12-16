@@ -173,7 +173,7 @@ CREATE TABLE `calendar_event` (
   `technician_id` int NOT NULL,
   `start_at` int NOT NULL,
   `end_at` int NOT NULL,
-  `status` enum('scheduled','rescheduled','done','canceled') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'scheduled',
+  `status` enum('scheduled','rescheduled','done','canceled') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'scheduled',
   `created_at` int NOT NULL,
   `updated_at` int NOT NULL,
   PRIMARY KEY (`id`),
@@ -201,7 +201,7 @@ DROP TABLE IF EXISTS `migration`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `migration` (
-  `version` varchar(180) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `version` varchar(180) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `apply_time` int DEFAULT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Controla as migrations executadas no Yii2 para manter a versão da estrutura da base de dados.';
@@ -310,7 +310,7 @@ CREATE TABLE `request_assignment` (
   CONSTRAINT `fk_newTechnician` FOREIGN KEY (`to_technician`) REFERENCES `user` (`id`),
   CONSTRAINT `fk_oldTechnician` FOREIGN KEY (`from_technician`) REFERENCES `user` (`id`),
   CONSTRAINT `fk_requestID` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
