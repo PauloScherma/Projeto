@@ -1,8 +1,11 @@
 package pt.ipleiria.estg.dei.ourapppsiassist.utils;
 
+import android.Manifest;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+
+import androidx.annotation.RequiresPermission;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,16 +16,6 @@ import java.util.ArrayList;
 import pt.ipleiria.estg.dei.ourapppsiassist.models.Request;
 
 public class RequestJsonParser {
-
-    public static ArrayList<Request> parseJsonRequest(JSONArray response){
-
-        ArrayList<Request> Requests = new ArrayList<>();
-
-        for(int  i = 0; i<response.length(); i++) {
-            try {
-                JSONObject auxRequest = (JSONObject) response.get.id(i);
-                int id = auxRequest.getInt("id");
-
 
     // ---------------------------------------------------------
     // Parse JSON array → List<Request>
@@ -46,43 +39,10 @@ public class RequestJsonParser {
                 Request request = new Request(id, customerId, title, status, description, createdAt);
                 requests.add(request);
 
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        return Requests;
-    }
-
-    public static Request parseJsonRequest(String response){
-
-        Request Request = null;
-
-        for(int  i = 0; i<response.length(); i++) {
-            try {
-                JSONObject auxRequest = (JSONObject) response.get.id(i);
-                int id = auxRequest.getInt("id");
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return Request;
-    }
-
-    public static String parserJasonLogin(String response){
-        // TODO:
-
-        return null;
-    }
-
-    /*public static boolean isConnected(Context context){
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo ni = cm.getActiveNetworkInfo();
-        if(cm != null){
-            return ni != null && ni Object isConnected;
-        }
-    } return false;*/
-
 
         return requests;
     }
@@ -123,6 +83,7 @@ public class RequestJsonParser {
     // ---------------------------------------------------------
     // Internet connectivity check
     // ---------------------------------------------------------
+    @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     public static boolean isConnectionInternet(Context context) {
         ConnectivityManager cm = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,9 +30,7 @@ public class SingletonRequestManager {
 
     private final RequestBDHelper requestDB;
     private static RequestQueue volleyQueue;
-
-    private static ArrayList<Request> requests = new ArrayList<>();
-
+    private static ArrayList<pt.ipleiria.estg.dei.ourapppsiassist.models.Request> requests = new ArrayList<pt.ipleiria.estg.dei.ourapppsiassist.models.Request>();
     private RequestsListener requestsListener;
     private RequestListener requestListener;
 
@@ -39,8 +38,8 @@ public class SingletonRequestManager {
     // API URL PLACEHOLDERS
     // ---------------------------------------------------------
     // TODO: Insert your API endpoints here
-    // private static final String mUrlAPIRequests = "YOUR_URL_HERE";
-    // private static final String TOKEN = "YOUR_TOKEN_HERE";
+    private static final String mUrlAPIRequests = "YOUR_URL_HERE";
+    private static final String TOKEN = "YOUR_TOKEN_HERE";
     // ---------------------------------------------------------
 
     public static synchronized SingletonRequestManager getInstance(Context context) {
@@ -76,7 +75,7 @@ public class SingletonRequestManager {
     // ---------------------------------------------------------
     public ArrayList<Request> getRequests() {
         requests = requestDB.getAllRequestsDB();
-        return new ArrayList<>(requests);
+        return new ArrayList<Request>();
     }
 
     public static Request getRequest(int id) {
@@ -87,24 +86,24 @@ public class SingletonRequestManager {
     }
 
     public void addRequestBD(Request request) {
-        Request inserted = requestDB.addRequest(request);
+        pt.ipleiria.estg.dei.ourapppsiassist.models.Request inserted = requestDB.addRequest(request);
 
         if (inserted != null) {
             requests.add(inserted);
         }
     }
 
-    public void addRequestsBD(ArrayList<Request> requestList) {
+    public void addRequestsBD(ArrayList<pt.ipleiria.estg.dei.ourapppsiassist.models.Request> requestList) {
         requestDB.removeAllRequestsDB();
         requests.clear();
 
-        for (Request r : requestList) {
+        for (pt.ipleiria.estg.dei.ourapppsiassist.models.Request r : requestList) {
             requestDB.addRequest(r);
             requests.add(r);
         }
     }
 
-    public void editRequestBD(Request request) {
+    public void editRequestBD(pt.ipleiria.estg.dei.ourapppsiassist.models.Request request) {
         boolean updated = requestDB.editRequest(request);
 
         if (updated) {
@@ -183,7 +182,7 @@ public class SingletonRequestManager {
         volleyQueue.add(req);
     }
 
-    public void editRequestAPI(final Request request, final Context context) {
+    public void editRequestAPI(final pt.ipleiria.estg.dei.ourapppsiassist.models.Request request, final Context context) {
 
         if (!RequestJsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "No internet connection.", Toast.LENGTH_SHORT).show();
@@ -199,7 +198,7 @@ public class SingletonRequestManager {
                         editRequestBD(request);
 
                         if (requestListener != null) {
-                            requestListener.onRefreshDetalhes();
+                            requestListener.onRefreshDetails();
                         }
                     }
                 },
@@ -231,16 +230,17 @@ public class SingletonRequestManager {
             return;
         }
 
-        String url = mUrlAPIRequests + "/" + request.getId();
+
+        String url = mUrlAPIRequests + "/" + requests.getFirst().getId();
 
         StringRequest req = new StringRequest(Request.Method.DELETE, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        removeRequestBD(request.getId());
+                        removeRequestBD(request.getBody());
 
                         if (requestListener != null) {
-                            requestListener.onRefreshDetalhes();
+                            requestListener.onRefreshDetails();
                         }
                     }
                 },
@@ -265,7 +265,7 @@ public class SingletonRequestManager {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        ArrayList<Request> list = RequestJsonParser.parserJsonRequests(response);
+                        ArrayList<pt.ipleiria.estg.dei.ourapppsiassist.models.Request> list = RequestJsonParser.parserJsonRequests(response);
                         addRequestsBD(list);
 
                         if (requestsListener != null) {

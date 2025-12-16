@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import pt.ipleiria.estg.dei.ourapppsiassist.R;
-import pt.ipleiria.estg.dei.ourapppsiassist.models.RequestViewModel;
 
 public class RequestFragment extends Fragment {
 
