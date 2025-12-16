@@ -33,4 +33,8 @@
     <string name="home">Home</string>
     <string name="documents">Documents</string>
     <string name="logout">Logout</string>
+    <string name="description">Description:</string>
+    <string name="title">Title:</string>
+    <string name="author">Author:</string>
+    <string name="search">search</string>
 </resources>

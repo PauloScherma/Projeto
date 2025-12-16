@@ -15,11 +15,17 @@ public class Request{
         this.created_at = created_at;
         this.updated_at = updated_at;
     }
+
+    public static Object get(int i) {
+        return null;
+    }
+    public static int size() {
+        return 0;
+    }
     public int getId()
     {
         return id;
     }
-
     public void setId(int id)
     {
         this.id = id;
@@ -73,4 +79,15 @@ public class Request{
         this.updated_at = updated_at;
     }
 
+    public int getImgProfile() {
+        return 0;
+    }
+
+    public String getCreatedBy() {
+        return "";
+    }
+
+    public int getCreatedAt() {
+        return 0;
+    }
 }

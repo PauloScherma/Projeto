@@ -44,6 +44,8 @@ dependencies {
     implementation(libs.volley)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.common)
+    implementation(libs.glide)
+    annotationProcessor (libs.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

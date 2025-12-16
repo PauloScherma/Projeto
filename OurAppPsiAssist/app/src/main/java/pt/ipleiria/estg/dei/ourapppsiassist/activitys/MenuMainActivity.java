@@ -26,6 +26,9 @@ import pt.ipleiria.estg.dei.ourapppsiassist.fragments.RequestFragment;
 public class MenuMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final int EDIT = 2;
+    public static final int RESULT_OK = 1;
+    public static final int ADD = 23 ;
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private FragmentManager fragmentManager;

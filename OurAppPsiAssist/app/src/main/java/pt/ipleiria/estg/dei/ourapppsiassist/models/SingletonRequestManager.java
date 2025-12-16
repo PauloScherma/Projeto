@@ -118,6 +118,10 @@ public class SingletonRequestManager {
         }
     }
 
+    public void getAllRequests(Context context) {
+
+    }
+
     // ---------------------------------------------------------
     // API
     // ---------------------------------------------------------
