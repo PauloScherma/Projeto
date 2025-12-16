@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import pt.ipleiria.estg.dei.ourapppsiassist.models.CreateRequestViewModel;
 import pt.ipleiria.estg.dei.ourapppsiassist.R;
 
 public class CreateRequestFragment extends Fragment {
