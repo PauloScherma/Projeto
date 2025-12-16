@@ -4,6 +4,7 @@ namespace backend\modules\api\controllers;
 
 use backend\modules\api\components\CustomAuth;
 use common\models\Request;
+use common\models\User;
 use Yii;
 use yii\rest\ActiveController;
 
@@ -54,21 +55,20 @@ class RequestController extends ActiveController
     }
     public function actionCreate()
     {
-        if (Yii::$app->user->isGuest) {
-            return [
-                'success' => false,
-                'message' => 'Usuário não autenticado.'
-            ];
+        $user = User::findByUsername(Yii::$app->request->post('username'));
+        if($user){
+            $requestModel = new $this->modelClass;
+            $requestModel->customer_id = 53;
+            $requestModel->tittle = \Yii::$app->request->post('tittle');
+            $requestModel->description = \Yii::$app->request->post('description');
+            $requestModel->status = "new";
+            $requestModel->created_at = date('Y-m-d H:i:s');
+            $requestModel->save();
+            return "Sucess";
         }
-
-        $requestModel = new $this->modelClass;
-        $requestModel->customer_id = 53;
-        $requestModel->tittle = \Yii::$app->request->post('tittle');
-        $requestModel->description = \Yii::$app->request->post('description');
-        $requestModel->status = "new";
-        $requestModel->created_at = date('Y-m-d H:i:s');
-        $requestModel->save();
-        return "Sucess";
+        else{
+            return "Error";
+        }
     }
 
     public function actionPutRequests($id){
