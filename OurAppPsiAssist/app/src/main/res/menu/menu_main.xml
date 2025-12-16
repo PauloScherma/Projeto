@@ -4,19 +4,25 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-    <item android:id="@+id/navProfile"
-        android:title="@string/profile"
+
+    <item android:id="@+id/navHome"
+        android:title="@string/home"
         android:icon="@drawable/ic_menu_lista"/>
 
     <item android:id="@+id/navRequest"
         android:title="@string/requests"
+        android:icon="@drawable/ic_menu_lista"/>
+
+    <item android:id="@+id/navDocuments"
+        android:title="@string/documents"
+        android:icon="@drawable/ic_menu_lista"/>
+
+    <item android:id="@+id/navProfile"
+        android:title="@string/profile"
+        android:icon="@drawable/ic_menu_lista"/>
+
+    <item android:id="@+id/navLogout"
+        android:title="@string/logout"
         android:icon="@drawable/ic_menu_grelha"/>
-        </group>
-        <item android:title="Comunicar" >
-        <menu>
-            <!--<item android:id="@+id/navEmail"
-                android:title="Email"
-                android:icon="@drawable/ic_menu_email"/>-->
-        </menu>
-        </item>
+
 </menu>

@@ -17,7 +17,7 @@ import pt.ipleiria.estg.dei.ourapppsiassist.R;
 public class CreateRequestFragment extends Fragment {
 
     private CreateRequestFragment(){
-        
+
     }
 
     @Override

@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import pt.ipleiria.estg.dei.ourapppsiassist.models.Request;
 
 public class RequestJsonParser {
-<<<<<<< Updated upstream
-/*
+
     public static ArrayList<Request> parseJsonRequest(JSONArray response){
 
         ArrayList<Request> Requests = new ArrayList<>();
@@ -23,7 +22,7 @@ public class RequestJsonParser {
             try {
                 JSONObject auxRequest = (JSONObject) response.get.id(i);
                 int id = auxRequest.getInt("id");
-=======
+
 
     // ---------------------------------------------------------
     // Parse JSON array → List<Request>
@@ -47,12 +46,11 @@ public class RequestJsonParser {
                 Request request = new Request(id, customerId, title, status, description, createdAt);
                 requests.add(request);
 
->>>>>>> Stashed changes
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-<<<<<<< Updated upstream
         return Requests;
     }
 
@@ -85,7 +83,6 @@ public class RequestJsonParser {
         }
     } return false;*/
 
-=======
 
         return requests;
     }
@@ -136,5 +133,4 @@ public class RequestJsonParser {
         }
         return false;
     }
->>>>>>> Stashed changes
 }
