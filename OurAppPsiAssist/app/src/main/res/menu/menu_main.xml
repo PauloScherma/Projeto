@@ -25,4 +25,5 @@
         android:title="@string/logout"
         android:icon="@drawable/ic_menu_grelha"/>
 
+    </group>
 </menu>
