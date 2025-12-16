@@ -43,6 +43,7 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.volley)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.common)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

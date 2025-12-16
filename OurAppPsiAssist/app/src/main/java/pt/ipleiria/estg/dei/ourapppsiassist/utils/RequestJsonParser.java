@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import pt.ipleiria.estg.dei.ourapppsiassist.models.Request;
 
@@ -35,8 +36,10 @@ public class RequestJsonParser {
                 String status = auxRequest.getString("status");
                 String description = auxRequest.getString("description");
                 String createdAt = auxRequest.getString("created_at");
+                String updatedAt = auxRequest.getString("updated_at");
 
-                Request request = new Request(id, customerId, title, status, description, createdAt);
+
+                Request request = new Request(id, customerId, title, status, description, createdAt, updatedAt);
                 requests.add(request);
 
             } catch (JSONException e) {
@@ -63,8 +66,9 @@ public class RequestJsonParser {
             String status = auxRequest.getString("status");
             String description = auxRequest.getString("description");
             String createdAt = auxRequest.getString("created_at");
+            String updatedAt = auxRequest.getString("updated_at");
 
-            return new Request(id, customerId, title, status, description, createdAt);
+            return new Request(id, customerId, title, status, description, createdAt, updatedAt);
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -1,18 +1,20 @@
 package pt.ipleiria.estg.dei.ourapppsiassist.models;
-
-import com.android.volley.NetworkResponse;
-import com.android.volley.Response;
-
-public class Request {
+public class Request{
     private int id, customer_id;
-    private String title, status, description, created_at;
-    public Request(int id, int customer_id, String title, String status, String description, String created_at) {
+    private String title;
+    private String status;
+    private String description;
+    private String created_at;
+    private String updated_at;
+    public Request(int id, int customer_id, String title, String status, String description, String created_at, String updated_at) {
         this.id = id;
         this.customer_id = customer_id;
         this.title = title;
         this.status = status;
         this.description = description;
-        this.created_at = created_at; }
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+    }
     public int getId()
     {
         return id;
@@ -61,6 +63,14 @@ public class Request {
     public void setCreated_at(String created_at)
     {
         this.created_at = created_at;
+    }
+    public String getUpdated_at()
+    {
+        return updated_at;
+    }
+    public void setUpdated_at(String updated_at)
+    {
+        this.updated_at = updated_at;
     }
 
 }
