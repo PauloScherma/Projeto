@@ -1,10 +1,9 @@
 <?php
-
-
 namespace backend\tests\Unit;
 
 use backend\tests\UnitTester;
 use common\models\Request;
+use Yii;
 
 class RequestTest extends \Codeception\Test\Unit
 {
@@ -13,13 +12,19 @@ class RequestTest extends \Codeception\Test\Unit
 
     protected function _before()
     {
+
     }
 
     // tests
-    public function testChangeTitle()
+    public function testCreateRequest()
     {
-        $id = $this->tester->haveRecord('request', ['title' => 'test']);
-        $request = Request::findOne($id);
-        $request->title = 'testChangedTitle';
+        $request = new Request();
+        $request->customer_id = ('2');
+        $request->title = 'Title';
+        $request->description = 'Description';
+        $request->setPriorityToMedium();
+        $request->setStatusToNew();
+        $request->created_at = date('Y-m-d H:i:s');
+        $request->save();
     }
 }

@@ -16,7 +16,7 @@
         android:layout_height="match_parent">
 
         <!-- Your AppBarLayout goes here -->
-        <include layout="@layout/header" />
+        <include layout="@layout/app_bar_main" />
 
         <!-- Fragment container goes here -->
         <FrameLayout

@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.OurAppPsiAssist" parent="Base.Theme.OurAppPsiAssist" />
+
+    <style name="Theme.OurAppPsiAssist.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 </resources>

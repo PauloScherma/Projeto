@@ -18,6 +18,8 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.navigation.NavigationView;
 
 import pt.ipleiria.estg.dei.ourapppsiassist.R;
+import pt.ipleiria.estg.dei.ourapppsiassist.fragments.DocumentsFragment;
+import pt.ipleiria.estg.dei.ourapppsiassist.fragments.HomeFragment;
 import pt.ipleiria.estg.dei.ourapppsiassist.fragments.ProfileFragment;
 import pt.ipleiria.estg.dei.ourapppsiassist.fragments.RequestFragment;
 
@@ -49,11 +51,11 @@ public class MenuMainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        fragmentManager = getSupportFragmentManager();
+        loadHeader();
 
+        fragmentManager = getSupportFragmentManager();
         navigationView.setNavigationItemSelectedListener(this);
 
-        loadHeader();
         loadInicialFragment();
     }
 
@@ -77,26 +79,29 @@ public class MenuMainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Fragment fragment = null;
 
-        switch (item.getItemId()) {
-            case R.id.navProfile:
-                fragment = new ProfileFragment();
-                setTitle(item.getTitle());
-                break;
-
-            case R.id.navRequest:
-                fragment = new RequestFragment();
-                setTitle(item.getTitle());
-                break;
+        if (menuItem.getItemId() == R.id.navHome) {
+            fragment = new HomeFragment();
+            setTitle(menuItem.getTitle());
+        } else if (menuItem.getItemId() == R.id.navRequest) {
+            fragment = new RequestFragment();
+            setTitle(menuItem.getTitle());
+        } else if (menuItem.getItemId() == R.id.navDocuments) {
+            fragment = new DocumentsFragment();
+            setTitle(menuItem.getTitle());
+        } else if (menuItem.getItemId() == R.id.navProfile){
+            fragment = new ProfileFragment();
+        setTitle(menuItem.getTitle());
+        }
+        else if (menuItem.getItemId() == R.id.navLogout) {
+            finish();
         }
 
-        if (fragment != null) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.contentFragment, fragment)
-                    .commit();
-        }
+
+        if (fragment!= null)
+            fragmentManager.beginTransaction().replace(R.id.contentFragment,fragment).commit();
 
         drawer.closeDrawer(GravityCompat.START);
         return true;

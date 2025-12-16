@@ -1,5 +1,6 @@
 <?php
 
+namespace backend\modules\api\components;
 use common\models\User;
 use Yii;
 use yii\filters\auth\AuthMethod;
@@ -17,6 +18,6 @@ class CustomAuth extends AuthMethod
         }
 
         Yii::$app->params['id']=$user->id;
-        //return $user;
+        return $user;
     }
 }
