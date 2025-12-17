@@ -133,6 +133,11 @@ class RequestController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
+        //para não alterar os campos
+        $post = $this->request->post();
+        unset($post['Request']['created_at'], $post['Request']['canceled_at']);
+
         $technicianList = User::getAllTechnicians();
         $clientName = $model->customer->username;
         $currentUserId = Yii::$app->user->id;
@@ -190,7 +195,7 @@ class RequestController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($id)->deleteRequest();
 
         return $this->redirect(['index']);
     }

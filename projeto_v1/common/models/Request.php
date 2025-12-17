@@ -117,16 +117,15 @@ class Request extends \yii\db\ActiveRecord
      * Substitui o delete padrão (hard delete) por um soft delete (cancelamento).
      * @return bool|int O resultado do save() ou false.
      */
-    public function delete()
+    public function deleteRequest()
     {
         // Verifica se o pedido já foi cancelado
         if ($this->canceled_at !== null) {
-            Yii::$app->session->setFlash('error', 'Este pedido já se encontra cancelado.');
             return false;
         }
 
         // Atribui os valores do "soft delete"
-        $this->canceled_at = time();
+        $this->canceled_at = \date('Y-m-d H:i:s');
         $this->canceled_by = Yii::$app->user->id;
         $this->status = self::STATUS_CANCELED;
 
