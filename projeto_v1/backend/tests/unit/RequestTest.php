@@ -3,6 +3,7 @@ namespace backend\tests\Unit;
 
 use backend\tests\UnitTester;
 use common\models\Request;
+use common\models\RequestAttachment;
 use common\models\User;
 use Yii;
 
@@ -46,21 +47,64 @@ class RequestTest extends \Codeception\Test\Unit
         $isSaved = $request->save();
         $updated_at=$request->updated_at;
 
-
         $this->assertTrue($isSaved,'O modelo Request deve ser update com sucesso na BD. Erros: ' . print_r($request->errors, true));
         $this->assertNotNull($updated_at, 'O updated_at deve ter sido atualizado após o save().');
     }
 
     public function testDeleteRequest(){
 
-        $user = new User(['id' => 100]);
-        Yii::$app->user->setIdentity($user);
-
-        $request = new Request();
-        $request->canceled_at = null;
+        $request = Request::findOne(38);
         $request->deleteRequest();
         $requestStatus = $request->status;
 
         $this->assertEquals($requestStatus, "canceled", 'O status não tem o valor certo');
+    }
+
+    public function testReadRequest(){
+        $request = new Request();
+        $request->customer_id = 53;
+        $request->title = 'Pedido de Teste';
+        $request->description = 'Verificando a leitura';
+        $request->created_at = date('Y-m-d H:i:s');
+        $request->save(false);
+
+        $id = $request->id;
+
+        $model = Request::findOne($id);
+
+        $this->assertNotNull($model, 'O Request deveria ter sido encontrado no banco.');
+        $this->assertEquals('Pedido de Teste', $model->title);
+        $this->assertEquals(53, $model->customer_id);
+    }
+
+    public function testUploadAttachment(){
+        $user = new \common\models\User(['id' => 53]);
+        Yii::$app->user->setIdentity($user);
+
+        $request = new Request();
+        $request->customer_id = 53;
+        $request->title = 'Teste Upload';
+        $request->created_at = date('Y-m-d H:i:s');
+        $request->save(false);
+
+        $tempFile = tempnam(sys_get_temp_dir(), 'test');
+        file_put_contents($tempFile, 'conteudo');
+
+        $file = new \yii\web\UploadedFile([
+            'name' => 'documento_teste.txt',
+            'tempName' => $tempFile,
+            'type' => 'text/plain',
+            'size' => filesize($tempFile),
+            'error' => UPLOAD_ERR_OK,
+        ]);
+
+        $request->request_attachment = [$file];
+
+        $success = $request->upload();
+
+        $this->assertTrue($success, 'O upload falhou.');
+
+        $attachment = RequestAttachment::find()->where(['request_id' => $request->id])->one();
+        $this->assertNotNull($attachment, 'Attachment não encontrado.');
     }
 }

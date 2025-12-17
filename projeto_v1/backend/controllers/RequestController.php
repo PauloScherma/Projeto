@@ -136,7 +136,7 @@ class RequestController extends Controller
 
         //para não alterar os campos
         $post = $this->request->post();
-        unset($post['Request']['created_at'], $post['Request']['canceled_at']);
+        unset($post['Request']['created_at']);
 
         $technicianList = User::getAllTechnicians();
         $clientName = $model->customer->username;
