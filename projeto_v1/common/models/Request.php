@@ -61,7 +61,6 @@ class Request extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::class
             ];
     }
 
@@ -79,7 +78,7 @@ class Request extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['description', 'current_technician_id', 'canceled_at', 'canceled_by'], 'default', 'value' => null],
+            [['description', 'current_technician_id', 'updated_at', 'canceled_at', 'canceled_by'], 'default', 'value' => null],
             [['priority'], 'default', 'value' => 'medium'],
             [['status'], 'default', 'value' => 'new'],
             [['customer_id', 'title', 'created_at'], 'required'],

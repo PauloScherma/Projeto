@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use Cassandra\Date;
 use common\models\Request;
 use backend\models\RequestSearch;
 use common\models\RequestAssignment;
@@ -105,7 +106,7 @@ class RequestController extends Controller
         if ($this->request->isPost && $model->load($this->request->post())){
 
             $model->request_attachment = UploadedFile::getInstances($model, 'request_attachment');
-            $model->created_at = \date('Y-m-d H:i:s');
+            $model->created_at = Date('Y-m-d H:i:s');
 
             if($model->save() && $model->upload()) {
                 return $this->redirect(['view', 'id' => $model->id]);

@@ -27,9 +27,4 @@ class RequestControllerTest extends \Codeception\Test\Unit
         $I->seeResponseCodeIs(200);
         $I->see('Requests');
     }
-
-    public function test()
-    {
-
-    }
 }
