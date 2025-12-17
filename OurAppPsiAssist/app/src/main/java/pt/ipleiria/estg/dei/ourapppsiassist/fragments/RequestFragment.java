@@ -116,7 +116,6 @@ public class RequestFragment extends Fragment {
         if(requestCode == MenuMainActivity.ADD || requestCode == MenuMainActivity.EDIT){
             if(resultCode == MenuMainActivity.RESULT_OK){
                 //if detailsActivity.setResult(RESULT_OK)
-
                 SingletonRequestManager.getInstance(getContext()).getAllRequests(getContext());
 
                 switch(requestCode) {

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import pt.ipleiria.estg.dei.ourapppsiassist.activitys.RequestDetailsActivity;
 import pt.ipleiria.estg.dei.ourapppsiassist.listeners.RequestListener;
 import pt.ipleiria.estg.dei.ourapppsiassist.listeners.RequestsListener;
 import pt.ipleiria.estg.dei.ourapppsiassist.utils.RequestJsonParser;
@@ -119,6 +120,16 @@ public class SingletonRequestManager {
     }
 
     public void getAllRequests(Context context) {
+
+    }
+
+    public void editRequestAPI(Request request, RequestDetailsActivity requestDetailsActivity) {
+    }
+
+    public void addRequestAPI(Request request, RequestDetailsActivity requestDetailsActivity) {
+    }
+
+    public void removeRequestAPI(Request request, RequestDetailsActivity requestDetailsActivity) {
 
     }
 

@@ -75,17 +75,19 @@ public class RequestAdapter implements ListAdapter {
     @Override public void unregisterDataSetObserver(android.database.DataSetObserver observer) {}
 
     static class ViewHolder {
-        TextView tvTitle, tvDescription, tvStatus;
+        TextView tvTitle, tvCreatedBy, tvCreatedAt, tvStatus;
 
         ViewHolder(View v) {
             tvTitle = v.findViewById(R.id.tvTitle);
-            tvDescription = v.findViewById(R.id.tvDescription);
+            tvCreatedBy = v.findViewById(R.id.tvCreatedBy);
+            tvCreatedAt = v.findViewById(R.id.tvCreatedAt);
             tvStatus = v.findViewById(R.id.tvStatus);
         }
 
         void update(Request r) {
             tvTitle.setText(r.getTitle());
-            tvDescription.setText(r.getDescription());
+            tvCreatedBy.setText(r.getCreatedBy());
+            tvCreatedAt.setText(r.getCreatedAt());
             tvStatus.setText(r.getStatus());
         }
     }

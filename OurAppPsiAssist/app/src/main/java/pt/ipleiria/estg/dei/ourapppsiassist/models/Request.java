@@ -6,14 +6,9 @@ public class Request{
     private String description;
     private String created_at;
     private String updated_at;
+
     public Request(int id, int customer_id, String title, String status, String description, String created_at, String updated_at) {
-        this.id = id;
-        this.customer_id = customer_id;
-        this.title = title;
-        this.status = status;
-        this.description = description;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
+
     }
 
     public static Object get(int i) {
@@ -89,5 +84,11 @@ public class Request{
 
     public int getCreatedAt() {
         return 0;
+    }
+
+    public void setCreatedAt(String createdAt) {
+    }
+
+    public void setCreatedBy(String createdBy) {
     }
 }
