@@ -2,9 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="20dp"
     android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    tools:context=".activitys.EditProfileActivity">
+
 
         <!-- User Name / Image -->
 
@@ -16,19 +19,18 @@
             android:contentDescription="@string/app_name"
             android:padding="10dp" />
 
-<!--        TODO: make user name be the conection of frist and last-->
-       <TextView
+        <TextView
             android:id="@+id/tvUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="User Name"
+            android:text="@string/user_name"
             android:textSize="22sp"
             android:textStyle="bold" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight=".02"/>
+            android:layout_weight=".2"/>
 
         <!-- First Name -->
         <TextView
@@ -36,18 +38,19 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:textStyle="bold"
-            android:text="@string/first_name"/>
-        <TextView
-            android:id="@+id/txtFirstName"
-            android:layout_width="wrap_content"
+            android:text="First Name"/>
+
+        <EditText
+            android:id="@+id/etFirstName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Zeca"
-            android:textSize="16sp"
-            android:paddingTop="4dp"/>
+            android:ems="10"
+            android:inputType="text"
+            android:hint="FirstName" />
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight=".01"/>
+            android:layout_weight=".05"/>
 
         <!-- Last Name -->
         <TextView
@@ -55,18 +58,19 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:textStyle="bold"
-            android:text="@string/last_name"/>
-        <TextView
-            android:id="@+id/txtLastName"
-            android:layout_width="wrap_content"
+            android:text="Last Name"/>
+
+        <EditText
+            android:id="@+id/etLastName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Joaquim"
-            android:textSize="16sp"
-            android:paddingTop="4dp"/>
+            android:ems="10"
+            android:inputType="text"
+            android:hint="LastName" />
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight=".01"/>
+            android:layout_weight=".05"/>
 
         <!-- Email -->
         <TextView
@@ -75,17 +79,18 @@
             android:layout_gravity="start"
             android:textStyle="bold"
             android:text="@string/email"/>
-        <TextView
-            android:id="@+id/tvEmail"
-            android:layout_width="wrap_content"
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/email_mail_net"
-            android:textSize="16sp"
-            android:paddingTop="4dp"/>
+            android:ems="10"
+            android:inputType="text"
+            android:hint="@string/email" />
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight=".01"/>
+            android:layout_weight=".1"/>
 
         <!-- Phone Number -->
         <TextView
@@ -93,39 +98,29 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:textStyle="bold"
-            android:text="@string/phone_number"/>
-        <TextView
-            android:id="@+id/tvPhoneNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="916969696"
-            android:textSize="16sp"
-            android:paddingTop="4dp"/>
+            android:text="Phone Number"/>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".02"/>
-
-        <Button
-            android:id="@+id/btnEditProfile"
+        <EditText
+            android:id="@+id/etPhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/edit_profile"
-            android:layout_marginTop="24dp"
-            android:onClick="onClickEditProfile"/>
-
-        <Button
-            android:id="@+id/btnDeleteAccount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/delete_account"
-            android:backgroundTint="#C62828"
-            android:textColor="#FFFFFF"
-            android:layout_marginTop="10dp"
-            android:onClick="onClickDeleteAccount"/>
+            android:ems="10"
+            android:inputType="number"
+            android:hint="Phone Number" />
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".1"/>
-    </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:layout_marginTop="24dp"
+            android:onClick="onClickSave"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".56"/>
+</LinearLayout>

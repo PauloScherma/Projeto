@@ -43,6 +43,10 @@
             android:name=".activitys.LoginActivity"
             android:exported="false"/>
 
+        <activity
+            android:name=".activitys.EditProfileActivity"
+            android:exported="false"/>
+
     </application>
 
 </manifest>
