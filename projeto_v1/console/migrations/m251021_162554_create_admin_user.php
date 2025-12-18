@@ -35,7 +35,7 @@ class m251021_162554_create_admin_user extends Migration
         if ($admin) {
             $auth = Yii::$app->authManager;
             $auth->revokeAll($admin->id);
-            $admin->delete();
+            $admin->deleteRequest();
         }
     }
 }
