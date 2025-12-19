@@ -101,7 +101,8 @@
             android:textStyle="bold"
             android:layout_margin="23dp"
             android:backgroundTint="@color/black"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:onClick="onClickGoBackToLogin"/>
     </LinearLayout>
 
     <Space

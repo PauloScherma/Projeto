@@ -23,7 +23,7 @@ class RequestController extends ActiveController
         return $this->render('index');
     }
 
-    public function behavior()
+    public function behaviors()
     {
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
@@ -34,48 +34,69 @@ class RequestController extends ActiveController
 
     //test
     public function actionCount(){
-
-        //$usermodel = new $this->modelClass;
-        //$recs = $usermodel::find()->all();
-        return Yii::$app->params['id'];
+        $requestmodel = new $this->modelClass;
+        $recs = $requestmodel::find()->all();
+        return ['count' => count($recs)];
     }
 
     #region ------- Request -------
+    public function actionAllrequests(){
+        $requestmodel = new $this->modelClass;
+        $recs = $requestmodel::find()->all();
+        return ['All Requests' => $recs];
+    }
 
     public function actionRequests($id){
-        $usermodel = new $this->modelClass;
-        $recs = $usermodel::find()->where(['customer_id' => $id])->all();
-        return ['recs' => $recs];
+        $requestmodel = new $this->modelClass;
+        $recs = $requestmodel::find()->where(['customer_id' => $id])->all();
+        return ['requests' => $recs];
     }
 
     public function actionRequest($id){
-        $usermodel = new $this->modelClass;
-        $recs = $usermodel::find()->where(['id' => $id])->one();
-        return ['recs' => $recs];
+        $requestmodel = new $this->modelClass;
+        $recs = $requestmodel::find()->where(['id' => $id])->one();
+        return ['request' => $recs];
     }
-    public function actionCreate()
+
+    public function actionCreaterequest()
     {
-        $user = User::findByUsername(Yii::$app->request->post('username'));
-        if($user){
-            $requestModel = new $this->modelClass;
-            $requestModel->customer_id = 53;
-            $requestModel->tittle = \Yii::$app->request->post('tittle');
-            $requestModel->description = \Yii::$app->request->post('description');
-            $requestModel->status = "new";
-            $requestModel->created_at = date('Y-m-d H:i:s');
-            $requestModel->save();
-            return "Sucess";
+        $model = new $this->modelClass;
+
+        $model->id = 0;
+        $model->customer_id = Yii::$app->params['id'];
+        $model->title = Yii::$app->request->getBodyParam('title');
+        $model->created_at = date('Y-m-d H:i:s');
+
+        if ($model->save()) {
+            Yii::$app->response->statusCode = 201;
+            return $model;
+        } else {
+            return $model->getErrors();
         }
-        else{
-            return "Error";
+        throw new \yii\web\BadRequestHttpException("Nenhum dado recebido.");
+    }
+
+    public function actionUpdate($id){
+
+        $model = ($this->modelClass)::findOne($id);
+
+        if (!$model) {
+            throw new \yii\web\NotFoundHttpException("Registo não encontrado.");
+        }
+
+        if ($model->save()) {
+            return $model;
+        } else {
+            return $model->getErrors();
         }
     }
 
-    public function actionPutRequests($id){
+    public function actionDelete($id){
+        $model = ($this->modelClass)::findOne($id);
 
-    }
-    public function actionDeleteRequests($id){
-
+        if (!$model) {
+            throw new \yii\web\NotFoundHttpException("Registo não encontrado.");
+        }
     }
     #endregion
 

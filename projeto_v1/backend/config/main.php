@@ -69,9 +69,12 @@ return [
                     'controller' => 'api/request', 'pluralize' => false,
                     'extraPatterns'=>[
                         'GET count' => 'count',
+                        'GET allrequests' => 'allrequests',
                         'GET requests/{id}' => 'requests',
                         'GET request/{id}' => 'request',
-                        'POST create' => 'create',
+                        'POST createrequest' => 'createrequest',
+                        'PUT updaterequest/{id}' => 'updaterequest',
+                        'DELETE delete/{id}' => 'delete',
                     ],
                     'tokens' => [
                         '{id}' => '<id:\\d+>',

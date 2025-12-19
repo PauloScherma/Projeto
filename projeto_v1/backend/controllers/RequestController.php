@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use Cassandra\Date;
 use common\models\Request;
 use backend\models\RequestSearch;
 use common\models\RequestAssignment;
@@ -105,7 +106,7 @@ class RequestController extends Controller
         if ($this->request->isPost && $model->load($this->request->post())){
 
             $model->request_attachment = UploadedFile::getInstances($model, 'request_attachment');
-            $model->created_at = \date('Y-m-d H:i:s');
+            $model->created_at = Date('Y-m-d H:i:s');
 
             if($model->save() && $model->upload()) {
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -132,6 +133,11 @@ class RequestController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
+        //para não alterar os campos
+        $post = $this->request->post();
+        unset($post['Request']['created_at']);
+
         $technicianList = User::getAllTechnicians();
         $clientName = $model->customer->username;
         $currentUserId = Yii::$app->user->id;
@@ -189,7 +195,7 @@ class RequestController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($id)->deleteRequest();
 
         return $this->redirect(['index']);
     }

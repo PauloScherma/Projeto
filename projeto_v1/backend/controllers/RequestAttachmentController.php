@@ -51,7 +51,7 @@ class RequestAttachmentController extends Controller
      */
     public function actionDelete($id, $request_id)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($id)->deleteRequest();
 
         return $this->redirect(['request/view', 'id' => $request_id]);
     }

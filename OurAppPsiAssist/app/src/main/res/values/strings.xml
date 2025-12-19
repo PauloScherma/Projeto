@@ -33,4 +33,19 @@
     <string name="home">Home</string>
     <string name="documents">Documents</string>
     <string name="logout">Logout</string>
+    <string name="description">Description:</string>
+    <string name="title">Title:</string>
+    <string name="author">Author:</string>
+    <string name="search">search</string>
+    <string name="created_at">Created At:</string>
+    <string name="state">State:</string>
+    <string name="user_name">User Name</string>
+    <string name="name">Name</string>
+    <string name="save">Save</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="email_mail_net">email@mail.net</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
 </resources>

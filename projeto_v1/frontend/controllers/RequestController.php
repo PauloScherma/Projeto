@@ -232,7 +232,7 @@ class RequestController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($id)->deleteRequest();
 
         return $this->redirect(['index']);
     }

@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ourapppsiassist.activitys;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +27,9 @@ import pt.ipleiria.estg.dei.ourapppsiassist.fragments.RequestFragment;
 public class MenuMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final int EDIT = 2;
+    public static final int RESULT_OK = 1;
+    public static final int ADD = 23 ;
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private FragmentManager fragmentManager;
@@ -105,5 +109,23 @@ public class MenuMainActivity extends AppCompatActivity
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void onClickGoHome(View view) {
+        Intent intent = new Intent(MenuMainActivity.this , HomeFragment.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void onClickGoToRequests(View view) {
+        Intent intent = new Intent(MenuMainActivity.this , RequestFragment.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void onClickDocs(View view) {
+        Intent intent = new Intent(MenuMainActivity.this , DocumentsFragment.class);
+        startActivity(intent);
+        finish();
     }
 }

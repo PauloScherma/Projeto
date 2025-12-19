@@ -28,6 +28,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".activitys.RequestDetailsActivity"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity
             android:name=".activitys.PasswordResetActivity"
             android:exported="false" />
 
@@ -37,6 +41,10 @@
 
         <activity
             android:name=".activitys.LoginActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".activitys.EditProfileActivity"
             android:exported="false"/>
 
     </application>
