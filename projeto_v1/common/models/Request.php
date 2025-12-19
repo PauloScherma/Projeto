@@ -119,7 +119,6 @@ class Request extends \yii\db\ActiveRecord
      */
     public function deleteRequest()
     {
-        // Verifica se o pedido já foi cancelado
         if ($this->canceled_at !== null) {
             return false;
         }
