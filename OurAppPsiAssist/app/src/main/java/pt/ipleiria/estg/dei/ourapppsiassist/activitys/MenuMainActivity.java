@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ourapppsiassist.activitys;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -108,5 +109,23 @@ public class MenuMainActivity extends AppCompatActivity
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void onClickGoHome(View view) {
+        Intent intent = new Intent(MenuMainActivity.this , HomeFragment.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void onClickGoToRequests(View view) {
+        Intent intent = new Intent(MenuMainActivity.this , RequestFragment.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void onClickDocs(View view) {
+        Intent intent = new Intent(MenuMainActivity.this , DocumentsFragment.class);
+        startActivity(intent);
+        finish();
     }
 }
