@@ -62,6 +62,7 @@ class ProfileTest extends \Codeception\Test\Unit
         $profile = new Profile();
         $profile = Profile::find()->one();
         $profileId = $profile->id;
+
         $profile->delete();
         $deletedProfile = Profile::findOne($profileId);
 

@@ -40,11 +40,10 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * Substitui o delete padrão (hard delete) por um soft delete (cancelamento).
-     * @return bool|int O resultado do save() ou false.
+     * @return bool O resultado do save() ou false.
      */
-    public function deleteRequest()
+    public function deleteUser()
     {
-        // Verifica se o pedido já foi cancelado
         if ($this->status !== 10) {
             Yii::$app->session->setFlash('error', 'Este user já se encontra cancelado.');
             return false;
