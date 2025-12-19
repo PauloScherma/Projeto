@@ -61,6 +61,7 @@ class RequestTest extends \Codeception\Test\Unit
         $admin = User::find()->where(['username' => 'admin'])->one();
         Yii::$app->user->setIdentity($admin);
 
+        $request = new Request();
         $request = Request::find()->one();
         $request->deleteRequest();
         $requestStatus = $request->status;
@@ -79,7 +80,6 @@ class RequestTest extends \Codeception\Test\Unit
         $request->save(false);
 
         $id = $request->id;
-
         $model = Request::findOne($id);
 
         $this->assertNotNull($model, 'O Request deveria ter sido encontrado no banco.');

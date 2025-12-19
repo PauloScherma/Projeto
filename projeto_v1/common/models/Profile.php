@@ -14,7 +14,7 @@ use Yii;
  * @property string|null $phone
  * @property string|null $availability
  * @property string $created_at
- * @property string $updated_at
+ * @property string|null $updated_at
  *
  * @property Address $address
  * @property User $user
@@ -42,9 +42,9 @@ class Profile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['first_name', 'last_name', 'phone'], 'default', 'value' => null],
+            [['first_name', 'last_name', 'phone', 'updated_at'], 'default', 'value' => null],
             [['availability'], 'default', 'value' => 'disponivel'],
-            [['user_id', 'created_at', 'updated_at'], 'required'],
+            [['user_id', 'created_at'], 'required'],
             [['user_id'], 'integer'],
             [['availability'], 'string'],
             [['created_at', 'updated_at'], 'safe'],

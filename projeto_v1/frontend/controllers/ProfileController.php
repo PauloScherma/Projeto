@@ -146,7 +146,7 @@ class ProfileController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->deleteRequest();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }

@@ -196,7 +196,7 @@ class UserController extends Controller
             return $this->redirect(['index']);
         }
 
-        $this->findModel($id)->deleteRequest();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
