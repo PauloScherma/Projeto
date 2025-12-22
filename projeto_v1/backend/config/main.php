@@ -69,12 +69,13 @@ return [
                     'controller' => 'api/request', 'pluralize' => false,
                     'extraPatterns'=>[
                         'GET count' => 'count',
-                        'GET allrequests' => 'allrequests',
-                        'GET requests/{id}' => 'requests',
-                        'GET request/{id}' => 'request',
-                        'POST createrequest' => 'createrequest',
-                        'PUT updaterequest/{id}' => 'updaterequest',
-                        'DELETE delete/{id}' => 'delete',
+                        'GET allrequests' => 'allrequests', //mostra todos os request
+                        'GET requests/{id}' => 'requests', //mostra todos os request de uma pessoa
+                        'GET request/{id}' => 'request', //mostra o request
+                        'GET history/{id}' => 'history', //mostra os requests canceled and completed
+                        'POST createrequest' => 'createrequest', //cria request
+                        'PUT updaterequest/{id}' => 'updaterequest', //edita request
+                        'DELETE deleterequest/{id}' => 'deleterequest', //soft deleta um request
                     ],
                     'tokens' => [
                         '{id}' => '<id:\\d+>',

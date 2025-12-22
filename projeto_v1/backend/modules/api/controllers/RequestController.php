@@ -76,7 +76,7 @@ class RequestController extends ActiveController
         throw new \yii\web\BadRequestHttpException("Nenhum dado recebido.");
     }
 
-    public function actionUpdate($id){
+    public function actionUpdaterequest($id){
 
         $model = ($this->modelClass)::findOne($id);
 
@@ -84,19 +84,33 @@ class RequestController extends ActiveController
             throw new \yii\web\NotFoundHttpException("Registo não encontrado.");
         }
 
-        if ($model->save()) {
+        if ($model!==null) {
+            $model->title = Yii::$app->request->getBodyParam('title');
+            $model->description = Yii::$app->request->getBodyParam('description');
+            $model->save();
+
             return $model;
         } else {
             return $model->getErrors();
         }
     }
 
-    public function actionDelete($id){
+    public function actionDeleterequest($id){
         $model = ($this->modelClass)::findOne($id);
 
         if (!$model) {
             throw new \yii\web\NotFoundHttpException("Registo não encontrado.");
         }
+        else{
+            $model->deleteRequest();
+            return "Request deletado com sucesso.";
+        }
+    }
+
+    public function actionHistory($id){
+        $requestmodel = new $this->modelClass;
+        $recs = $requestmodel::find()->where(['customer_id' => $id])->andWhere(['in', 'status', ['canceled', 'completed']])->all();
+        return ['requests' => $recs];
     }
     #endregion
 
