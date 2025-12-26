@@ -6,6 +6,7 @@ namespace backend\tests\Unit;
 use backend\tests\UnitTester;
 use common\models\User;
 use common\models\Profile;
+use yii\db\ActiveRecord;
 use Yii;
 
 class ProfileTest extends \Codeception\Test\Unit
@@ -56,10 +57,6 @@ class ProfileTest extends \Codeception\Test\Unit
 
     public function testDeleteProfile()
     {
-        $admin = User::find()->where(['username' => 'admin'])->one();
-        Yii::$app->user->setIdentity($admin);
-
-        $profile = new Profile();
         $profile = Profile::find()->one();
         $profileId = $profile->id;
 

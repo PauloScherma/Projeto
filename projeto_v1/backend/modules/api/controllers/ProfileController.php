@@ -3,16 +3,14 @@
 namespace backend\modules\api\controllers;
 
 use backend\modules\api\components\CustomAuth;
-use common\models\Request;
-use common\models\User;
+use common\models\Profile;
 use Yii;
 use yii\rest\ActiveController;
 
-class RequestController extends ActiveController
+class ProfileController extends ActiveController
 {
-
-    public $modelClass = 'common\models\Request';
-    public $user=null;
+    public $modelClass = 'common\models\Profile';
+    public $user = null;
 
     public function behaviors()
     {
@@ -23,39 +21,28 @@ class RequestController extends ActiveController
         return $behaviors;
     }
 
-    //test
-    public function actionCount(){
+    public function actionCount()
+    {
         $requestmodel = new $this->modelClass;
         $recs = $requestmodel::find()->all();
         return ['count' => count($recs)];
     }
 
-    #region ------- Request -------
-    public function actionAllrequests(){
-        $requestmodel = new $this->modelClass;
-        $recs = $requestmodel::find()->all();
-        return ['All Requests' => $recs];
-    }
-
-    public function actionRequests($id){
-        $requestmodel = new $this->modelClass;
-        $recs = $requestmodel::find()->where(['customer_id' => $id])->all();
-        return ['requests' => $recs];
-    }
-
-    public function actionRequest($id){
+    public function actionProfile($id)
+    {
         $requestmodel = new $this->modelClass;
         $recs = $requestmodel::find()->where(['id' => $id])->one();
         return ['request' => $recs];
     }
-
-    public function actionCreaterequest()
+    public function actionCreateprofile()
     {
         $model = new $this->modelClass;
 
         $model->id = 0;
-        $model->customer_id = Yii::$app->params['id'];
-        $model->title = Yii::$app->request->getBodyParam('title');
+        $model->user_id = Yii::$app->params['id'];
+        $model->first_name = Yii::$app->request->getBodyParam('first_name');
+        $model->last_name = Yii::$app->request->getBodyParam('last_name');
+        $model->phone = Yii::$app->request->getBodyParam('phone');
         $model->created_at = date('Y-m-d H:i:s');
 
         if ($model->save()) {
@@ -66,9 +53,8 @@ class RequestController extends ActiveController
         }
         throw new \yii\web\BadRequestHttpException("Nenhum dado recebido.");
     }
-
-    public function actionUpdaterequest($id){
-
+    public function actionUpdateprofile($id)
+    {
         $model = ($this->modelClass)::findOne($id);
 
         if (!$model) {
@@ -76,8 +62,9 @@ class RequestController extends ActiveController
         }
 
         if ($model!==null) {
-            $model->title = Yii::$app->request->getBodyParam('title');
-            $model->description = Yii::$app->request->getBodyParam('description');
+            $model->first_name = Yii::$app->request->getBodyParam('first_name');
+            $model->last_name = Yii::$app->request->getBodyParam('last_name');
+            $model->phone = Yii::$app->request->getBodyParam('phone');
             $model->save();
 
             return $model;
@@ -85,23 +72,16 @@ class RequestController extends ActiveController
             return $model->getErrors();
         }
     }
-
-    public function actionDeleterequest($id){
+    public function actionDeleteprofile($id)
+    {
         $model = ($this->modelClass)::findOne($id);
 
         if (!$model) {
             throw new \yii\web\NotFoundHttpException("Registo não encontrado.");
         }
         else{
-            $model->deleteRequest();
-            return "Request deletado com sucesso.";
+            $model->delete();
+            return "Profile deletado com sucesso.";
         }
     }
-
-    public function actionHistory($id){
-        $requestmodel = new $this->modelClass;
-        $recs = $requestmodel::find()->where(['customer_id' => $id])->andWhere(['in', 'status', ['canceled', 'completed']])->all();
-        return ['requests' => $recs];
-    }
-    #endregion
 }

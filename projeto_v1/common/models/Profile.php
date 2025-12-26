@@ -72,6 +72,14 @@ class Profile extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
         ];
     }
+    /**
+     * Delets a profile.
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function deleteProfile(){
+
+    }
 
     /**
      * Gets query for [[Address]].

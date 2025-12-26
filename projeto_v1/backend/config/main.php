@@ -81,6 +81,35 @@ return [
                         '{id}' => '<id:\\d+>',
                     ],
                 ],
+                //RequestRating
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/rating', 'pluralize' => false,
+                    'extraPatterns'=>[
+                        'GET count' => 'count',
+                        'GET allratings' => 'allratings', //mostra todos os rating
+                        'GET rating/{id}' => 'rating', //mostra o rating
+                        'POST createrating' => 'createrating', //cria rating
+                    ],
+                    'tokens' => [
+                        '{id}' => '<id:\\d+>',
+                    ],
+                ],
+                //Profile
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/profile', 'pluralize' => false,
+                    'extraPatterns'=>[
+                        'GET count' => 'count',
+                        'GET profile/{id}' => 'profile', //mostra todos os profile
+                        'POST createprofile' => 'createprofile', //cria profile
+                        'PUT updateprofile/{id}' => 'updateprofile', //update profile
+                        'DELETE deleteprofile/{id}' => 'deleteprofile', //delete profile
+                    ],
+                    'tokens' => [
+                        '{id}' => '<id:\\d+>',
+                    ],
+                ],
             ],
         ],
         'urlManagerFrontend' => [

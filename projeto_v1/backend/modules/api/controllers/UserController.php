@@ -7,8 +7,6 @@ use Yii;
 use yii\filters\auth\QueryParamAuth;
 use yii\rest\ActiveController;
 use yii\rest\Controller;
-use function ActiveRecord\all;
-
 /**
  * Default controller for the `api` module
  */
@@ -19,15 +17,6 @@ class UserController extends ActiveController
 
    public $modelClass = 'common\models\User';
    public $user=null;
-
-    /**
-     * Renders the index view for the module
-     * @return string
-     */
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
 
     public function behavior()
     {
