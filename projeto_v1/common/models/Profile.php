@@ -1,6 +1,7 @@
 <?php
 
 namespace common\models;
+namespace app\mosquitto;
 
 use Yii;
 
@@ -27,6 +28,46 @@ class Profile extends \yii\db\ActiveRecord
      */
     const AVAILABILITY_DISPONIVEL = 'disponivel';
     const AVAILABILITY_INDISPONIVEL = 'indisponivel';
+
+    #region API MOSQUITTO
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        $id=$this->id;
+        $user_id=$this->user_id;
+        $first_name=$this->first_name;
+        $last_name=$this->last_name;
+        $phone=$this->phone;
+        $created_at=$this->created_at;
+        $updated_at=$this->updated_at;
+        $myObj=new \stdClass();
+
+        $myObj->id=$id;
+        $myObj->user_id=$user_id;
+        $myObj->first_name=$first_name;
+        $myObj->last_name=$last_name;
+        $myObj->phone=$phone;
+        $myObj->created_at=$created_at;
+        $myObj->updated_at=$updated_at;
+        $myJSON= json_encode($myObj);
+
+        if($insert)
+            $this->FazPublishNoMosquitto("INSERT",$myJSON);
+        else
+            $this->FazPublishNoMosquitto("UPDATE",$myJSON);
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+        $id= $this->id;
+        $myObj=new \stdClass();
+        $myObj->id=$id;
+        $myJSON= json_encode($myObj);
+        $this->FazPublishNoMosquitto("DELETE",$myJSON);
+    }
+    #endregion
 
     /**
      * {@inheritdoc}

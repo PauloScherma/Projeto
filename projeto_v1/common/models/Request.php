@@ -58,6 +58,54 @@ class Request extends \yii\db\ActiveRecord
     public $request_attachment;
     #endregion
 
+    #region API MOSQUITTO
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        $id=$this->id;
+        $customer_id=$this->customer_id;
+        $title=$this->title;
+        $description=$this->description;
+        $priority=$this->priority;
+        $status=$this->status;
+        $current_technician_id=$this->current_technician_id;
+        $canceled_at=$this->canceled_at;
+        $canceled_by=$this->canceled_by;
+        $created_at=$this->created_at;
+        $updated_at=$this->updated_at;
+
+        $myObj=new \stdClass();
+        $myObj->id=$id;
+        $myObj->customer_id=$customer_id;
+        $myObj->title=$title;
+        $myObj->description=$description;
+        $myObj->priority=$priority;
+        $myObj->status=$status;
+        $myObj->current_technician_id=$current_technician_id;
+        $myObj->canceled_at=$canceled_at;
+        $myObj->canceled_by=$canceled_by;
+        $myObj->created_at=$created_at;
+        $myObj->updated_at=$updated_at;
+        $myJSON= json_encode($myObj);
+
+        if($insert)
+            $this->FazPublishNoMosquitto("INSERT",$myJSON);
+        else
+            $this->FazPublishNoMosquitto("UPDATE",$myJSON);
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+        $id= $this->id;
+        $myObj=new \stdClass();
+        $myObj->id=$id;
+        $myJSON= json_encode($myObj);
+        $this->FazPublishNoMosquitto("DELETE",$myJSON);
+    }
+    #endregion
+
     public function behaviors()
     {
         return [

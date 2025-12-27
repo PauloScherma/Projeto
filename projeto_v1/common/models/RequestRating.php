@@ -65,6 +65,46 @@ class RequestRating extends \yii\db\ActiveRecord
         ];
     }
 
+    #region API MOSQUITTO
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        $id=$this->id;
+        $request_id=$this->request_id;
+        $title=$this->title;
+        $description=$this->description;
+        $score=$this->score;
+        $created_at=$this->created_at;
+        $created_by=$this->created_by;
+
+        $myObj=new \stdClass();
+        $myObj->id=$id;
+        $myObj->request_id=$request_id;
+        $myObj->title=$title;
+        $myObj->description=$description;
+        $myObj->score=$score;
+        $myObj->created_at=$created_at;
+        $myObj->created_by=$created_by;
+        $myJSON= json_encode($myObj);
+
+        if($insert)
+            $this->FazPublishNoMosquitto("INSERT",$myJSON);
+        else
+            $this->FazPublishNoMosquitto("UPDATE",$myJSON);
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+        $id= $this->id;
+        $myObj=new \stdClass();
+        $myObj->id=$id;
+        $myJSON= json_encode($myObj);
+        $this->FazPublishNoMosquitto("DELETE",$myJSON);
+    }
+    #endregion
+
     /**
      * Gets query for [[CreatedBy]].
      *

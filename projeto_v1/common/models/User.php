@@ -38,6 +38,52 @@ class User extends ActiveRecord implements IdentityInterface
     public $password;
     #endregion
 
+    #region API MOSQUITTO
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        $id=$this->id;
+        $request_id=$this->request_id;
+        $username=$this->username;
+        $auth_key=$this->auth_key;
+        $password_hash=$this->password_hash;
+        $password_reset_token=$this->password_reset_token;
+        $status=$this->status;
+        $created_at=$this->created_at;
+        $updated_at=$this->updated_at;
+        $verification_token=$this->verification_token;
+
+        $myObj=new \stdClass();
+        $myObj->id=$id;
+        $myObj->request_id=$request_id;
+        $myObj->username=$username;
+        $myObj->auth_key=$auth_key;
+        $myObj->password_hash=$password_hash;
+        $myObj->password_reset_token=$password_reset_token;
+        $myObj->status=$status;
+        $myObj->created_at=$created_at;
+        $myObj->updated_at=$updated_at;
+        $myObj->verification_token=$verification_token;
+        $myJSON= json_encode($myObj);
+
+        if($insert)
+            $this->FazPublishNoMosquitto("INSERT",$myJSON);
+        else
+            $this->FazPublishNoMosquitto("UPDATE",$myJSON);
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+        $id= $this->id;
+        $myObj=new \stdClass();
+        $myObj->id=$id;
+        $myJSON= json_encode($myObj);
+        $this->FazPublishNoMosquitto("DELETE",$myJSON);
+    }
+    #endregion
+
     /**
      * Substitui o delete padrão (hard delete) por um soft delete (cancelamento).
      * @return bool O resultado do save() ou false.
