@@ -1,7 +1,6 @@
 <?php
 
 namespace common\models;
-namespace app\mosquitto;
 
 use Yii;
 
@@ -13,7 +12,6 @@ use Yii;
  * @property string|null $first_name
  * @property string|null $last_name
  * @property string|null $phone
- * @property string|null $availability
  * @property string $created_at
  * @property string|null $updated_at
  *
@@ -22,14 +20,24 @@ use Yii;
  */
 class Profile extends \yii\db\ActiveRecord
 {
-
-    /**
-     * ENUM field values
-     */
-    const AVAILABILITY_DISPONIVEL = 'disponivel';
-    const AVAILABILITY_INDISPONIVEL = 'indisponivel';
-
     #region API MOSQUITTO
+    public function FazPublishNoMosquitto($canal,$msg)
+    {
+        require_once dirname(__DIR__, 2) . '/mosquitto/phpMQTT.php';
+
+        $server = "127.0.0.1";
+        $port = 1883;
+        $username = "";
+        $password = "";
+        $client_id = "phpMQTT-publisher";
+        $mqtt = new \app\mosquitto\phpMQTT($server, $port, $client_id);
+        if ($mqtt->connect(true, NULL, $username, $password))
+        {
+            $mqtt->publish($canal, $msg, 0);
+            $mqtt->close();
+        }
+        else { file_put_contents("debug.output","Time out!"); }
+    }
     public function afterSave($insert, $changedAttributes)
     {
         parent::afterSave($insert, $changedAttributes);
@@ -84,14 +92,11 @@ class Profile extends \yii\db\ActiveRecord
     {
         return [
             [['first_name', 'last_name', 'phone', 'updated_at'], 'default', 'value' => null],
-            [['availability'], 'default', 'value' => 'disponivel'],
             [['user_id', 'created_at'], 'required'],
             [['user_id'], 'integer'],
-            [['availability'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['first_name', 'last_name'], 'string', 'max' => 64],
             [['phone'], 'string', 'max' => 32],
-            ['availability', 'in', 'range' => array_keys(self::optsAvailability())],
             [['user_id'], 'unique'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -108,18 +113,9 @@ class Profile extends \yii\db\ActiveRecord
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
             'phone' => 'Phone',
-            'availability' => 'Availability',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
-    }
-    /**
-     * Delets a profile.
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function deleteProfile(){
-
     }
 
     /**
@@ -140,52 +136,5 @@ class Profile extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
-    }
-
-
-    /**
-     * column availability ENUM value labels
-     * @return string[]
-     */
-    public static function optsAvailability()
-    {
-        return [
-            self::AVAILABILITY_DISPONIVEL => 'disponivel',
-            self::AVAILABILITY_INDISPONIVEL => 'indisponivel',
-        ];
-    }
-
-    /**
-     * @return string
-     */
-    public function displayAvailability()
-    {
-        return self::optsAvailability()[$this->availability];
-    }
-
-    /**
-     * @return bool
-     */
-    public function isAvailabilityDisponivel()
-    {
-        return $this->availability === self::AVAILABILITY_DISPONIVEL;
-    }
-
-    public function setAvailabilityToDisponivel()
-    {
-        $this->availability = self::AVAILABILITY_DISPONIVEL;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isAvailabilityIndisponivel()
-    {
-        return $this->availability === self::AVAILABILITY_INDISPONIVEL;
-    }
-
-    public function setAvailabilityToIndisponivel()
-    {
-        $this->availability = self::AVAILABILITY_INDISPONIVEL;
     }
 }
