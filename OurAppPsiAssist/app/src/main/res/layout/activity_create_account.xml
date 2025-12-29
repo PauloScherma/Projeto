@@ -39,7 +39,8 @@
             android:layout_gravity="center"
             android:text="go back to login"
             android:textColor="@color/black"
-            android:backgroundTint="@android:color/transparent"/>
+            android:backgroundTint="@android:color/transparent"
+            android:onClick="onClickRedirectToLogin"/>
 
         <Space
             android:layout_width="match_parent"
@@ -87,7 +88,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-
             android:ems="10"
             android:inputType="textPassword"
             android:hint="*******" />

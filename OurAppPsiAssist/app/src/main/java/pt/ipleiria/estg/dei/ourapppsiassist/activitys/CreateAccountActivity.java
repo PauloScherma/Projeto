@@ -73,7 +73,11 @@ public class CreateAccountActivity extends AppCompatActivity {
         }
     }
 
-
+    public void onClickRedirectToLogin(View view) {
+        Intent intent = new Intent(CreateAccountActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
     public void onClickGoBackToLogin(View view) {
         Intent intent = new Intent(CreateAccountActivity.this, LoginActivity.class);
         startActivity(intent);
