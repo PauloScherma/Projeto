@@ -1,5 +1,7 @@
 package pt.ipleiria.estg.dei.ourapppsiassist.models;
 
+import pt.ipleiria.estg.dei.ourapppsiassist.enums.Availability;
+
 public class Profile {
 
     private int id;
@@ -12,15 +14,15 @@ public class Profile {
     private String createdAt;
     private String updatedAt;
 
-    //private Availability availability;
+    private Availability availability;
 
     // --------------------------------------------------
     // Constructor
     // --------------------------------------------------
     public Profile(int id, int userId, String firstName, String lastName,
                    String email, int phoneNumber,
-                   String createdAt, String updatedAt/*,
-                   Availability availability)*/ {
+                   String createdAt, String updatedAt,
+                   Availability availability) {
 
         this.id = id;
         this.userId = userId;
@@ -30,7 +32,7 @@ public class Profile {
         this.phoneNumber = phoneNumber;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        //this.availability = availability;
+        this.availability = availability;
     }
 
     // --------------------------------------------------
@@ -100,11 +102,11 @@ public class Profile {
         this.updatedAt = updatedAt;
     }
 
-//    public Availability getAvailability() {
-//        return availability;
-//    }
-//
-//    public void setAvailability(Availability availability) {
-//        this.availability = availability;
-//    }
+    public Availability getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(Availability availability) {
+        this.availability = availability;
+    }
 }

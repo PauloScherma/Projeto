@@ -1,27 +1,16 @@
 package pt.ipleiria.estg.dei.ourapppsiassist.models;
 
 import android.content.Context;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
+import pt.ipleiria.estg.dei.ourapppsiassist.activitys.CreateRequestActivity;
 import pt.ipleiria.estg.dei.ourapppsiassist.activitys.RequestDetailsActivity;
 import pt.ipleiria.estg.dei.ourapppsiassist.listeners.RequestListener;
 import pt.ipleiria.estg.dei.ourapppsiassist.listeners.RequestsListener;
-import pt.ipleiria.estg.dei.ourapppsiassist.utils.RequestJsonParser;
 
 public class SingletonRequestManager {
 
@@ -128,8 +117,13 @@ public class SingletonRequestManager {
 
     public void addRequestAPI(Request request, RequestDetailsActivity requestDetailsActivity) {
     }
+    public void editRequestAPI(Request request, CreateRequestActivity requestDetailsActivity) {
+    }
 
-    public void removeRequestAPI(Request request, RequestDetailsActivity requestDetailsActivity) {
+    public void addRequestAPI(Request request, CreateRequestActivity requestDetailsActivity) {
+    }
+
+    public void removeRequestAPI(Request request, CreateRequestActivity requestDetailsActivity) {
 
     }
 

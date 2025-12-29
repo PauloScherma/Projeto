@@ -1,7 +1,5 @@
 package pt.ipleiria.estg.dei.ourapppsiassist.fragments;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -26,11 +24,9 @@ import java.util.ArrayList;
 
 import pt.ipleiria.estg.dei.ourapppsiassist.R;
 import pt.ipleiria.estg.dei.ourapppsiassist.activitys.MenuMainActivity;
-import pt.ipleiria.estg.dei.ourapppsiassist.activitys.RequestDetailsActivity;
+import pt.ipleiria.estg.dei.ourapppsiassist.activitys.CreateRequestActivity;
 import pt.ipleiria.estg.dei.ourapppsiassist.adapters.RequestAdapter;
-import pt.ipleiria.estg.dei.ourapppsiassist.listeners.RequestListener;
 import pt.ipleiria.estg.dei.ourapppsiassist.models.Request;
-import pt.ipleiria.estg.dei.ourapppsiassist.models.RequestBDHelper;
 import pt.ipleiria.estg.dei.ourapppsiassist.models.SingletonRequestManager;
 
 public class RequestFragment extends Fragment {
@@ -53,17 +49,17 @@ public class RequestFragment extends Fragment {
         lvRequests.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getContext(), RequestDetailsActivity.class);
+                Intent intent = new Intent(getContext(), CreateRequestActivity.class);
                 intent.putExtra("IDREQUEST", (int) id);
                 startActivityForResult(intent, MenuMainActivity.EDIT);
             }
         });
 
-        FloatingActionButton fabList = view.findViewById(R.id.fabList);
-        fabList.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fabAdd = view.findViewById(R.id.fabAdd);
+        fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), RequestDetailsActivity.class);
+                Intent intent = new Intent(getContext(), CreateRequestActivity.class);
                 startActivityForResult(intent, MenuMainActivity.ADD);
             }
         });
