@@ -16,6 +16,8 @@ import java.util.Map;
 
 import pt.ipleiria.estg.dei.ourapppsiassist.activitys.CreateRequestActivity;
 import pt.ipleiria.estg.dei.ourapppsiassist.activitys.RequestDetailsActivity;
+import pt.ipleiria.estg.dei.ourapppsiassist.listeners.ProfileListener;
+import pt.ipleiria.estg.dei.ourapppsiassist.listeners.ProfileListeners;
 import pt.ipleiria.estg.dei.ourapppsiassist.listeners.RequestListener;
 import pt.ipleiria.estg.dei.ourapppsiassist.listeners.RequestsListener;
 import pt.ipleiria.estg.dei.ourapppsiassist.utils.RequestJsonParser;
@@ -36,7 +38,12 @@ public class SingletonRequestManager {
     // API PLACEHOLDERS
     // ---------------------------------------------------------
     private static final String mUrlAPIRequests = "YOUR_URL_HERE";
+    private static final String mUrlAPIProfile = "YOUR_URL_HERE";
     private static final String TOKEN = "YOUR_TOKEN_HERE";
+    private ProfileListener profileListener;
+    private ProfileListeners profileListeners;
+
+
     // ---------------------------------------------------------
 
     public static synchronized SingletonRequestManager getInstance(Context context) {
@@ -142,8 +149,6 @@ public class SingletonRequestManager {
     // ---------------------------------------------------------
     // Requests
     // ---------------------------------------------------------
-
-
     public void addRequestAPI(final Request request, final Context context) {
 
         if (!RequestJsonParser.isConnectionInternet(context)) {
@@ -247,7 +252,49 @@ public class SingletonRequestManager {
     // Profile
     // ---------------------------------------------------------
 
+    public void editProfileAPI(final Profile profile,
+                               final Context context,
+                               final ProfileListener listener) {
 
+        if (!RequestJsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        String url = mUrlAPIProfile + "/" + profile.getId();
 
+        StringRequest req = new StringRequest(
+                com.android.volley.Request.Method.PUT,
+                url,
+                response -> {
+                    editProfileBD(profile);
+
+                    if (listener != null) {
+                        listener.onUpdateProfile();
+                    }
+                },
+                error -> Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show()
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("user_id", String.valueOf(profile.getUserId()));
+                params.put("first_name", profile.getFirstName());
+                params.put("last_name", profile.getLastName());
+                params.put("phone", profile.getPhoneNumber());
+                params.put("available", profile.getAvailability().name());
+                return params;
+            }
+        };
+
+        volleyQueue.add(req);
+    }
+
+    private void editProfileBD(Profile profile) {
+    }
+    public ArrayList<Profile> getProfiles() {
+        return null;
+    }
+    public void getAllProfilesAPI(final Context context) {
+    }
 }

@@ -4,13 +4,12 @@ import pt.ipleiria.estg.dei.ourapppsiassist.enums.Availability;
 
 public class Profile {
 
+    private final String email;
     private int id;
     private int userId;
-    private int phoneNumber;
-
+    private String phoneNumber;
     private String firstName;
     private String lastName;
-    private String email;
     private String createdAt;
     private String updatedAt;
 
@@ -19,10 +18,8 @@ public class Profile {
     // --------------------------------------------------
     // Constructor
     // --------------------------------------------------
-    public Profile(int id, int userId, String firstName, String lastName,
-                   String email, int phoneNumber,
-                   String createdAt, String updatedAt,
-                   Availability availability) {
+    public Profile(int id, int userId, String firstName, String lastName, String email, String phoneNumber,
+                   String createdAt, Availability availability) {
 
         this.id = id;
         this.userId = userId;
@@ -70,19 +67,11 @@ public class Profile {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -108,5 +97,9 @@ public class Profile {
 
     public void setAvailability(Availability availability) {
         this.availability = availability;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }
