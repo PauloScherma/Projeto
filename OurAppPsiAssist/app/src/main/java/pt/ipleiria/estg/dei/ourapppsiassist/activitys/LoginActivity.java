@@ -47,28 +47,28 @@ public class LoginActivity extends AppCompatActivity {
         return password != null && password.length() >= 4;
     }
     public void onClickLogin(View view) {
-//        String email = etEmail.getText().toString().trim();
-//        String password = etPassword.getText().toString();
-//
-//        if (!isEmailValid(email)) {
-//            //msgens de erro
-//            etEmail.setError("Email inválido");
-//            Toast.makeText(this, "Email inválido!", Toast.LENGTH_SHORT).show();
-//        }
-//
-//        // Validação da password
-//        if (!isPasswordValid(password)) {
-//            //msgens de erro
-//            etPassword.setError("Password inválida");
-//            Toast.makeText(this, "Password inválida! (mínimo 6 caracteres)", Toast.LENGTH_SHORT).show();
-//        }
-//
-//        if(isPasswordValid(password) && isEmailValid(email)) {
+        String email = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString();
+
+        if (!isEmailValid(email)) {
+            //msgens de erro
+            etEmail.setError("Email inválido");
+            Toast.makeText(this, "Email inválido!", Toast.LENGTH_SHORT).show();
+        }
+
+        // Validação da password
+        if (!isPasswordValid(password)) {
+            //msgens de erro
+            etPassword.setError("Password inválida");
+            Toast.makeText(this, "Password inválida! (mínimo 6 caracteres)", Toast.LENGTH_SHORT).show();
+        }
+
+        if(isPasswordValid(password) && isEmailValid(email)) {
             Intent intent = new Intent(LoginActivity.this, MenuMainActivity.class);
-//            intent.putExtra("EMAIL", email);
+            intent.putExtra("EMAIL", email);
             startActivity(intent);
             finish();
-//        }
+        }
     }
 
 
