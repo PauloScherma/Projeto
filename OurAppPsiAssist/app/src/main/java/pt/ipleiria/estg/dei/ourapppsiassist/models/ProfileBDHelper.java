@@ -13,7 +13,7 @@ import pt.ipleiria.estg.dei.ourapppsiassist.enums.Availability;
 public class ProfileBDHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "dbprojeto_v1.db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
     private static final String TABLE_NAME = "profile";
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_USER_ID = "user_id";
@@ -138,5 +138,8 @@ public class ProfileBDHelper extends SQLiteOpenHelper {
         int rows = db.delete(TABLE_NAME, null, null);
         db.close();
         return rows >= 0;
+    }
+
+    public void editProfile(Profile profile) {
     }
 }

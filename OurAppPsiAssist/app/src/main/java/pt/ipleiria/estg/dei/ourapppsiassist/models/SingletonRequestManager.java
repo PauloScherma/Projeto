@@ -61,6 +61,8 @@ public class SingletonRequestManager {
     private SingletonRequestManager(Context context) {
         requestDB = new RequestBDHelper(context);
         requests = requestDB.getAllRequestsDB();
+        profileDB = new ProfileBDHelper(context);
+        profiles = profileDB.getAllProfilesDB();
     }
 
     // ---------------------------------------------------------
@@ -293,8 +295,11 @@ public class SingletonRequestManager {
     private void editProfileBD(Profile profile) {
     }
     public ArrayList<Profile> getProfiles() {
-        return null;
+        profiles = profileDB.getAllProfilesDB(); // ALWAYS reload
+        return profiles;
     }
     public void getAllProfilesAPI(final Context context) {
     }
+    private ArrayList<Profile> profiles;
+    private final ProfileBDHelper profileDB;
 }
