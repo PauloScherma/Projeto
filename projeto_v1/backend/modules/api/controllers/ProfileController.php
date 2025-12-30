@@ -10,7 +10,7 @@ use yii\rest\ActiveController;
 class ProfileController extends ActiveController
 {
     public $modelClass = 'common\models\Profile';
-    public $user = null;
+    public $user=null;
 
     public function behaviors()
     {
@@ -19,13 +19,6 @@ class ProfileController extends ActiveController
             'class' => CustomAuth::class
         ];
         return $behaviors;
-    }
-
-    public function actionCount()
-    {
-        $requestmodel = new $this->modelClass;
-        $recs = $requestmodel::find()->all();
-        return ['count' => count($recs)];
     }
 
     public function actionProfile($id)

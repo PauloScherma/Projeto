@@ -39,12 +39,30 @@ class User extends ActiveRecord implements IdentityInterface
     #endregion
 
     #region API MOSQUITTO
+
+    public function FazPublishNoMosquitto($canal,$msg)
+    {
+        require_once dirname(__DIR__, 2) . '/mosquitto/phpMQTT.php';
+
+        $server = "127.0.0.1";
+        $port = 1883;
+        $username = "";
+        $password = "";
+        $client_id = "phpMQTT-publisher";
+        $mqtt = new \app\mosquitto\phpMQTT($server, $port, $client_id);
+        if ($mqtt->connect(true, NULL, $username, $password))
+        {
+            $mqtt->publish($canal, $msg, 0);
+            $mqtt->close();
+        }
+        else { file_put_contents("debug.output","Time out!"); }
+    }
+
     public function afterSave($insert, $changedAttributes)
     {
         parent::afterSave($insert, $changedAttributes);
 
         $id=$this->id;
-        $request_id=$this->request_id;
         $username=$this->username;
         $auth_key=$this->auth_key;
         $password_hash=$this->password_hash;
@@ -56,7 +74,6 @@ class User extends ActiveRecord implements IdentityInterface
 
         $myObj=new \stdClass();
         $myObj->id=$id;
-        $myObj->request_id=$request_id;
         $myObj->username=$username;
         $myObj->auth_key=$auth_key;
         $myObj->password_hash=$password_hash;

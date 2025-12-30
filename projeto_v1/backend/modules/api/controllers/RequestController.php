@@ -10,7 +10,6 @@ use yii\rest\ActiveController;
 
 class RequestController extends ActiveController
 {
-
     public $modelClass = 'common\models\Request';
     public $user=null;
 
@@ -23,14 +22,6 @@ class RequestController extends ActiveController
         return $behaviors;
     }
 
-    //test
-    public function actionCount(){
-        $requestmodel = new $this->modelClass;
-        $recs = $requestmodel::find()->all();
-        return ['count' => count($recs)];
-    }
-
-    #region ------- Request -------
     public function actionAllrequests(){
         $requestmodel = new $this->modelClass;
         $recs = $requestmodel::find()->all();
@@ -103,5 +94,4 @@ class RequestController extends ActiveController
         $recs = $requestmodel::find()->where(['customer_id' => $id])->andWhere(['in', 'status', ['canceled', 'completed']])->all();
         return ['requests' => $recs];
     }
-    #endregion
 }

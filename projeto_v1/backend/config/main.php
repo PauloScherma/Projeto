@@ -57,7 +57,6 @@ return [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/user', 'pluralize' => false,
                     'extraPatterns'=>[
-                        'GET count' => 'count',
                         'POST register' => 'register',
                         'POST login'    => 'login',
                         'POST logout'   => 'logout',
@@ -68,7 +67,6 @@ return [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/request', 'pluralize' => false,
                     'extraPatterns'=>[
-                        'GET count' => 'count',
                         'GET allrequests' => 'allrequests', //mostra todos os request
                         'GET requests/{id}' => 'requests', //mostra todos os request de uma pessoa
                         'GET request/{id}' => 'request', //mostra o request
@@ -86,10 +84,11 @@ return [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/rating', 'pluralize' => false,
                     'extraPatterns'=>[
-                        'GET count' => 'count',
                         'GET allratings' => 'allratings', //mostra todos os rating
                         'GET rating/{id}' => 'rating', //mostra o rating
                         'POST createrating' => 'createrating', //cria rating
+                        'PUT updaterating/{id}' => 'updaterating', //update no rating
+                        'DELETE deleterating/{id}' => 'deleterating', //delete no rating
                     ],
                     'tokens' => [
                         '{id}' => '<id:\\d+>',
@@ -100,8 +99,7 @@ return [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/profile', 'pluralize' => false,
                     'extraPatterns'=>[
-                        'GET count' => 'count',
-                        'GET profile/{id}' => 'profile', //mostra todos os profile
+                        'GET profile/{id}' => 'profile', //mostra um profile
                         'POST createprofile' => 'createprofile', //cria profile
                         'PUT updateprofile/{id}' => 'updateprofile', //update profile
                         'DELETE deleteprofile/{id}' => 'deleteprofile', //delete profile

@@ -9,7 +9,6 @@ use yii\rest\ActiveController;
 
 class RatingController extends ActiveController
 {
-
     public $modelClass = 'common\models\RequestRating';
     public $user=null;
 
@@ -17,16 +16,9 @@ class RatingController extends ActiveController
     {
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
-        'class' => CustomAuth::class
+            'class' => CustomAuth::class
         ];
         return $behaviors;
-    }
-
-    //test
-    public function actionCount(){
-        $requestmodel = new $this->modelClass;
-        $recs = $requestmodel::find()->all();
-        return ['count' => count($recs)];
     }
 
     public function actionAllratings(){
@@ -61,4 +53,37 @@ class RatingController extends ActiveController
         }
         throw new \yii\web\BadRequestHttpException("Nenhum dado recebido.");
     }
+
+    public function actionUpdaterating($id)
+    {
+        $model = ($this->modelClass)::findOne($id);
+
+        if (!$model) {
+            throw new \yii\web\NotFoundHttpException("Registo não encontrado.");
+        }
+
+        if ($model!==null) {
+            $model->title = Yii::$app->request->getBodyParam('title');
+            $model->description = Yii::$app->request->getBodyParam('description');
+            $model->score = Yii::$app->request->getBodyParam('score');;
+            return $model;
+        } else {
+            return $model->getErrors();
+        }
+    }
+
+    public function actionDeleterating($id)
+    {
+        $model = ($this->modelClass)::findOne($id);
+
+        if (!$model) {
+            throw new \yii\web\NotFoundHttpException("Registo não encontrado.");
+        }
+        else{
+            $model->delete();
+            return "Rating deletado com sucesso.";
+        }
+    }
+
+
 }
