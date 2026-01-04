@@ -12,16 +12,14 @@ use yii\helpers\Html;
 
         <?= $form->field($model,'username', [
             'options' => ['class' => 'form-group has-feedback '],
-            'inputTemplate' => '{input}<div class="input-group-append"></div></div>',
             'template' => '{beginWrapper}{input}{error}{endWrapper}',
-            'wrapperOptions' => ['class' => 'input-group mb-2']
+            'wrapperOptions' => ['class' => 'input-group mb-2 px-3']
         ])
             ->label(false)
             ->textInput(['placeholder' => $model->getAttributeLabel('username')]) ?>
 
         <?= $form->field($model, 'password', [
             'options' => ['class' => 'form-group has-feedback'],
-            'inputTemplate' => '{input}<div class="input-group-append"></div>',
             'template' => '{beginWrapper}{input}{error}{endWrapper}',
             'wrapperOptions' => ['class' => 'input-group mb-2 px-3']
         ])
