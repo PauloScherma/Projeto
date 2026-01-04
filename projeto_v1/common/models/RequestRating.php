@@ -142,5 +142,4 @@ class RequestRating extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Request::class, ['id' => 'request_id']);
     }
-
 }

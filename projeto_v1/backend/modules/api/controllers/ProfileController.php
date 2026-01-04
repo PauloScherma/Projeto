@@ -58,6 +58,7 @@ class ProfileController extends ActiveController
             $model->first_name = Yii::$app->request->getBodyParam('first_name');
             $model->last_name = Yii::$app->request->getBodyParam('last_name');
             $model->phone = Yii::$app->request->getBodyParam('phone');
+            $model->updated_at = date('Y-m-d H:i:s');
             $model->save();
 
             return $model;

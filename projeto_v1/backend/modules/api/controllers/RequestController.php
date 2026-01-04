@@ -69,6 +69,9 @@ class RequestController extends ActiveController
         if ($model!==null) {
             $model->title = Yii::$app->request->getBodyParam('title');
             $model->description = Yii::$app->request->getBodyParam('description');
+            $model->priority = Yii::$app->request->getBodyParam('priority');
+            $model->updated_at = date('Y-m-d H:i:s');
+            $model->status = Yii::$app->request->getBodyParam('status');
             $model->save();
 
             return $model;
