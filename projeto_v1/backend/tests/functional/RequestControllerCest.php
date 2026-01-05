@@ -75,7 +75,7 @@ final class RequestControllerCest
 
     public function _before(FunctionalTester $I): void
     {
-
+        Yii::$app->user->logout();
     }
 
     public function gestorCanDeleteButNotCreate(FunctionalTester $I): void

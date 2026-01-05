@@ -39,7 +39,6 @@ class RequestController extends Controller
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
-                        //ter em atenção que era POST e mudei para GET
                         'delete' => ['GET'],
                     ],
                 ],
