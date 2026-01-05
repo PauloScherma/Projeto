@@ -8,6 +8,7 @@ return [
     'components' => [
         'request' => [
             'cookieValidationKey' => 'test',
+            'enableCsrfValidation' => false,
         ],
 
         'session' => [

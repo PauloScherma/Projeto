@@ -39,4 +39,11 @@ class LoginCest
 
         $I->see('Home');
     }
+
+    public function guestIsRedirectedToLoginOnIndex(FunctionalTester $I): void
+    {
+        $I->amOnRoute('request/index');
+        $I->seeResponseCodeIs(302);
+        $I->seeInCurrentUrl('site/login');
+    }
 }
