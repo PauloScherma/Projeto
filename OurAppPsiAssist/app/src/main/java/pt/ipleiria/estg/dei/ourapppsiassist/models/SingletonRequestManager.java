@@ -6,19 +6,18 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import pt.ipleiria.estg.dei.ourapppsiassist.activitys.CreateRequestActivity;
 import pt.ipleiria.estg.dei.ourapppsiassist.activitys.RequestDetailsActivity;
+import pt.ipleiria.estg.dei.ourapppsiassist.listeners.ProfileListener;
+import pt.ipleiria.estg.dei.ourapppsiassist.listeners.ProfileListeners;
 import pt.ipleiria.estg.dei.ourapppsiassist.listeners.RequestListener;
 import pt.ipleiria.estg.dei.ourapppsiassist.listeners.RequestsListener;
 import pt.ipleiria.estg.dei.ourapppsiassist.utils.RequestJsonParser;
@@ -39,7 +38,12 @@ public class SingletonRequestManager {
     // API PLACEHOLDERS
     // ---------------------------------------------------------
     private static final String mUrlAPIRequests = "YOUR_URL_HERE";
+    private static final String mUrlAPIProfile = "YOUR_URL_HERE";
     private static final String TOKEN = "YOUR_TOKEN_HERE";
+    private ProfileListener profileListener;
+    private ProfileListeners profileListeners;
+
+
     // ---------------------------------------------------------
 
     public static synchronized SingletonRequestManager getInstance(Context context) {
@@ -57,6 +61,8 @@ public class SingletonRequestManager {
     private SingletonRequestManager(Context context) {
         requestDB = new RequestBDHelper(context);
         requests = requestDB.getAllRequestsDB();
+        profileDB = new ProfileBDHelper(context);
+        profiles = profileDB.getAllProfilesDB();
     }
 
     // ---------------------------------------------------------
@@ -128,110 +134,172 @@ public class SingletonRequestManager {
 
     public void addRequestAPI(Request request, RequestDetailsActivity requestDetailsActivity) {
     }
+    public void editRequestAPI(Request request, CreateRequestActivity requestDetailsActivity) {
+    }
 
-    public void removeRequestAPI(Request request, RequestDetailsActivity requestDetailsActivity) {
+    public void addRequestAPI(Request request, CreateRequestActivity requestDetailsActivity) {
+    }
+
+    public void removeRequestAPI(Request request, CreateRequestActivity requestDetailsActivity) {
 
     }
 
     // ---------------------------------------------------------
     // API
     // ---------------------------------------------------------
-//    public void addRequestAPI(final Request request, final Context context) {
-//
-//        if (!RequestJsonParser.isConnectionInternet(context)) {
-//            Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        StringRequest req = new StringRequest(Request.Method.POST, mUrlAPIRequests,
-//                response -> {
-//                    Request r = RequestJsonParser.parseJsonRequest(response);
-//                    addRequestBD(r);
-//
-//                    if (requestListener != null) {
-//                        requestListener.onUpdateRequest();
-//                    }
-//                },
-//                error -> Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show()
-//        ) {
-//            @Nullable
-//            @Override
-//            protected Map<String, String> getParams() {
-//                Map<String, String> params = new HashMap<>();
-//                // params.put("token", TOKEN);
-//                return params;
-//            }
-//        };
-//
-//        volleyQueue.add(req);
-//    }
-//
-//    public void editRequestAPI(final Request request, final Context context) {
-//
-//        if (!RequestJsonParser.isConnectionInternet(context)) {
-//            Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        String url = mUrlAPIRequests + "/" + request.getId();
-//
-//        StringRequest req = new StringRequest(Request.Method.PUT, url,
-//                response -> {
-//                    editRequestBD(request);
-//                    if (requestListener != null) {
-//                        requestListener.onUpdateRequest();
-//                    }
-//                },
-//                error -> Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show()
-//        );
-//
-//        volleyQueue.add(req);
-//    }
-//
-//    public void removeRequestAPI(final Request request, final Context context) {
-//
-//        if (!RequestJsonParser.isConnectionInternet(context)) {
-//            Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        String url = mUrlAPIRequests + "/" + request.getId();
-//
-//        StringRequest req = new StringRequest(Request.Method.DELETE, url,
-//                response -> {
-//                    removeRequestBD(request.getId());
-//                    if (requestListener != null) {
-//                        requestListener.onUpdateRequest();
-//                    }
-//                },
-//                error -> Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show()
-//        );
-//
-//        volleyQueue.add(req);
-//    }
-//
-//    public void getAllRequestsAPI(final Context context) {
-//
-//        if (!RequestJsonParser.isConnectionInternet(context)) {
-//            Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        JsonArrayRequest req = new JsonArrayRequest(
-//                Request.Method.GET,
-//                mUrlAPIRequests,
-//                null,
-//                response -> {
-//                    ArrayList<Request> list = RequestJsonParser.parserJsonRequests(response);
-//                    addRequestsBD(list);
-//
-//                    if (requestsListener != null) {
-//                        requestsListener.onRefreshRequests(list);
-//                    }
-//                },
-//                error -> Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show()
-//        );
-//
-//        volleyQueue.add(req);
-//    }
+
+    // ---------------------------------------------------------
+    // Requests
+    // ---------------------------------------------------------
+    public void addRequestAPI(final Request request, final Context context) {
+
+        if (!RequestJsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        StringRequest req = new StringRequest(com.android.volley.Request.Method.POST, mUrlAPIRequests,
+                response -> {
+                    Request r = RequestJsonParser.parseJsonRequest(response);
+                    addRequestBD(r);
+
+                    if (requestListener != null) {
+                        requestListener.onUpdateRequest();
+                    }
+                },
+                error -> Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show()
+        ) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                // params.put("token", TOKEN);
+                return params;
+            }
+        };
+
+        volleyQueue.add(req);
+    }
+
+    public void editRequestAPI(final Request request, final Context context) {
+
+        if (!RequestJsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String url = mUrlAPIRequests + "/" + request.getId();
+
+        StringRequest req = new StringRequest(com.android.volley.Request.Method.PUT, url,
+                response -> {
+                    editRequestBD(request);
+                    if (requestListener != null) {
+                        requestListener.onUpdateRequest();
+                    }
+                },
+                error -> Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show()
+        );
+
+        volleyQueue.add(req);
+    }
+
+    public void removeRequestAPI(final Request request, final Context context) {
+
+        if (!RequestJsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String url = mUrlAPIRequests + "/" + request.getId();
+
+        StringRequest req = new StringRequest(com.android.volley.Request.Method.DELETE, url,
+                response -> {
+                    removeRequestBD(request.getId());
+                    if (requestListener != null) {
+                        requestListener.onUpdateRequest();
+                    }
+                },
+                error -> Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show()
+        );
+
+        volleyQueue.add(req);
+    }
+
+    public void getAllRequestsAPI(final Context context) {
+
+        if (!RequestJsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        JsonArrayRequest req = new JsonArrayRequest(
+                com.android.volley.Request.Method.GET,
+                mUrlAPIRequests,
+                null,
+                response -> {
+                    ArrayList<Request> list = RequestJsonParser.parserJsonRequests(response);
+                    addRequestsBD(list);
+
+                    if (requestsListener != null) {
+                        requestsListener.onRefreshRequests(list);
+                    }
+                },
+                error -> Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show()
+        );
+
+        volleyQueue.add(req);
+    }
+
+    // ---------------------------------------------------------
+    // Profile
+    // ---------------------------------------------------------
+
+    public void editProfileAPI(final Profile profile,
+                               final Context context,
+                               final ProfileListener listener) {
+
+        if (!RequestJsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String url = mUrlAPIProfile + "/" + profile.getId();
+
+        StringRequest req = new StringRequest(
+                com.android.volley.Request.Method.PUT,
+                url,
+                response -> {
+                    editProfileBD(profile);
+
+                    if (listener != null) {
+                        listener.onUpdateProfile();
+                    }
+                },
+                error -> Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show()
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("user_id", String.valueOf(profile.getUserId()));
+                params.put("first_name", profile.getFirstName());
+                params.put("last_name", profile.getLastName());
+                params.put("phone", profile.getPhoneNumber());
+                params.put("available", profile.getAvailability().name());
+                return params;
+            }
+        };
+
+        volleyQueue.add(req);
+    }
+
+    private void editProfileBD(Profile profile) {
+    }
+    public ArrayList<Profile> getProfiles() {
+        profiles = profileDB.getAllProfilesDB(); // ALWAYS reload
+        return profiles;
+    }
+    public void getAllProfilesAPI(final Context context) {
+    }
+    private ArrayList<Profile> profiles;
+    private final ProfileBDHelper profileDB;
 }

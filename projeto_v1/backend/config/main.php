@@ -57,7 +57,6 @@ return [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/user', 'pluralize' => false,
                     'extraPatterns'=>[
-                        'GET count' => 'count',
                         'POST register' => 'register',
                         'POST login'    => 'login',
                         'POST logout'   => 'logout',
@@ -68,13 +67,42 @@ return [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/request', 'pluralize' => false,
                     'extraPatterns'=>[
-                        'GET count' => 'count',
-                        'GET allrequests' => 'allrequests',
-                        'GET requests/{id}' => 'requests',
-                        'GET request/{id}' => 'request',
-                        'POST createrequest' => 'createrequest',
-                        'PUT updaterequest/{id}' => 'updaterequest',
-                        'DELETE delete/{id}' => 'delete',
+                        'GET allrequests' => 'allrequests', //mostra todos os request
+                        'GET requests/{id}' => 'requests', //mostra todos os request de uma pessoa
+                        'GET request/{id}' => 'request', //mostra o request
+                        'GET history/{id}' => 'history', //mostra os requests canceled and completed
+                        'POST createrequest' => 'createrequest', //cria request
+                        'PUT updaterequest/{id}' => 'updaterequest', //edita request
+                        'DELETE deleterequest/{id}' => 'deleterequest', //soft deleta um request
+                    ],
+                    'tokens' => [
+                        '{id}' => '<id:\\d+>',
+                    ],
+                ],
+                //RequestRating
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/rating', 'pluralize' => false,
+                    'extraPatterns'=>[
+                        'GET allratings' => 'allratings', //mostra todos os rating
+                        'GET rating/{id}' => 'rating', //mostra o rating
+                        'POST createrating' => 'createrating', //cria rating
+                        'PUT updaterating/{id}' => 'updaterating', //update no rating
+                        'DELETE deleterating/{id}' => 'deleterating', //delete no rating
+                    ],
+                    'tokens' => [
+                        '{id}' => '<id:\\d+>',
+                    ],
+                ],
+                //Profile
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/profile', 'pluralize' => false,
+                    'extraPatterns'=>[
+                        'GET profile/{id}' => 'profile', //mostra um profile
+                        'POST createprofile' => 'createprofile', //cria profile
+                        'PUT updateprofile/{id}' => 'updateprofile', //update profile
+                        'DELETE deleteprofile/{id}' => 'deleteprofile', //delete profile
                     ],
                     'tokens' => [
                         '{id}' => '<id:\\d+>',

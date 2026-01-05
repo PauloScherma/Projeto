@@ -15,22 +15,17 @@
         android:theme="@style/Theme.OurAppPsiAssist.NoActionBar">
         <activity
             android:name=".activitys.MenuMainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false"/>
 
         <activity
             android:name=".activitys.ForgotPasswordActivity"
             android:exported="false" />
 
         <activity
-            android:name=".activitys.RequestDetailsActivity"
+            android:name=".activitys.CreateRequestActivity"
             android:exported="false"
             tools:ignore="Instantiatable" />
+
         <activity
             android:name=".activitys.PasswordResetActivity"
             android:exported="false" />
@@ -41,7 +36,13 @@
 
         <activity
             android:name=".activitys.LoginActivity"
-            android:exported="false"/>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".activitys.EditProfileActivity"

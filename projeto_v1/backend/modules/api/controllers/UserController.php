@@ -2,38 +2,24 @@
 
 namespace backend\modules\api\controllers;
 
+use backend\modules\api\components\CustomAuth;
 use common\models\User;
 use Yii;
 use yii\filters\auth\QueryParamAuth;
 use yii\rest\ActiveController;
 use yii\rest\Controller;
-use function ActiveRecord\all;
 
-/**
- * Default controller for the `api` module
- */
-
-//deve estender de RestController
 class UserController extends ActiveController
 {
-
    public $modelClass = 'common\models\User';
    public $user=null;
-
-    /**
-     * Renders the index view for the module
-     * @return string
-     */
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
 
     public function behavior()
     {
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
-            'class' => \CustomAuth::className()
+            'class' => CustomAuth::class,
+            'except' => ['login', 'register'],
         ];
         return $behaviors;
     }
@@ -42,23 +28,12 @@ class UserController extends ActiveController
         $user = \common\models\User::findByUsername($username);
          if ($user && $user->validatePassword($password))
          {
-             $this->user=$user; //Guardar user autenticado
+             $this->user=$user;
              return $user;
          }
          throw new \yii\web\ForbiddenHttpException('Error auth'); //403
     }
 
-    //test
-    public function actionCount(){
-
-        $usermodel = new $this->modelClass;
-        $recs = $usermodel::find()->all();
-        return ['count' => count($recs)];
-    }
-
-    #region ------- User -------
-
-    //'POST register' => 'register'
     public function actionRegister(){
 
         $model = new User();
@@ -104,7 +79,6 @@ class UserController extends ActiveController
         return ['error' => 'Dados inválidos fornecidos ou formato incorreto.'];
     }
 
-    //'POST login'    => 'login'
     public function actionLogin(){
         $username = Yii::$app->request->getBodyParam('username');
         $password = Yii::$app->request->getBodyParam('password');
@@ -137,32 +111,29 @@ class UserController extends ActiveController
         ];
     }
 
-    //'POST logout'   => 'logout' WORKING
     public function actionLogout()
     {
-        $user = Yii::$app->user->identity;
+        $token = Yii::$app->request->get('access-token');
 
-        if ($user) {
-
-            $user->generateAuthKey();
-
-            if ($user->save(false)) {
-                Yii::$app->response->statusCode = 200;
-                return [
-                    'message' => 'Sessão terminada com sucesso.'
-                ];
-            } else {
-                Yii::$app->response->statusCode = 500;
-                return [
-                    'message' => 'Erro interno do servidor ao invalidar o token.'
-                ];
-            }
+        if (!$token) {
+            Yii::$app->response->statusCode = 400;
+            return ['message' => 'Falta access-token.'];
         }
 
-        Yii::$app->response->statusCode = 401;
-        return [
-            'message' => 'Não autenticado. Não há sessão para terminar.'
-        ];
+        $user = User::findOne(['auth_key' => $token]);
+
+        if (!$user) {
+            Yii::$app->response->statusCode = 401;
+            return ['message' => 'Token inválido.'];
+        }
+
+        $user->generateAuthKey(); // invalida token atual
+        if ($user->save(false)) {
+            Yii::$app->response->statusCode = 200;
+            return ['message' => 'Sessão terminada com sucesso.'];
+        }
+
+        Yii::$app->response->statusCode = 500;
+        return ['message' => 'Erro ao invalidar token.'];
     }
-    #endregion
 }

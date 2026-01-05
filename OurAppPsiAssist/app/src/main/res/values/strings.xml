@@ -42,7 +42,7 @@
     <string name="user_name">User Name</string>
     <string name="name">Name</string>
     <string name="save">Save</string>
-    <string name="delete_account">Delete Account</string>
+    <string name="delete_account">LOG OUT</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="phone_number">Phone Number</string>
     <string name="email_mail_net">email@mail.net</string>

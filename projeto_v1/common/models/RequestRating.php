@@ -65,6 +65,63 @@ class RequestRating extends \yii\db\ActiveRecord
         ];
     }
 
+    #region API MOSQUITTO
+    public function FazPublishNoMosquitto($canal,$msg)
+    {
+        require_once dirname(__DIR__, 2) . '/mosquitto/phpMQTT.php';
+
+        $server = "127.0.0.1";
+        $port = 1883;
+        $username = "";
+        $password = "";
+        $client_id = "phpMQTT-publisher";
+        $mqtt = new \app\mosquitto\phpMQTT($server, $port, $client_id);
+        if ($mqtt->connect(true, NULL, $username, $password))
+        {
+            $mqtt->publish($canal, $msg, 0);
+            $mqtt->close();
+        }
+        else { file_put_contents("debug.output","Time out!"); }
+    }
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        $id=$this->id;
+        $request_id=$this->request_id;
+        $title=$this->title;
+        $description=$this->description;
+        $score=$this->score;
+        $created_at=$this->created_at;
+        $created_by=$this->created_by;
+
+        $myObj=new \stdClass();
+        $myObj->id=$id;
+        $myObj->request_id=$request_id;
+        $myObj->title=$title;
+        $myObj->description=$description;
+        $myObj->score=$score;
+        $myObj->created_at=$created_at;
+        $myObj->created_by=$created_by;
+        $myJSON= json_encode($myObj);
+
+        if($insert)
+            $this->FazPublishNoMosquitto("INSERT",$myJSON);
+        else
+            $this->FazPublishNoMosquitto("UPDATE",$myJSON);
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+        $id= $this->id;
+        $myObj=new \stdClass();
+        $myObj->id=$id;
+        $myJSON= json_encode($myObj);
+        $this->FazPublishNoMosquitto("DELETE",$myJSON);
+    }
+    #endregion
+
     /**
      * Gets query for [[CreatedBy]].
      *
@@ -85,5 +142,4 @@ class RequestRating extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Request::class, ['id' => 'request_id']);
     }
-
 }

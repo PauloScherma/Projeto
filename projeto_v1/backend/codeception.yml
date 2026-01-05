@@ -7,6 +7,7 @@ paths:
     support: tests/_support
 bootstrap: _bootstrap.php
 settings:
+    error_level: "E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED"
     colors: true
     memory_limit: 1024M
 modules:

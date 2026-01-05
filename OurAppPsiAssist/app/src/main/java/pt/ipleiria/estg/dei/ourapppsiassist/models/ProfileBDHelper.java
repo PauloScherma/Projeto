@@ -8,22 +8,23 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-public class RequestBDHelper extends SQLiteOpenHelper {
+import pt.ipleiria.estg.dei.ourapppsiassist.enums.Availability;
+
+public class ProfileBDHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "dbprojeto_v1.db";
     private static final int DB_VERSION = 2;
-
-    private static final String TABLE_NAME = "requests";
-
+    private static final String TABLE_NAME = "profile";
     private static final String COLUMN_ID = "id";
-    private static final String COLUMN_CUSTOMER_ID = "customer_id";
-    private static final String COLUMN_TITLE = "title";
-    private static final String COLUMN_STATUS = "status";
-    private static final String COLUMN_DESCRIPTION = "description";
+    private static final String COLUMN_USER_ID = "user_id";
+    private static final String COLUMN_FIRST_NAME = "first_name";
+    private static final String COLUMN_LAST_NAME = "last_name";
+    private static final String COLUMN_PHONE = "phone";
+    private static final String COLUMN_AVAILABILITY = "available";
     private static final String COLUMN_CREATED_AT = "created_at";
     private static final String COLUMN_UPDATED_AT = "updated_at";
 
-    public RequestBDHelper(Context context) {
+    public ProfileBDHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
@@ -34,13 +35,15 @@ public class RequestBDHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String sql = "CREATE TABLE " + TABLE_NAME + " (" +
                 COLUMN_ID + " INTEGER PRIMARY KEY, " +
-                COLUMN_CUSTOMER_ID + " INTEGER NOT NULL, " +
-                COLUMN_TITLE + " TEXT NOT NULL, " +
-                COLUMN_STATUS + " TEXT NOT NULL, " +
-                COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
+                COLUMN_USER_ID + " INTEGER NOT NULL, " +
+                COLUMN_FIRST_NAME + " TEXT NOT NULL, " +
+                COLUMN_LAST_NAME + " TEXT NOT NULL, " +
+                COLUMN_PHONE + " TEXT NOT NULL, " +
+                COLUMN_AVAILABILITY + " TEXT NOT NULL, " +
                 COLUMN_CREATED_AT + " TEXT NOT NULL, " +
                 COLUMN_UPDATED_AT + " TEXT" +
                 ");";
+
         db.execSQL(sql);
     }
 
@@ -54,10 +57,10 @@ public class RequestBDHelper extends SQLiteOpenHelper {
     }
 
     // ---------------------------------------------------------
-    // Get all requests
+    // Get all profile
     // ---------------------------------------------------------
-    public ArrayList<Request> getAllRequestsDB() {
-        ArrayList<Request> requests = new ArrayList<>();
+    public ArrayList<Profile> getAllProfilesDB() {
+        ArrayList<Profile> profiles = new ArrayList<>();
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(
@@ -72,87 +75,71 @@ public class RequestBDHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                Request r = new Request(
+                Profile p = new Profile(
                         cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID)),
-                        cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_CUSTOMER_ID)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TITLE)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_STATUS)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DESCRIPTION)),
+                        cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_USER_ID)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_FIRST_NAME)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LAST_NAME)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PHONE)),
                         cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CREATED_AT)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_UPDATED_AT))
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_UPDATED_AT)),
+                        Availability.valueOf(
+                                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_AVAILABILITY))
+                        )
                 );
-                requests.add(r);
+                profiles.add(p);
             } while (cursor.moveToNext());
         }
 
         cursor.close();
         db.close();
-        return requests;
+        return profiles;
     }
-
     // ---------------------------------------------------------
-    // Insert request
+    // Update profile
     // ---------------------------------------------------------
-    public Request addRequest(Request r) {
+    public boolean editProfileBD(Profile p) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(COLUMN_ID, r.getId());
-        values.put(COLUMN_CUSTOMER_ID, r.getCustomer_id());
-        values.put(COLUMN_TITLE, r.getTitle());
-        values.put(COLUMN_STATUS, r.getStatus());
-        values.put(COLUMN_DESCRIPTION, r.getDescription());
-        values.put(COLUMN_CREATED_AT, r.getCreated_at());
-        values.put(COLUMN_UPDATED_AT, r.getUpdated_at());
+        values.put(COLUMN_USER_ID, p.getUserId());
+        values.put(COLUMN_FIRST_NAME, p.getFirstName());
+        values.put(COLUMN_LAST_NAME, p.getLastName());
+        values.put(COLUMN_PHONE, p.getPhoneNumber());
+        values.put(COLUMN_AVAILABILITY, p.getAvailability().name());
+        values.put(COLUMN_CREATED_AT, p.getCreatedAt());
+        values.put(COLUMN_UPDATED_AT, p.getUpdatedAt());
 
-        long result = db.insert(TABLE_NAME, null, values);
-        db.close();
-
-        return result == -1 ? null : r;
-    }
-
-    // ---------------------------------------------------------
-    // Update request
-    // ---------------------------------------------------------
-    public boolean editRequest(Request r) {
-        SQLiteDatabase db = getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_CUSTOMER_ID, r.getCustomer_id());
-        values.put(COLUMN_TITLE, r.getTitle());
-        values.put(COLUMN_STATUS, r.getStatus());
-        values.put(COLUMN_DESCRIPTION, r.getDescription());
-        values.put(COLUMN_CREATED_AT, r.getCreated_at());
-        values.put(COLUMN_UPDATED_AT, r.getUpdated_at());
 
         int rows = db.update(
                 TABLE_NAME,
                 values,
                 COLUMN_ID + "=?",
-                new String[]{String.valueOf(r.getId())}
+                new String[]{String.valueOf(p.getId())}
         );
 
         db.close();
         return rows > 0;
     }
-
     // ---------------------------------------------------------
-    // Delete request
+    // Delete profile
     // ---------------------------------------------------------
-    public boolean removeRequest(int id) {
+    public boolean removeProfile(int id) {
         SQLiteDatabase db = getWritableDatabase();
         int rows = db.delete(TABLE_NAME, COLUMN_ID + "=?", new String[]{String.valueOf(id)});
         db.close();
         return rows > 0;
     }
-
     // ---------------------------------------------------------
     // Clear table
     // ---------------------------------------------------------
-    public boolean removeAllRequestsDB() {
+    public boolean removeAllProfilesDB() {
         SQLiteDatabase db = getWritableDatabase();
         int rows = db.delete(TABLE_NAME, null, null);
         db.close();
         return rows >= 0;
+    }
+
+    public void editProfile(Profile profile) {
     }
 }

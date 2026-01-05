@@ -2,7 +2,6 @@ package pt.ipleiria.estg.dei.ourapppsiassist.activitys;
 
 import android.os.Bundle;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,43 +11,43 @@ import pt.ipleiria.estg.dei.ourapppsiassist.R;
 import pt.ipleiria.estg.dei.ourapppsiassist.models.Request;
 import pt.ipleiria.estg.dei.ourapppsiassist.models.SingletonRequestManager;
 
-public class RequestDetailsActivity extends AppCompatActivity
+public class CreateRequestActivity extends AppCompatActivity
         implements pt.ipleiria.estg.dei.ourapppsiassist.listeners.RequestListener {
     private Request request;
-    private TextView tvTitle, tvDescription, tvStatus, tvCreatedAt;
+    private EditText etTitle, etDescription, etStatus, etCreatedAt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details_request);
+        setContentView(R.layout.activity_create_new_request);
 
-        tvTitle = findViewById(R.id.tvTitle);
-        tvDescription = findViewById(R.id.tvDescription);
-        tvStatus = findViewById(R.id.tvStatus);
-        tvCreatedAt = findViewById(R.id.tvCreatedAt);
+        etTitle = findViewById(R.id.etTitle);
+        etDescription = findViewById(R.id.etDescription);
+        etStatus = findViewById(R.id.etStatus);
+        etCreatedAt = findViewById(R.id.etCreatedAt);
 
         int idRequest = getIntent().getIntExtra("IDREQUEST", -1);
         request = SingletonRequestManager.getRequest(idRequest);
 
         SingletonRequestManager.getInstance(this).setRequestListener(this);
 
-        FloatingActionButton fabSave = findViewById(R.id.fabGuardar);
+        FloatingActionButton fabAdd = findViewById(R.id.fabAdd);
 
         if (request != null) {
-            tvTitle.setText(request.getTitle());
-            tvDescription.setText(request.getDescription());
-            tvStatus.setText(request.getStatus());
-            tvCreatedAt.setText(request.getCreated_at());
+            etTitle.setText(request.getTitle());
+            etDescription.setText(request.getDescription());
+            etStatus.setText(request.getStatus());
+            etCreatedAt.setText(request.getCreated_at());
             setTitle("Details: " + request.getTitle());
         } else {
             setTitle("New Request");
         }
 
-        fabSave.setOnClickListener(v -> {
-            String title = tvTitle.getText().toString();
-            String description = tvDescription.getText().toString();
-            String status = tvStatus.getText().toString();
-            String createdAt = tvCreatedAt.getText().toString();
+        fabAdd.setOnClickListener(v -> {
+            String title = etTitle.getText().toString();
+            String description = etDescription.getText().toString();
+            String status = etStatus.getText().toString();
+            String createdAt = etCreatedAt.getText().toString();
             String updatedAt = createdAt;
 
             if (request != null) {

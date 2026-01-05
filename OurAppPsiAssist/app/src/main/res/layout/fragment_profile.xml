@@ -38,10 +38,10 @@
             android:textStyle="bold"
             android:text="@string/first_name"/>
         <TextView
-            android:id="@+id/txtFirstName"
+            android:id="@+id/tvFirstName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Zeca"
+            android:text=""
             android:textSize="16sp"
             android:paddingTop="4dp"/>
         <Space
@@ -57,10 +57,10 @@
             android:textStyle="bold"
             android:text="@string/last_name"/>
         <TextView
-            android:id="@+id/txtLastName"
+            android:id="@+id/tvLastName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Joaquim"
+            android:text=""
             android:textSize="16sp"
             android:paddingTop="4dp"/>
         <Space
@@ -79,7 +79,7 @@
             android:id="@+id/tvEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/email_mail_net"
+            android:text=""
             android:textSize="16sp"
             android:paddingTop="4dp"/>
         <Space
@@ -98,7 +98,7 @@
             android:id="@+id/tvPhoneNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="916969696"
+            android:text=""
             android:textSize="16sp"
             android:paddingTop="4dp"/>
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace common\models;
+
 use Cassandra\Date;
 use common\models\User;
 use common\models\CalendarEvent;
@@ -56,6 +57,72 @@ class Request extends \yii\db\ActiveRecord
 
     #region Variaveis apoio
     public $request_attachment;
+    #endregion
+
+    #region API MOSQUITTO
+    public function FazPublishNoMosquitto($canal,$msg)
+    {
+        require_once dirname(__DIR__, 2) . '/mosquitto/phpMQTT.php';
+
+        $server = "127.0.0.1";
+        $port = 1883;
+        $username = "";
+        $password = "";
+        $client_id = "phpMQTT-publisher";
+        $mqtt = new \app\mosquitto\phpMQTT($server, $port, $client_id);
+        if ($mqtt->connect(true, NULL, $username, $password))
+        {
+            $mqtt->publish($canal, $msg, 0);
+            $mqtt->close();
+        }
+        else { file_put_contents("debug.output","Time out!"); }
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        $id=$this->id;
+        $customer_id=$this->customer_id;
+        $title=$this->title;
+        $description=$this->description;
+        $priority=$this->priority;
+        $status=$this->status;
+        $current_technician_id=$this->current_technician_id;
+        $canceled_at=$this->canceled_at;
+        $canceled_by=$this->canceled_by;
+        $created_at=$this->created_at;
+        $updated_at=$this->updated_at;
+
+        $myObj=new \stdClass();
+        $myObj->id=$id;
+        $myObj->customer_id=$customer_id;
+        $myObj->title=$title;
+        $myObj->description=$description;
+        $myObj->priority=$priority;
+        $myObj->status=$status;
+        $myObj->current_technician_id=$current_technician_id;
+        $myObj->canceled_at=$canceled_at;
+        $myObj->canceled_by=$canceled_by;
+        $myObj->created_at=$created_at;
+        $myObj->updated_at=$updated_at;
+        $myJSON= json_encode($myObj);
+
+        if($insert)
+            $this->FazPublishNoMosquitto("INSERT",$myJSON);
+        else
+            $this->FazPublishNoMosquitto("UPDATE",$myJSON);
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+        $id= $this->id;
+        $myObj=new \stdClass();
+        $myObj->id=$id;
+        $myJSON= json_encode($myObj);
+        $this->FazPublishNoMosquitto("DELETE",$myJSON);
+    }
     #endregion
 
     public function behaviors()

@@ -38,13 +38,75 @@ class User extends ActiveRecord implements IdentityInterface
     public $password;
     #endregion
 
+    #region API MOSQUITTO
+
+    public function FazPublishNoMosquitto($canal,$msg)
+    {
+        require_once dirname(__DIR__, 2) . '/mosquitto/phpMQTT.php';
+
+        $server = "127.0.0.1";
+        $port = 1883;
+        $username = "";
+        $password = "";
+        $client_id = "phpMQTT-publisher";
+        $mqtt = new \app\mosquitto\phpMQTT($server, $port, $client_id);
+        if ($mqtt->connect(true, NULL, $username, $password))
+        {
+            $mqtt->publish($canal, $msg, 0);
+            $mqtt->close();
+        }
+        else { file_put_contents("debug.output","Time out!"); }
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        $id=$this->id;
+        $username=$this->username;
+        $auth_key=$this->auth_key;
+        $password_hash=$this->password_hash;
+        $password_reset_token=$this->password_reset_token;
+        $status=$this->status;
+        $created_at=$this->created_at;
+        $updated_at=$this->updated_at;
+        $verification_token=$this->verification_token;
+
+        $myObj=new \stdClass();
+        $myObj->id=$id;
+        $myObj->username=$username;
+        $myObj->auth_key=$auth_key;
+        $myObj->password_hash=$password_hash;
+        $myObj->password_reset_token=$password_reset_token;
+        $myObj->status=$status;
+        $myObj->created_at=$created_at;
+        $myObj->updated_at=$updated_at;
+        $myObj->verification_token=$verification_token;
+        $myJSON= json_encode($myObj);
+
+        if($insert)
+            $this->FazPublishNoMosquitto("INSERT",$myJSON);
+        else
+            $this->FazPublishNoMosquitto("UPDATE",$myJSON);
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+        $id= $this->id;
+        $myObj=new \stdClass();
+        $myObj->id=$id;
+        $myJSON= json_encode($myObj);
+        $this->FazPublishNoMosquitto("DELETE",$myJSON);
+    }
+    #endregion
+
     /**
      * Substitui o delete padrão (hard delete) por um soft delete (cancelamento).
-     * @return bool|int O resultado do save() ou false.
+     * @return bool O resultado do save() ou false.
      */
-    public function deleteRequest()
+    public function deleteUser()
     {
-        // Verifica se o pedido já foi cancelado
         if ($this->status !== 10) {
             Yii::$app->session->setFlash('error', 'Este user já se encontra cancelado.');
             return false;
