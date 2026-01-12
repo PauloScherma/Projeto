@@ -48,4 +48,9 @@
     <string name="email_mail_net">email@mail.net</string>
     <string name="last_name">Last Name</string>
     <string name="first_name">First Name</string>
+    <string name="email_key">email</string>
+    <string name="email_required">Email required</string>
+    <string name="invalid_email_format">Invalid email format</string>
+    <string name="email_extra">EMAIL</string>
+    <string name="email_not_found">Email not found</string>
 </resources>

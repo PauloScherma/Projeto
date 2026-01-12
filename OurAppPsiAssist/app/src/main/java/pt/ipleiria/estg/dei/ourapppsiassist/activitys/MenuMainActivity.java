@@ -68,7 +68,7 @@ public class MenuMainActivity extends AppCompatActivity
         TextView email = headerView.findViewById(R.id.tvEmail);
 
         // email passed from LoginActivity
-        String emailReceived = getIntent().getStringExtra("email");
+        String emailReceived = getIntent().getStringExtra(getString(R.string.email_key));
         if (email != null) {
             email.setText(emailReceived);
         }

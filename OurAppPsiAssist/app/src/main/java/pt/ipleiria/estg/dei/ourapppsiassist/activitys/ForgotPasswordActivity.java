@@ -28,12 +28,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             String email = emailInput.getText().toString().trim();
 
             if (email.isEmpty()) {
-                emailInput.setError("Email required");
+                emailInput.setError(getString(R.string.email_required));
                 return;
             }
 
             if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                emailInput.setError("Invalid email format");
+                emailInput.setError(getString(R.string.invalid_email_format));
                 return;
             }
 
@@ -42,10 +42,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
             if (emailExistsInDatabase) {
                 Intent intent = new Intent(this, PasswordResetActivity.class);
-                intent.putExtra("EMAIL", email);
+                intent.putExtra(getString(R.string.email_extra), email);
                 startActivity(intent);
             } else {
-                Toast.makeText(this, "Email not found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.email_not_found), Toast.LENGTH_SHORT).show();
             }
         });
     }
