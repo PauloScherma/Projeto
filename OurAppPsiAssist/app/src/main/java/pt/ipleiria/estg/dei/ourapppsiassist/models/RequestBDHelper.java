@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class RequestBDHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "dbprojeto_v1.db";
-    private static final int DB_VERSION = 2;
+    private static final int DB_VERSION = 4;
 
     private static final String TABLE_NAME = "requests";
 

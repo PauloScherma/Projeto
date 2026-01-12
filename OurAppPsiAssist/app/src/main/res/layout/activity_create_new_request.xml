@@ -8,67 +8,72 @@
     android:orientation="vertical"
     tools:context=".activitys.CreateRequestActivity">
 
-    <!--    <ImageView-->
-    <!--        android:id="@+id/imageCapa"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:layout_weight="0.5"-->
-    <!--        app:srcCompat="@drawable/logoipl" />-->
-
-    <EditText
-        android:id="@+id/etTitle"
+    <Space
         android:layout_width="match_parent"
         android:layout_height="0sp"
-        android:layout_weight="0.1"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Title" />
+        android:layout_weight="0.5" />
 
-    <EditText
-        android:id="@+id/etDescription"
+    <!-- Titulo -->
+    <TextView
+        android:id="@+id/textViewTitle"
         android:layout_width="match_parent"
-        android:layout_height="0sp"
-        android:layout_weight="0.5"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="@string/description" />
+        android:layout_height="wrap_content"
+        android:text="@string/create_your_request"
+        android:textSize="28sp"
+        android:textAlignment="center"
+        android:layout_marginBottom="24dp"
+        android:textColor="?android:attr/textColorPrimary" />
 
-    <LinearLayout
+    <!-- Input para o Título -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilTitle"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:inputType="textCapSentences" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Input para a Descrição -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilDescription"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/description">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:minLines="4" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAttachFiles"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/etCreatedBy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text"
-            android:hint="Author" />
-
-        <EditText
-            android:id="@+id/etCreatedAt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text"
-            android:hint="Year" />
-
-
-
-    </LinearLayout>
-    <EditText
-        android:id="@+id/etStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="@string/state" />
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="24dp"
+        android:text="Anexar Ficheiros"/>
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="0sp"
-        android:layout_weight="0.1" />
+        android:layout_weight="0.5" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"

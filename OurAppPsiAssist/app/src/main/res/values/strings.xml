@@ -53,4 +53,6 @@
     <string name="invalid_email_format">Invalid email format</string>
     <string name="email_extra">EMAIL</string>
     <string name="email_not_found">Email not found</string>
+    <string name="well_come">Well come</string>
+    <string name="create_your_request">Create Your Request</string>
 </resources>

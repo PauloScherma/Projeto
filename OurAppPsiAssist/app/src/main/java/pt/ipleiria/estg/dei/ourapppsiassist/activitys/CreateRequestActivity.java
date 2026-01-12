@@ -23,8 +23,6 @@ public class CreateRequestActivity extends AppCompatActivity
 
         etTitle = findViewById(R.id.etTitle);
         etDescription = findViewById(R.id.etDescription);
-        etStatus = findViewById(R.id.etStatus);
-        etCreatedAt = findViewById(R.id.etCreatedAt);
 
         int idRequest = getIntent().getIntExtra("IDREQUEST", -1);
         request = SingletonRequestManager.getRequest(idRequest);
@@ -36,7 +34,6 @@ public class CreateRequestActivity extends AppCompatActivity
         if (request != null) {
             etTitle.setText(request.getTitle());
             etDescription.setText(request.getDescription());
-            etStatus.setText(request.getStatus());
             etCreatedAt.setText(request.getCreated_at());
             setTitle("Details: " + request.getTitle());
         } else {

@@ -73,22 +73,15 @@ public class Request{
     {
         this.updated_at = updated_at;
     }
-
     public int getImgProfile() {
         return 0;
     }
-
     public String getCreatedBy() {
         return "";
     }
-
     public int getCreatedAt() {
         return 0;
     }
-
-    public void setCreatedAt(String createdAt) {
-    }
-
-    public void setCreatedBy(String createdBy) {
-    }
+    public void setCreatedAt(String createdAt) {}
+    public void setCreatedBy(String createdBy) {}
 }

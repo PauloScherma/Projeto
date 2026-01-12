@@ -284,7 +284,6 @@ public class SingletonRequestManager {
                 params.put("first_name", profile.getFirstName());
                 params.put("last_name", profile.getLastName());
                 params.put("phone", profile.getPhoneNumber());
-                params.put("available", profile.getAvailability().name());
                 return params;
             }
         };

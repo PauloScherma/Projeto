@@ -57,7 +57,6 @@ public class ProfileFragment extends Fragment {
 
             tvFirstName.setText(profile.getFirstName());
             tvLastName.setText(profile.getLastName());
-            tvEmail.setText(profile.getEmail());
             tvPhoneNumber.setText(String.valueOf(profile.getPhoneNumber()));
         }
     }

@@ -12,16 +12,13 @@ import pt.ipleiria.estg.dei.ourapppsiassist.R;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
-    private EditText emailInput;
-    private Button sendBtn;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        emailInput = findViewById(R.id.inputEmail);
-        sendBtn = findViewById(R.id.btnSendReset);
+        EditText emailInput = findViewById(R.id.inputEmail);
+        Button sendBtn = findViewById(R.id.btnSendReset);
 
         sendBtn.setOnClickListener(v -> {
 
@@ -38,15 +35,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
 
             // TODO: API call to verify email existence
-            boolean emailExistsInDatabase = true;
-
-            if (emailExistsInDatabase) {
-                Intent intent = new Intent(this, PasswordResetActivity.class);
-                intent.putExtra(getString(R.string.email_extra), email);
-                startActivity(intent);
-            } else {
-                Toast.makeText(this, getString(R.string.email_not_found), Toast.LENGTH_SHORT).show();
-            }
+            Intent intent = new Intent(this, PasswordResetActivity.class);
+            intent.putExtra(getString(R.string.email_extra), email);
+            startActivity(intent);
         });
     }
 }

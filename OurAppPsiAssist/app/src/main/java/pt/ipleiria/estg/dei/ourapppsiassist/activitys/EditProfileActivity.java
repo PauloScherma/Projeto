@@ -28,7 +28,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
         etFirstName = findViewById(R.id.etFirstName);
         etLastName = findViewById(R.id.etLastName);
-        etEmail = findViewById(R.id.etEmail);
         etPhoneNumber = findViewById(R.id.etPhoneNumber);
         btnSave = findViewById(R.id.btnSave);
 

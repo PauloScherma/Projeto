@@ -6,6 +6,5 @@ import pt.ipleiria.estg.dei.ourapppsiassist.models.Request;
 public interface RequestsListener {
     void onRefreshRequests(ArrayList<Request> requests);
     void onError(String message);
-
     void onRefreshListRequests(ArrayList<Request> list);
 }

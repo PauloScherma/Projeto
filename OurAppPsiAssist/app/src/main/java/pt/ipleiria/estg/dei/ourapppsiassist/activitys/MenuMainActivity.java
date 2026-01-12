@@ -1,6 +1,5 @@
 package pt.ipleiria.estg.dei.ourapppsiassist.activitys;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -33,7 +32,6 @@ public class MenuMainActivity extends AppCompatActivity
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private FragmentManager fragmentManager;
-    private View headerView;
 
 
     @Override
@@ -74,12 +72,12 @@ public class MenuMainActivity extends AppCompatActivity
         }
     }
 
-    private boolean loadInicialFragment() {
+    private void loadInicialFragment() {
         Menu menu = navigationView.getMenu();
         MenuItem item = menu.getItem(0);
         item.setChecked(true);
 
-        return onNavigationItemSelected(item);
+        onNavigationItemSelected(item);
     }
 
     @Override
@@ -124,8 +122,8 @@ public class MenuMainActivity extends AppCompatActivity
     }
 
     public void onClickDocs(View view) {
-        Intent intent = new Intent(MenuMainActivity.this , DocumentsFragment.class);
-        startActivity(intent);
+        Intent.createChooser(new Intent(), "Choose a file");
+        startActivity(new Intent());
         finish();
     }
 }
