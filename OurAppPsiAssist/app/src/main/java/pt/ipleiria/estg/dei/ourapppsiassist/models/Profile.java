@@ -5,11 +5,8 @@ public class Profile {
     //region Atributos
     private int id;
     private int userId;
-    private String phoneNumber;
-    private String firstName;
-    private String lastName;
-    private String createdAt;
-    private String updatedAt;
+    private String phoneNumber,firstName, lastName, createdAt, updatedAt;
+
     //endregion
 
     //region Constructor

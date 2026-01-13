@@ -21,6 +21,10 @@
         android:title="@string/profile"
         android:icon="@drawable/ic_menu_lista"/>
 
+    <item android:id="@+id/navSettings"
+            android:title="@string/settings"
+            android:icon="@drawable/ic_menu_grelha"/>
+
     <item android:id="@+id/navLogout"
         android:title="@string/logout"
         android:icon="@drawable/ic_menu_grelha"/>

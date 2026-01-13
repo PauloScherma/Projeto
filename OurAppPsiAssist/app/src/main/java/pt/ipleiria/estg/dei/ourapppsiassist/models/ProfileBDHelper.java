@@ -13,8 +13,6 @@ public class ProfileBDHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "dbprojeto_v1.db";
     private static final int DB_VERSION = 4;
     private static final String TABLE_NAME = "profile";
-
-    //region Nomes das colunas
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_USER_ID = "user_id";
     private static final String COLUMN_FIRST_NAME = "first_name";
@@ -22,13 +20,11 @@ public class ProfileBDHelper extends SQLiteOpenHelper {
     private static final String COLUMN_PHONE = "phone";
     private static final String COLUMN_CREATED_AT = "created_at";
     private static final String COLUMN_UPDATED_AT = "updated_at";
-    //endregion
 
     public ProfileBDHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
-    //region Criar Tabela
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = "CREATE TABLE " + TABLE_NAME + " (" +
@@ -43,15 +39,12 @@ public class ProfileBDHelper extends SQLiteOpenHelper {
 
         db.execSQL(sql);
     }
-    //endregion
 
-    //region Atualizar Tabela
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
-    //endregion
 
     //region CRUD: Create (Adicionar)
     public long addProfile(Profile p) {

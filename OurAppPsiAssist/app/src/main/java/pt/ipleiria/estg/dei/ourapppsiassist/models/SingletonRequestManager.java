@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import pt.ipleiria.estg.dei.ourapppsiassist.activitys.CreateRequestActivity;
+import pt.ipleiria.estg.dei.ourapppsiassist.activitys.RequestActivity;
 import pt.ipleiria.estg.dei.ourapppsiassist.activitys.RequestDetailsActivity;
 import pt.ipleiria.estg.dei.ourapppsiassist.listeners.ProfileListener;
 import pt.ipleiria.estg.dei.ourapppsiassist.listeners.ProfileListeners;
@@ -25,12 +25,9 @@ import pt.ipleiria.estg.dei.ourapppsiassist.utils.RequestJsonParser;
 public class SingletonRequestManager {
 
     private static SingletonRequestManager instance;
-
     private static RequestQueue volleyQueue;
     private static ArrayList<Request> requests = new ArrayList<>();
-
     private final RequestBDHelper requestDB;
-
     private RequestsListener requestsListener;
     private RequestListener requestListener;
 
@@ -42,9 +39,6 @@ public class SingletonRequestManager {
     private static final String TOKEN = "YOUR_TOKEN_HERE";
     private ProfileListener profileListener;
     private ProfileListeners profileListeners;
-
-
-    // ---------------------------------------------------------
 
     public static synchronized SingletonRequestManager getInstance(Context context) {
         if (instance == null) {
@@ -134,13 +128,13 @@ public class SingletonRequestManager {
 
     public void addRequestAPI(Request request, RequestDetailsActivity requestDetailsActivity) {
     }
-    public void editRequestAPI(Request request, CreateRequestActivity requestDetailsActivity) {
+    public void editRequestAPI(Request request, RequestActivity requestDetailsActivity) {
     }
 
-    public void addRequestAPI(Request request, CreateRequestActivity requestDetailsActivity) {
+    public void addRequestAPI(Request request, RequestActivity requestDetailsActivity) {
     }
 
-    public void removeRequestAPI(Request request, CreateRequestActivity requestDetailsActivity) {
+    public void removeRequestAPI(Request request, RequestActivity requestDetailsActivity) {
 
     }
 

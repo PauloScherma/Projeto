@@ -11,15 +11,16 @@ import pt.ipleiria.estg.dei.ourapppsiassist.R;
 import pt.ipleiria.estg.dei.ourapppsiassist.models.Request;
 import pt.ipleiria.estg.dei.ourapppsiassist.models.SingletonRequestManager;
 
-public class CreateRequestActivity extends AppCompatActivity
+public class RequestActivity extends AppCompatActivity
         implements pt.ipleiria.estg.dei.ourapppsiassist.listeners.RequestListener {
+
     private Request request;
-    private EditText etTitle, etDescription, etStatus, etCreatedAt;
+    private EditText etTitle, etDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_new_request);
+        setContentView(R.layout.activity_create_request);
 
         etTitle = findViewById(R.id.etTitle);
         etDescription = findViewById(R.id.etDescription);
@@ -34,37 +35,38 @@ public class CreateRequestActivity extends AppCompatActivity
         if (request != null) {
             etTitle.setText(request.getTitle());
             etDescription.setText(request.getDescription());
-            etCreatedAt.setText(request.getCreated_at());
             setTitle("Details: " + request.getTitle());
         } else {
             setTitle("New Request");
         }
 
         fabAdd.setOnClickListener(v -> {
-            String title = etTitle.getText().toString();
-            String description = etDescription.getText().toString();
-            String status = etStatus.getText().toString();
-            String createdAt = etCreatedAt.getText().toString();
-            String updatedAt = createdAt;
+
+            String title = etTitle.getText().toString().trim();
+            String description = etDescription.getText().toString().trim();
+
+            if (title.isEmpty()) {
+                etTitle.setError("Título obrigatório");
+                return;
+            }
 
             if (request != null) {
+                // EDITAR
                 request.setTitle(title);
                 request.setDescription(description);
-                request.setStatus(status);
-                request.setCreated_at(createdAt);
-                request.setUpdated_at(updatedAt);
 
                 SingletonRequestManager.getInstance(this)
                         .editRequestAPI(request, this);
+
             } else {
                 request = new Request(
                         0,
-                        1,
+                        1,              // mudar para o ID do utilizador
                         title,
-                        status,
+                        "new",
                         description,
-                        createdAt,
-                        updatedAt
+                        null,
+                        null
                 );
 
                 SingletonRequestManager.getInstance(this)
@@ -74,26 +76,24 @@ public class CreateRequestActivity extends AppCompatActivity
     }
 
     @Override
-    public void onRefreshDetalhes() {
-        setResult(RESULT_OK);
-        finish();
-    }
-
-    @Override
     public void onUpdateRequest() {
         setResult(RESULT_OK);
         finish();
     }
 
     @Override
+    public void onRefreshDetalhes() {
+        setResult(RESULT_OK);
+        finish();
+    }
+
+    @Override
     public void onError(String message) {
-        // Recommended minimum feedback
-        // Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        // podes mostrar Toast se quiseres
     }
 
     @Override
     public void onRefreshDetails() {
-        // Optional, depending on your interface design
+        // opcional
     }
-
 }

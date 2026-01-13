@@ -6,153 +6,127 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 
 public class RequestBDHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "dbprojeto_v1.db";
     private static final int DB_VERSION = 4;
-
     private static final String TABLE_NAME = "requests";
+    private static final String ID = "id";
+    private static final String CUSTOMER_ID = "customer_id";
+    private static final String TITLE = "title";
+    private static final String STATUS = "status";
+    private static final String DESCRIPTION = "description";
+    private static final String CREATED_AT = "created_at";
+    private static final String UPDATED_AT = "updated_at";
 
-    private static final String COLUMN_ID = "id";
-    private static final String COLUMN_CUSTOMER_ID = "customer_id";
-    private static final String COLUMN_TITLE = "title";
-    private static final String COLUMN_STATUS = "status";
-    private static final String COLUMN_DESCRIPTION = "description";
-    private static final String COLUMN_CREATED_AT = "created_at";
-    private static final String COLUMN_UPDATED_AT = "updated_at";
+    private final SQLiteDatabase db;
 
-    public RequestBDHelper(Context context) {
+    public RequestBDHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
+        this.db = getWritableDatabase();
     }
 
-    // ---------------------------------------------------------
-    // Create DB schema
-    // ---------------------------------------------------------
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String sql = "CREATE TABLE " + TABLE_NAME + " (" +
-                COLUMN_ID + " INTEGER PRIMARY KEY, " +
-                COLUMN_CUSTOMER_ID + " INTEGER NOT NULL, " +
-                COLUMN_TITLE + " TEXT NOT NULL, " +
-                COLUMN_STATUS + " TEXT NOT NULL, " +
-                COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
-                COLUMN_CREATED_AT + " TEXT NOT NULL, " +
-                COLUMN_UPDATED_AT + " TEXT" +
+                ID + " INTEGER PRIMARY KEY, " +
+                CUSTOMER_ID + " INTEGER NOT NULL, " +
+                TITLE + " TEXT NOT NULL, " +
+                STATUS + " TEXT NOT NULL, " +
+                DESCRIPTION + " TEXT NOT NULL, " +
+                CREATED_AT + " TEXT, " +      // pode ser null se ainda não veio do servidor
+                UPDATED_AT + " TEXT" +
                 ");";
-        db.execSQL(sql);
+        sqLiteDatabase.execSQL(sql);
     }
 
-    // ---------------------------------------------------------
-    // Upgrade
-    // ---------------------------------------------------------
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        onCreate(db);
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(sqLiteDatabase);
     }
 
     // ---------------------------------------------------------
-    // Get all requests
+    // INSERT
+    // ---------------------------------------------------------
+    public Request addRequest(Request r) {
+        ContentValues values = new ContentValues();
+        values.put(ID, r.getId());
+        values.put(CUSTOMER_ID, r.getCustomer_id());
+        values.put(TITLE, r.getTitle());
+        values.put(STATUS, r.getStatus());
+        values.put(DESCRIPTION, r.getDescription());
+        values.put(CREATED_AT, r.getCreated_at());
+        values.put(UPDATED_AT, r.getUpdated_at());
+
+        long id = this.db.insert(TABLE_NAME, null, values);
+        if (id > -1) return r;
+        return null;
+    }
+
+    // ---------------------------------------------------------
+    // UPDATE
+    // ---------------------------------------------------------
+    public boolean editRequest(Request r) {
+        ContentValues values = new ContentValues();
+        values.put(CUSTOMER_ID, r.getCustomer_id());
+        values.put(TITLE, r.getTitle());
+        values.put(STATUS, r.getStatus());
+        values.put(DESCRIPTION, r.getDescription());
+        values.put(CREATED_AT, r.getCreated_at());
+        values.put(UPDATED_AT, r.getUpdated_at());
+
+        int numLinhas = this.db.update(TABLE_NAME, values, ID + " = ?", new String[]{r.getId() + ""});
+        return numLinhas > 0;
+    }
+
+    // ---------------------------------------------------------
+    // DELETE
+    // ---------------------------------------------------------
+    public boolean removeRequest(int id) {
+        int numLinhas = this.db.delete(TABLE_NAME, ID + " = ?", new String[]{id + ""});
+        return numLinhas > 0;
+    }
+
+    // ---------------------------------------------------------
+    // CLEAR TABLE
+    // ---------------------------------------------------------
+    public void removeAllRequestsDB() {
+        this.db.delete(TABLE_NAME, null, null);
+    }
+
+    // ---------------------------------------------------------
+    // SELECT ALL
     // ---------------------------------------------------------
     public ArrayList<Request> getAllRequestsDB() {
         ArrayList<Request> requests = new ArrayList<>();
 
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(
+        Cursor cursor = this.db.query(
                 TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                COLUMN_ID + " DESC"
+                new String[]{ID, CUSTOMER_ID, TITLE, STATUS, DESCRIPTION, CREATED_AT, UPDATED_AT},
+                null, null, null, null, null
         );
 
         if (cursor.moveToFirst()) {
             do {
                 Request r = new Request(
-                        cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID)),
-                        cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_CUSTOMER_ID)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TITLE)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_STATUS)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DESCRIPTION)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CREATED_AT)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_UPDATED_AT))
+                        cursor.getInt(0),      // id
+                        cursor.getInt(1),      // customer_id
+                        cursor.getString(2),   // title
+                        cursor.getString(3),   // status
+                        cursor.getString(4),   // description
+                        cursor.getString(5),   // created_at
+                        cursor.getString(6)    // updated_at
                 );
                 requests.add(r);
             } while (cursor.moveToNext());
         }
 
         cursor.close();
-        db.close();
         return requests;
-    }
-
-    // ---------------------------------------------------------
-    // Insert request
-    // ---------------------------------------------------------
-    public Request addRequest(Request r) {
-        SQLiteDatabase db = getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_ID, r.getId());
-        values.put(COLUMN_CUSTOMER_ID, r.getCustomer_id());
-        values.put(COLUMN_TITLE, r.getTitle());
-        values.put(COLUMN_STATUS, r.getStatus());
-        values.put(COLUMN_DESCRIPTION, r.getDescription());
-        values.put(COLUMN_CREATED_AT, r.getCreated_at());
-        values.put(COLUMN_UPDATED_AT, r.getUpdated_at());
-
-        long result = db.insert(TABLE_NAME, null, values);
-        db.close();
-
-        return result == -1 ? null : r;
-    }
-
-    // ---------------------------------------------------------
-    // Update request
-    // ---------------------------------------------------------
-    public boolean editRequest(Request r) {
-        SQLiteDatabase db = getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_CUSTOMER_ID, r.getCustomer_id());
-        values.put(COLUMN_TITLE, r.getTitle());
-        values.put(COLUMN_STATUS, r.getStatus());
-        values.put(COLUMN_DESCRIPTION, r.getDescription());
-        values.put(COLUMN_CREATED_AT, r.getCreated_at());
-        values.put(COLUMN_UPDATED_AT, r.getUpdated_at());
-
-        int rows = db.update(
-                TABLE_NAME,
-                values,
-                COLUMN_ID + "=?",
-                new String[]{String.valueOf(r.getId())}
-        );
-
-        db.close();
-        return rows > 0;
-    }
-
-    // ---------------------------------------------------------
-    // Delete request
-    // ---------------------------------------------------------
-    public boolean removeRequest(int id) {
-        SQLiteDatabase db = getWritableDatabase();
-        int rows = db.delete(TABLE_NAME, COLUMN_ID + "=?", new String[]{String.valueOf(id)});
-        db.close();
-        return rows > 0;
-    }
-
-    // ---------------------------------------------------------
-    // Clear table
-    // ---------------------------------------------------------
-    public boolean removeAllRequestsDB() {
-        SQLiteDatabase db = getWritableDatabase();
-        int rows = db.delete(TABLE_NAME, null, null);
-        db.close();
-        return rows >= 0;
     }
 }

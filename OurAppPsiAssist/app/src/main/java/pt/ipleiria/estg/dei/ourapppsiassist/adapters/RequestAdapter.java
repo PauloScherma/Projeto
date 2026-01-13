@@ -86,8 +86,6 @@ public class RequestAdapter implements ListAdapter {
 
         void update(Request r) {
             tvTitle.setText(r.getTitle());
-            tvCreatedBy.setText(r.getCreatedBy());
-            tvCreatedAt.setText(r.getCreatedAt());
             tvStatus.setText(r.getStatus());
         }
     }

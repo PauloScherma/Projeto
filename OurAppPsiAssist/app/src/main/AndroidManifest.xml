@@ -22,7 +22,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".activitys.CreateRequestActivity"
+            android:name=".activitys.RequestActivity"
             android:exported="false"
             tools:ignore="Instantiatable" />
 

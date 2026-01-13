@@ -24,17 +24,14 @@ import java.util.ArrayList;
 
 import pt.ipleiria.estg.dei.ourapppsiassist.R;
 import pt.ipleiria.estg.dei.ourapppsiassist.activitys.MenuMainActivity;
-import pt.ipleiria.estg.dei.ourapppsiassist.activitys.CreateRequestActivity;
+import pt.ipleiria.estg.dei.ourapppsiassist.activitys.RequestActivity;
 import pt.ipleiria.estg.dei.ourapppsiassist.adapters.RequestAdapter;
 import pt.ipleiria.estg.dei.ourapppsiassist.models.Request;
 import pt.ipleiria.estg.dei.ourapppsiassist.models.SingletonRequestManager;
 
-public class RequestFragment extends Fragment {
+public class RequestListFragment extends Fragment {
     private ListView lvRequests;
 
-    public RequestFragment(){
-
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -43,13 +40,13 @@ public class RequestFragment extends Fragment {
         lvRequests = view.findViewById(R.id.lvRequests);
 
         //search requests from api => Singleton (register listener + request => pedido)
-//        SingletonRequestManager.getInstance(getContext()).setRequestListener((RequestListener) this);
-//        SingletonRequestManager.getInstance(getContext()).getAllRequests(getContext());
+        //SingletonRequestManager.getInstance(getContext()).setRequestListener((RequestListener) this);
+        //SingletonRequestManager.getInstance(getContext()).getAllRequests(getContext());
 
         lvRequests.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getContext(), CreateRequestActivity.class);
+                Intent intent = new Intent(getContext(), RequestActivity.class);
                 intent.putExtra("IDREQUEST", (int) id);
                 startActivityForResult(intent, MenuMainActivity.EDIT);
             }
@@ -59,7 +56,7 @@ public class RequestFragment extends Fragment {
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), CreateRequestActivity.class);
+                Intent intent = new Intent(getContext(), RequestActivity.class);
                 startActivityForResult(intent, MenuMainActivity.ADD);
             }
         });
@@ -95,17 +92,7 @@ public class RequestFragment extends Fragment {
         });
     }
 
-    /**
-     *
-     * @param requestCode The integer request code originally supplied to
-     *                    startActivityForResult(), allowing you to identify who this
-     *                    result came from.
-     * @param resultCode The integer result code returned by the child activity
-     *                   through its setResult().
-     * @param data An Intent, which can return result data to the caller
-     *               (various data can be attached to Intent "extras").
-     *
-     */
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
@@ -124,7 +111,6 @@ public class RequestFragment extends Fragment {
                 }
             }
         }
-
     }
 
     public void onRefreshListRequests(ArrayList<Request> listRequest) {

@@ -37,18 +37,22 @@ public class CreateAccountActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
     }
+
     // validate if UserName Format is valid
     private boolean isUserNameValid(String username){
         return username != null && username.length() >= 3;
     }
+
     // validate if Email format is valid
     private boolean isEmailValid(String email){
         return email != null && Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
+
     // validate if Password format is valid
     private boolean isPasswordValid(String password){
         return password != null && password.length() >= 4;
     }
+
     public void onClickCreateAccount(){
         String username = etUserName.getText().toString();
         String email = etEmail.getText().toString().trim();

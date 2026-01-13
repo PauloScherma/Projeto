@@ -40,25 +40,20 @@ public class LoginActivity extends AppCompatActivity {
     private boolean isEmailValid(String email){
         return email != null && Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
+
     // validate if Password format is valid
     private boolean isPasswordValid(String password){
         return password != null && password.length() >= 4;
     }
+
     public void onClickLogin(View view) {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString();
 
-        if (!isEmailValid(email)) {
-            //msgens de erro
-            etEmail.setError("Email inválido");
+        // validate if Email format is valid
+        if (!isEmailValid(email) || !isPasswordValid(password)) {
+            etEmail.setError("Something wrong, please try again!");
             Toast.makeText(this, "Email inválido!", Toast.LENGTH_SHORT).show();
-        }
-
-        // Validação da password
-        if (!isPasswordValid(password)) {
-            //msgens de erro
-            etPassword.setError("Password inválida");
-            Toast.makeText(this, "Password inválida! (mínimo 6 caracteres)", Toast.LENGTH_SHORT).show();
         }
 
         if(isPasswordValid(password) && isEmailValid(email)) {
@@ -67,13 +62,6 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-    }
-
-
-    public void onClickGoToForgotPassword(View view) {
-        Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     public void onClickGoToCreateAccount(View view) {

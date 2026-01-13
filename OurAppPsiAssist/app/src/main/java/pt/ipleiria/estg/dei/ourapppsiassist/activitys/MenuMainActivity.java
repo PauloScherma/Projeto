@@ -21,7 +21,8 @@ import pt.ipleiria.estg.dei.ourapppsiassist.R;
 import pt.ipleiria.estg.dei.ourapppsiassist.fragments.DocumentsFragment;
 import pt.ipleiria.estg.dei.ourapppsiassist.fragments.HomeFragment;
 import pt.ipleiria.estg.dei.ourapppsiassist.fragments.ProfileFragment;
-import pt.ipleiria.estg.dei.ourapppsiassist.fragments.RequestFragment;
+import pt.ipleiria.estg.dei.ourapppsiassist.fragments.RequestListFragment;
+import pt.ipleiria.estg.dei.ourapppsiassist.fragments.SettingsFragment;
 
 public class MenuMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -66,7 +67,7 @@ public class MenuMainActivity extends AppCompatActivity
         TextView email = headerView.findViewById(R.id.tvEmail);
 
         // email passed from LoginActivity
-        String emailReceived = getIntent().getStringExtra(getString(R.string.email_key));
+        String emailReceived = getIntent().getStringExtra("EMAIL");
         if (email != null) {
             email.setText(emailReceived);
         }
@@ -76,28 +77,34 @@ public class MenuMainActivity extends AppCompatActivity
         Menu menu = navigationView.getMenu();
         MenuItem item = menu.getItem(0);
         item.setChecked(true);
-
         onNavigationItemSelected(item);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
         Fragment fragment = null;
 
         if (menuItem.getItemId() == R.id.navHome) {
             fragment = new HomeFragment();
             setTitle(menuItem.getTitle());
         } else if (menuItem.getItemId() == R.id.navRequest) {
-            fragment = new RequestFragment();
+            fragment = new RequestListFragment();
             setTitle(menuItem.getTitle());
         } else if (menuItem.getItemId() == R.id.navDocuments) {
             fragment = new DocumentsFragment();
             setTitle(menuItem.getTitle());
         } else if (menuItem.getItemId() == R.id.navProfile){
             fragment = new ProfileFragment();
-        setTitle(menuItem.getTitle());
+            setTitle(menuItem.getTitle());
+        }
+        else if (menuItem.getItemId() == R.id.navSettings){
+            fragment = new SettingsFragment();
+            setTitle(menuItem.getTitle());
         }
         else if (menuItem.getItemId() == R.id.navLogout) {
+            Intent intent = new Intent(MenuMainActivity.this , LoginActivity.class);
+            startActivity(intent);
             finish();
         }
 
@@ -107,23 +114,5 @@ public class MenuMainActivity extends AppCompatActivity
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void onClickGoHome(View view) {
-        Intent intent = new Intent(MenuMainActivity.this , HomeFragment.class);
-        startActivity(intent);
-        finish();
-    }
-
-    public void onClickGoToRequests(View view) {
-        Intent intent = new Intent(MenuMainActivity.this , RequestFragment.class);
-        startActivity(intent);
-        finish();
-    }
-
-    public void onClickDocs(View view) {
-        Intent.createChooser(new Intent(), "Choose a file");
-        startActivity(new Intent());
-        finish();
     }
 }

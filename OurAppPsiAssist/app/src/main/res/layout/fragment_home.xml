@@ -4,11 +4,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.RequestFragment">
-
-    <ListView
-        android:id="@+id/lvRequests"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-</FrameLayout>
+    tools:context=".fragments.RequestListFragment"/>

@@ -55,4 +55,7 @@
     <string name="email_not_found">Email not found</string>
     <string name="well_come">Well come</string>
     <string name="create_your_request">Create Your Request</string>
+    <string name="settings">Settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
