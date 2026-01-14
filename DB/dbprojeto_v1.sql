@@ -72,7 +72,7 @@ CREATE TABLE `auth_assignment` (
 
 LOCK TABLES `auth_assignment` WRITE;
 /*!40000 ALTER TABLE `auth_assignment` DISABLE KEYS */;
-INSERT INTO `auth_assignment` VALUES ('admin','53',1764689785),('cliente','55',1764689904),('cliente','57',1764693766),('gestor','54',1764689852),('tecnico','56',1764689926),('tecnico','58',1765126489);
+INSERT INTO `auth_assignment` VALUES ('admin','1',1767636880),('cliente','5',1767637305),('gestor','2',1767637251),('tecnico','3',1767637274),('tecnico','4',1767637289);
 /*!40000 ALTER TABLE `auth_assignment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,7 +104,7 @@ CREATE TABLE `auth_item` (
 
 LOCK TABLES `auth_item` WRITE;
 /*!40000 ALTER TABLE `auth_item` DISABLE KEYS */;
-INSERT INTO `auth_item` VALUES ('admin',1,NULL,NULL,NULL,1764689785,1764689785),('appointment.create',2,'Criar marcações',NULL,NULL,1764689785,1764689785),('appointment.delete',2,'Remover marcações',NULL,NULL,1764689785,1764689785),('appointment.update',2,'Atualizar marcações',NULL,NULL,1764689785,1764689785),('appointment.view',2,'Ver marcações',NULL,NULL,1764689785,1764689785),('assignment.assignTechnician',2,'Atribuir técnico a pedido',NULL,NULL,1764689785,1764689785),('assignment.changeTechnician',2,'Mudar técnico do pedido',NULL,NULL,1764689785,1764689785),('attachment.create',2,'Criar anexos do pedido',NULL,NULL,1764689785,1764689785),('attachment.delete',2,'Remover anexos do pedido',NULL,NULL,1764689785,1764689785),('attachment.update',2,'Atualizar anexos do pedido',NULL,NULL,1764689785,1764689785),('attachment.view',2,'Ver anexos do pedido',NULL,NULL,1764689785,1764689785),('cliente',1,NULL,NULL,NULL,1764689785,1764689785),('dashboard.view',2,'Ver dashboard',NULL,NULL,1764689785,1764689785),('gestor',1,NULL,NULL,NULL,1764689785,1764689785),('rating.create',2,'Criar avaliações',NULL,NULL,1764689785,1764689785),('rating.delete',2,'Remover avaliações',NULL,NULL,1764689785,1764689785),('rating.update',2,'Atualizar avaliações',NULL,NULL,1764689785,1764689785),('rating.view',2,'Ver avaliações',NULL,NULL,1764689785,1764689785),('request.cancel',2,'Cancelar pedidos',NULL,NULL,1764689785,1764689785),('request.changePriority',2,'Alterar prioridade do pedido',NULL,NULL,1764689785,1764689785),('request.changeStatus',2,'Alterar estado do pedido',NULL,NULL,1764689785,1764689785),('request.create',2,'Criar pedidos',NULL,NULL,1764689785,1764689785),('request.delete',2,'Remover pedidos',NULL,NULL,1764689785,1764689785),('request.update',2,'Atualizar pedidos',NULL,NULL,1764689785,1764689785),('request.validateBudget',2,'Validar ou rejeitar orçamento do pedido',NULL,NULL,1764689785,1764689785),('request.view',2,'Ver pedidos',NULL,NULL,1764689785,1764689785),('tecnico',1,NULL,NULL,NULL,1764689785,1764689785),('user.changeAvailability',2,'Atualizar disponibilidade do técnico',NULL,NULL,1764689785,1764689785),('user.create',2,'Criar utilizadores',NULL,NULL,1764689785,1764689785),('user.delete',2,'Remover utilizadores',NULL,NULL,1764689785,1764689785),('user.update',2,'Atualizar utilizadores',NULL,NULL,1764689785,1764689785),('user.view',2,'Ver utilizadores',NULL,NULL,1764689785,1764689785);
+INSERT INTO `auth_item` VALUES ('admin',1,NULL,NULL,NULL,1767636879,1767636879),('appointment.create',2,'Criar marcações',NULL,NULL,1767636879,1767636879),('appointment.delete',2,'Remover marcações',NULL,NULL,1767636879,1767636879),('appointment.update',2,'Atualizar marcações',NULL,NULL,1767636879,1767636879),('appointment.view',2,'Ver marcações',NULL,NULL,1767636879,1767636879),('assignment.assignTechnician',2,'Atribuir técnico a pedido',NULL,NULL,1767636879,1767636879),('assignment.changeTechnician',2,'Mudar técnico do pedido',NULL,NULL,1767636879,1767636879),('attachment.create',2,'Criar anexos do pedido',NULL,NULL,1767636879,1767636879),('attachment.delete',2,'Remover anexos do pedido',NULL,NULL,1767636879,1767636879),('attachment.update',2,'Atualizar anexos do pedido',NULL,NULL,1767636879,1767636879),('attachment.view',2,'Ver anexos do pedido',NULL,NULL,1767636879,1767636879),('cliente',1,NULL,NULL,NULL,1767636879,1767636879),('dashboard.view',2,'Ver dashboard',NULL,NULL,1767636879,1767636879),('gestor',1,NULL,NULL,NULL,1767636879,1767636879),('rating.create',2,'Criar avaliações',NULL,NULL,1767636879,1767636879),('rating.delete',2,'Remover avaliações',NULL,NULL,1767636879,1767636879),('rating.update',2,'Atualizar avaliações',NULL,NULL,1767636879,1767636879),('rating.view',2,'Ver avaliações',NULL,NULL,1767636879,1767636879),('request.cancel',2,'Cancelar pedidos',NULL,NULL,1767636879,1767636879),('request.changePriority',2,'Alterar prioridade do pedido',NULL,NULL,1767636879,1767636879),('request.changeStatus',2,'Alterar estado do pedido',NULL,NULL,1767636879,1767636879),('request.create',2,'Criar pedidos',NULL,NULL,1767636879,1767636879),('request.delete',2,'Remover pedidos',NULL,NULL,1767636879,1767636879),('request.update',2,'Atualizar pedidos',NULL,NULL,1767636879,1767636879),('request.validateBudget',2,'Validar ou rejeitar orçamento do pedido',NULL,NULL,1767636879,1767636879),('request.view',2,'Ver pedidos',NULL,NULL,1767636879,1767636879),('tecnico',1,NULL,NULL,NULL,1767636879,1767636879),('user.changeAvailability',2,'Atualizar disponibilidade do técnico',NULL,NULL,1767636879,1767636879),('user.create',2,'Criar utilizadores',NULL,NULL,1767636879,1767636879),('user.delete',2,'Remover utilizadores',NULL,NULL,1767636879,1767636879),('user.update',2,'Atualizar utilizadores',NULL,NULL,1767636879,1767636879),('user.view',2,'Ver utilizadores',NULL,NULL,1767636879,1767636879);
 /*!40000 ALTER TABLE `auth_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,7 +213,6 @@ CREATE TABLE `migration` (
 
 LOCK TABLES `migration` WRITE;
 /*!40000 ALTER TABLE `migration` DISABLE KEYS */;
-INSERT INTO `migration` VALUES ('m000000_000000_base',1761056651),('m140506_102106_rbac_init',1761057082),('m170907_052038_rbac_add_index_on_auth_assignment_user_id',1761057082),('m180523_151638_rbac_updates_indexes_without_prefix',1761057082),('m200409_110543_rbac_update_mssql_trigger',1761057082),('m130524_201442_init',1761057597),('m190124_110200_add_verification_token_column_to_user_table',1761057597),('m251021_162554_create_admin_user',1761065072);
 /*!40000 ALTER TABLE `migration` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -230,13 +229,12 @@ CREATE TABLE `profile` (
   `first_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `phone` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `availability` enum('disponivel','indisponivel') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'disponivel',
-  `created_at` int NOT NULL,
-  `updated_at` int NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_profile_user` (`user_id`),
   CONSTRAINT `fk_profile_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Contém informações adicionais do user.';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Contém informações adicionais do user.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -245,6 +243,7 @@ CREATE TABLE `profile` (
 
 LOCK TABLES `profile` WRITE;
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
+INSERT INTO `profile` VALUES (1,5,'cliente','cliente','913306362','2026-01-05 18:26:46','2026-01-05 18:26:46');
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -274,7 +273,7 @@ CREATE TABLE `request` (
   KEY `fk_request_canceled_by` (`canceled_by`),
   CONSTRAINT `fk_request_currtech` FOREIGN KEY (`current_technician_id`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_request_customer` FOREIGN KEY (`customer_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabela central dos pedidos de serviço. Guarda o cliente, técnico atual, estado, prioridade e timestamps.';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabela central dos pedidos de serviço. Guarda o cliente, técnico atual, estado, prioridade e timestamps.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -283,7 +282,7 @@ CREATE TABLE `request` (
 
 LOCK TABLES `request` WRITE;
 /*!40000 ALTER TABLE `request` DISABLE KEYS */;
-INSERT INTO `request` VALUES (37,55,'clienteRequest','clienteRequest','medium','completed',58,NULL,NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00');
+INSERT INTO `request` VALUES (1,5,'new request','new request','medium','new',NULL,NULL,NULL,'2026-01-05 18:22:56',NULL),(2,5,'in_progress request','in_progress request','medium','in_progress',3,NULL,NULL,'2026-01-05 18:23:16','2026-01-05 18:29:10'),(3,5,'canceled request',NULL,'medium','canceled',NULL,'2026-01-05 18:24:08',5,'2026-01-05 18:23:37',NULL),(4,5,'concluded request',NULL,'medium','completed',4,NULL,NULL,'2026-01-05 18:23:56','2026-01-05 18:25:59');
 /*!40000 ALTER TABLE `request` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -319,7 +318,7 @@ CREATE TABLE `request_assignment` (
 
 LOCK TABLES `request_assignment` WRITE;
 /*!40000 ALTER TABLE `request_assignment` DISABLE KEYS */;
-INSERT INTO `request_assignment` VALUES (1,37,58,56,53,'2025-12-07 17:07:47'),(2,37,58,56,53,'2025-12-07 17:07:59'),(3,37,56,58,53,'2025-12-07 17:08:03');
+INSERT INTO `request_assignment` VALUES (1,2,NULL,3,2,'2026-01-05 18:25:03'),(2,4,NULL,3,2,'2026-01-05 18:25:49'),(3,4,3,4,2,'2026-01-05 18:25:59');
 /*!40000 ALTER TABLE `request_assignment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -349,7 +348,7 @@ CREATE TABLE `request_attachment` (
   CONSTRAINT `fk_attach_request` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_attach_user` FOREIGN KEY (`uploaded_by`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_request_attachment_approved_by` FOREIGN KEY (`approved_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Anexos associados a um pedido. Pode incluir fotos, relatórios ou orçamentos que requerem aprovação do cliente.';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Anexos associados a um pedido. Pode incluir fotos, relatórios ou orçamentos que requerem aprovação do cliente.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -358,7 +357,7 @@ CREATE TABLE `request_attachment` (
 
 LOCK TABLES `request_attachment` WRITE;
 /*!40000 ALTER TABLE `request_attachment` DISABLE KEYS */;
-INSERT INTO `request_attachment` VALUES (29,37,55,'uploads/attachments/clienteRequest.txt','clienteRequest.txt','2025-12-07 14:50:24','generic',NULL,NULL,NULL,NULL);
+INSERT INTO `request_attachment` VALUES (1,2,5,'uploads/attachments/Attachement.txt','Attachement.txt','2026-01-05 18:29:10','generic',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `request_attachment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -405,7 +404,7 @@ DROP TABLE IF EXISTS `request_rating`;
 CREATE TABLE `request_rating` (
   `id` int NOT NULL AUTO_INCREMENT,
   `request_id` int NOT NULL,
-  `title` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `title` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `score` tinyint NOT NULL,
   `created_at` datetime NOT NULL,
@@ -416,7 +415,7 @@ CREATE TABLE `request_rating` (
   KEY `fk_rr_created_by_idx` (`created_by`),
   CONSTRAINT `fk_rr_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
   CONSTRAINT `fk_rr_request` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Avaliações de pedidos: cliente avalia técnico e técnico avalia cliente.';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Avaliações de pedidos: cliente avalia técnico e técnico avalia cliente.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -425,6 +424,7 @@ CREATE TABLE `request_rating` (
 
 LOCK TABLES `request_rating` WRITE;
 /*!40000 ALTER TABLE `request_rating` DISABLE KEYS */;
+INSERT INTO `request_rating` VALUES (1,3,'Rating Canceled Request','Rating Canceled Request',1,'2026-01-05 18:27:28',5),(2,4,'Rating Concluded Request','Rating Concluded Request',5,'2026-01-05 18:27:50',5);
 /*!40000 ALTER TABLE `request_rating` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -447,7 +447,7 @@ CREATE TABLE `request_status_history` (
   KEY `fk_rsh_user` (`changed_by`),
   CONSTRAINT `fk_changeby` FOREIGN KEY (`changed_by`) REFERENCES `user` (`id`),
   CONSTRAINT `fk_rsh_request` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Histórico das mudanças de estado de cada pedido, indicando quem alterou e quando.';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Histórico das mudanças de estado de cada pedido, indicando quem alterou e quando.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -456,7 +456,7 @@ CREATE TABLE `request_status_history` (
 
 LOCK TABLES `request_status_history` WRITE;
 /*!40000 ALTER TABLE `request_status_history` DISABLE KEYS */;
-INSERT INTO `request_status_history` VALUES (1,37,'new','in_progress',53,'2025-12-07 15:57:06'),(2,37,'in_progress','completed',53,'2025-12-07 16:08:56');
+INSERT INTO `request_status_history` VALUES (1,2,'new','in_progress',2,'2026-01-05 18:25:03'),(2,4,'new','in_progress',2,'2026-01-05 18:25:49'),(3,4,'in_progress','completed',2,'2026-01-05 18:25:59');
 /*!40000 ALTER TABLE `request_status_history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -482,7 +482,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Guarda as credenciais básicas dos utilizadores (login, email, password_hash e estado da conta).';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Guarda as credenciais básicas dos utilizadores (login, email, password_hash e estado da conta).';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -491,7 +491,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (53,'admin','A9bF7OybwFOrlBLkB-nUYNTqDwqvC8vC','$2y$13$zJvX4LaHPq4YYURgtH0M3.aarSCP091rm/HFjxuTHK5/VlNfhbAMi',NULL,'admin@admin.com',10,1764689785,1764689785,'TbqaslkiM2BcfpG-JSMJGxMfMP44_uiV_1764689785'),(54,'gestor','iATxPhqLTVNrhdqydtldSObEtsYWjkI2','$2y$13$jZaPFxIiXHVOdu2.Ng0DYud978TcLHHP/HF2kf7Idc6XzK2Onaqz6',NULL,'gestor@gestor.com',10,1764689852,1764689852,NULL),(55,'cliente','LH_h9k6fCvl03aarl1yLGt6oiuUYG0zY','$2y$13$Oskqi5CNgaIuNd31Kzl7KO974ubdtB82evKX4xe0UQYJ0mAoKLSa.',NULL,'cliente@cliente.com',10,1764689903,1764689903,NULL),(56,'tecnico','zpWQR8LDTrFPcW5Wvb1D3aDGPcKb8a1q','$2y$13$nDpNxHGQUtY.nC3ByZ/xy.Tm3qwrvqxQM6KoGbzba5DGrj/lIilwS',NULL,'tecnico@tecnico.com',10,1764689926,1764689926,NULL),(57,'teste','Fepmp17Anf679XKILmUim22dLAO2ynmD','$2y$13$BYc8NrlJnf.h0e1IcO0Pg.AhTzTlFSD4vJwlVotir37nNhwDUJmhW',NULL,'teste@teste.com',10,1764693766,1764693766,NULL),(58,'technician2','hV3vxP9ocN1l91mNzuWYOVSigbRJw8Ge','$2y$13$tAd.FVBWUJVD6AhaVdpWD.IXc.IaFju/NIIW328RJGMdu3A0s4URC',NULL,'technician2@technician2.com',10,1765126489,1765126489,NULL);
+INSERT INTO `user` VALUES (1,'admin','EkzdAehNXSk3ZXYw549v47-WKqFA4JJ0','$2y$13$bMby4hhsME3pKfTtPgDzb..nT5zbDUoIiFE9yNJlOA7s/IeueGaoO',NULL,'admin@admin.com',10,1767636880,1768323256,'WPokjyD7dKWxOJB8prkr0C7Kt6DTMtlY_1767636880'),(2,'gestor','W-h8z4c74xQVXNu1pH9FL5jPv88CdJ45','$2y$13$q9SMtlYSYzlXAweSeIHi6u7LRVqIYnC.A1X8xJg/Ayrz1X9G2Nae2',NULL,'gestor@gestor.com',10,1767637250,1767637250,NULL),(3,'tecnico1','hO2xST5QLROiOuJNgnDI1pqcFxSo0qd5','$2y$13$1i1JjXLgBoYzDj/GJF1dW.HHGZWwwYEv1Bb6CYnozsNUP4L2MO9Je',NULL,'tecnico1@tecnico1.com',10,1767637274,1767637274,NULL),(4,'tecnico2','H3dqUvnBs6iC8XlZC5Pjp0P4h651cu3H','$2y$13$O2.MN7JK1xfL7DKFtnHyj.0Cq0jmMxU0KtNORxUGk4uVGj8YaZ0rW',NULL,'tecnico2@tecnico2.com',10,1767637289,1767637289,NULL),(5,'cliente','y-yjaLHdggNDwRc9cg6QfOqGFPh82Vml','$2y$13$TkSYZWkkOnxAVQEF/SEuG.ynGt8tga.HSo3lgP0V7HBpEx68fLGHy',NULL,'cliente@cliente.com',10,1767637305,1767637305,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -504,4 +504,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-07 17:36:25
+-- Dump completed on 2026-01-14 22:47:38
