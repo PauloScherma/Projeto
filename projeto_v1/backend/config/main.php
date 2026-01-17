@@ -68,6 +68,7 @@ return [
                     'controller' => 'api/request', 'pluralize' => false,
                     'extraPatterns'=>[
                         'GET allrequests' => 'allrequests', //mostra todos os request
+                        'GET notrated/requests/{id}' => 'notratedrequests', //mostra todos os request
                         'GET requests/{id}' => 'requests', //mostra todos os request de uma pessoa
                         'GET request/{id}' => 'request', //mostra o request
                         'GET history/{id}' => 'history', //mostra os requests canceled and completed
@@ -85,7 +86,9 @@ return [
                     'controller' => 'api/rating', 'pluralize' => false,
                     'extraPatterns'=>[
                         'GET allratings' => 'allratings', //mostra todos os rating
+                        'GET ratings/{id}' => 'ratings', //motra todos
                         'GET rating/{id}' => 'rating', //mostra o rating
+                        //criar um novo para return user ratings
                         'POST createrating' => 'createrating', //cria rating
                         'PUT updaterating/{id}' => 'updaterating', //update no rating
                         'DELETE deleterating/{id}' => 'deleterating', //delete no rating

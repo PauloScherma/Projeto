@@ -27,6 +27,12 @@ class RatingController extends ActiveController
         return ['All Ratings' => $recs];
     }
 
+    public function actionRatings($id){
+        $requestmodel = new $this->modelClass;
+        $recs = $requestmodel::find()->where(['created_by' => $id])->all();
+        return ['requests' => $recs];
+    }
+
     public function actionRating($id){
         $requestmodel = new $this->modelClass;
         $recs = $requestmodel::find()->where(['id' => $id])->one();
@@ -65,8 +71,11 @@ class RatingController extends ActiveController
         if ($model!==null) {
             $model->title = Yii::$app->request->getBodyParam('title');
             $model->description = Yii::$app->request->getBodyParam('description');
-            $model->score = Yii::$app->request->getBodyParam('score');;
-            return $model;
+            $model->score = Yii::$app->request->getBodyParam('score');
+            if($model->save())
+                return $model;
+            else
+                return $model->getErrors();
         } else {
             return $model->getErrors();
         }
@@ -84,6 +93,4 @@ class RatingController extends ActiveController
             return "Rating deletado com sucesso.";
         }
     }
-
-
 }

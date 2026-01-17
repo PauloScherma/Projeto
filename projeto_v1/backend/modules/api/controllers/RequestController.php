@@ -4,6 +4,7 @@ namespace backend\modules\api\controllers;
 
 use backend\modules\api\components\CustomAuth;
 use common\models\Request;
+use common\models\RequestRating;
 use common\models\User;
 use Yii;
 use yii\rest\ActiveController;
@@ -30,7 +31,7 @@ class RequestController extends ActiveController
 
     public function actionRequests($id){
         $requestmodel = new $this->modelClass;
-        $recs = $requestmodel::find()->where(['customer_id' => $id])->all();
+        $recs = $requestmodel::find()->where(['customer_id' => $id, 'canceled_at' => null])->all();
         return ['requests' => $recs];
     }
 
@@ -47,6 +48,7 @@ class RequestController extends ActiveController
         $model->id = 0;
         $model->customer_id = Yii::$app->params['id'];
         $model->title = Yii::$app->request->getBodyParam('title');
+        $model->description = Yii::$app->request->getBodyParam('description');
         $model->created_at = date('Y-m-d H:i:s');
 
         if ($model->save()) {
@@ -96,5 +98,14 @@ class RequestController extends ActiveController
         $requestmodel = new $this->modelClass;
         $recs = $requestmodel::find()->where(['customer_id' => $id])->andWhere(['in', 'status', ['canceled', 'completed']])->all();
         return ['requests' => $recs];
+    }
+
+    public function actionNotratedrequests($id){
+        $requests = Request::find()
+            ->where(['customer_id' => $id, 'canceled_at' => null])
+            ->andWhere(['NOT EXISTS', RequestRating::find()->where('request_id = request.id')])
+            ->all();
+
+        return ['requests' => $requests];
     }
 }
