@@ -24,7 +24,7 @@ class ProfileController extends ActiveController
     public function actionProfile($id)
     {
         $requestmodel = new $this->modelClass;
-        $recs = $requestmodel::find()->where(['id' => $id])->one();
+        $recs = $requestmodel::find()->where(['user_id' => $id])->one();
         return ['profile' => $recs];
     }
 
